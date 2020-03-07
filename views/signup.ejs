@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="vi">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/registerPage.css">
+    <title>Đăng ký</title>
+</head>
+
+<body>
+    <div id="register">
+        <div class="container">
+            <!-- Canh lề -->
+            <div id="register-row" class="row justify-content-center align-item-center">
+                <div id="register-column" class="col-md-6">
+                    <!-- Khung đăng nhập -->
+                    <div id="register-box" class="col-md-12">
+                        <form id="register-form" class="form" action="signup" method="POST">
+                            <h3 class="text-center text-info">Đăng Ký</h3>
+                            <!-- thông báo error -->
+                        <div id="signupalert" <%if(!data||!data.error){%> style="display: none;"<% } %>  class = "alert alert-danger" >
+   
+                            <p>error:</p>
+                            <% if(data && data.error) {%> 
+                                    <span>
+                                        <%=data.error %> 
+                                        <% } %> 
+                                    </span>     
+                            </div>
+
+                            <div id="signupsuccess" <%if(!data||!data.q){%> style="display: none;"<% } %> class = "alert " >
+   
+                                <p>Thông báo:</p>
+                                <% if(data && data.q) {%> 
+                                        <span>
+                                            <%=data.q%> 
+                                            <% } %> 
+                                        </span>     
+                                </div>
+
+                            <!-- FirstName -->
+                            <div class="form-group">
+                                <label for="username" class="text-info">Họ:</label><br>
+                                <input type="text" name="lastname" class="form-control">
+                            </div>
+                            <!-- LastName -->
+                            <div class="form-group">
+                                <label for="username" class="text-info">Tên:</label><br>
+                                <input type="text" name="firstname"  class="form-control">
+                            </div>
+                                <!-- Email -->
+                            <div class="form-group">
+                                <label for="email" class="text-info">Email:</label><br>
+                                <input type="text" name="email"  class="form-control">
+                            </div>
+
+                            <!-- Mật khẩu -->
+                            <div class="form-group">
+                                <label for="password" class="text-info">Mật khẩu:</label><br>
+                                <input type="password" name="password"  class="form-control">
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="repassword" class="text-info">Nhập lại mật khẩu</label><br>
+                                <input type="password" name="repassword"  class="form-control">
+
+                            <!-- Nút đăng ký -->
+                            <div class="form-group text-center">
+                                <input type="submit" name="submit" id="submit" class="btn btn-info btn-md" value="Đăng ký">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

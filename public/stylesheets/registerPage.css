@@ -1,0 +1,28 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #007bff;
+    height: 100vh;
+}
+
+#register .container #register-row #register-column #register-box{
+    margin-top: 130px;
+    max-width: 600px;
+    padding: 20px;
+    height: fit-content;
+    border: 1px solid #9c9c9c;
+    border-radius: 10px;
+    background-color: #eaeaea;
+}
+
+#register .container #register-row #register-column #register-box{
+    padding: 20px;
+}
+.form-group .text-center{
+    padding-top: 20px;
+}
+#signupsuccess{
+    color: #2b6830;
+    background-color: #35b86b;
+    border-color: #26b419;
+}
