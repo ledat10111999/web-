@@ -10,8 +10,6 @@ router.get('/home.html', function(req, res, next) {
 });
 
 
-router.get('/signIn.html', function(req, res, next) {
-  res.render('SignInPage', { title: 'Đăng nhập' });
-});
+
 
 module.exports = router;

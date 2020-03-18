@@ -5,5 +5,10 @@
         "password": "Ledat1999",
         "database":"nhatro",
         "port": 3306
-    }
+    },
+    "salt": 10,
+    "secret_key": "secretky"
+    
+    
+    
 }

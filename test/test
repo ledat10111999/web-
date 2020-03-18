@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="vi">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/DangTin.css">
+    <script src="../public/javascripts/value.js"></script>
+    <title>Đăng tin</title>
+</head>
+
+<body>
+    <!-- Thanh Nav -->
+    <div class="Navigator">
+        <nav class="navbar navbar-expend-sm navbar-light bg-light">
+            <div class="container">
+                <a href="#" class="nav-brand"><img height="100" src="/images/logo2.png" alt="logo"></a>
+                <div class="row grid-divider mr-auto">
+                    <div class="col-sm-12">
+                        <ul class="nav mr-auto">
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold ">Trang
+                                    chủ</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold ">Cho thuê
+                                    phòng trọ</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold ">Nhà cho
+                                    thuê</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold ">Tìm người
+                                    ở ghép</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold ">Cho thuê
+                                    căn hộ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Content trang đăng tin -->
+    <section class="contentDangTin">
+        
+        <div class="container">
+            <form action="/DangTin" method="POST" id="PostForm">
+            <h1 class="text-center font-weight-bold">Đăng tin mới</h1>
+                 <!-- thông báo error -->
+                 <div id="signupalert" <%if(!data||!data.error){%> style="display: none;"<% } %>  class = "alert alert-danger" >
+   
+                    <p>error:</p>
+                    <% if(data && data.error) {%> 
+                            <span>
+                                <%=data.error %> 
+                                <% } %> 
+                            </span>     
+                    </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- Địa chỉ cho thuê -->
+                    <div class="rentAddress">
+                        <h3 class="font-weight-bold">Địa chỉ cho thuê</h3>
+                        <!-- Chọn vị trí -->
+                        <div class="row">
+                            <div class="col-md-3 pt-3">
+                                <div class="form-group">
+                                    <select id="mySelect" onchange="myselects(this)" class="form-control w-100">
+                                        <option selected >Tỉnh thành</option>
+                                        <%for(var i = 0 ; i<data.results.length;i++) {%>
+
+                                        <p id="selectcity"><option value=<%=data.results[i].maTP%>><%=data.results[i].tenTp%> </option></p>
+
+                                        <%}%> 
+                                        
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 pt-3">
+                                <div class="form-group">
+                                    <select id="inputState" class="form-control w-100">
+                                        <option selected>Quận huyện</option>
+                                       
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 pt-3">
+                                <div class="form-group">
+                                    <select id="inputState" class="form-control w-100">
+                                        <option selected>Đường phố</option>
+                                        <option>Xa lộ Hà Nội</option>
+                                        <option>Điện Biên Phủ</option>
+                                        <option>Ung Văn Khiêm</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 pt-3">
+                                <div class="form-group">
+                                    <select id="inputState" class="form-control w-100">
+                                        <option value="PhuongXa" selected>Phường xã</option>
+                                        <option value="XaLo">Xa lộ Hà Nội</option>
+                                        <option value="DBP">Điện Biên Phủ</option>
+                                        <option value="UVK">Ung Văn Khiêm</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Số nhà -->
+                        <label for="address" class="font-weight-bold">Số nhà:</label><br>
+                        <input type="text" name="address" id="address" class="form-control w-25">
+
+                        <!-- Địa chỉ chính xác -->
+                        <label for="excelentAddress" class="font-weight-bold" style="margin-top: 20px;">Địa chỉ chính
+                            xác</label><br>
+                        <input type="text" name="excelentAddress" id="excelentAddress" class="form-control">
+                    </div>
+
+                    <!-- Thông tin mô tả -->
+                    <div class="rentInfo" style="margin-top: 50px;">
+                        <h3 class="font-weight-bold">Thông tin mô tả</h3>
+                        <div class="row">
+                            <div class="col-md-6 pt-3">
+                                <div class="form-group">
+                                    <select id="inputState" class="form-control w-100">
+                                        <option value="Loai" selected>Loại chuyên mục</option>
+                                        <option value="PhongTro">Phòng trọ, nhà trọ</option>
+                                        <option value="NguyenCan">Nhà thuê nguyên căn</option>
+                                        <option value="OGhep">Tìm người ở ghép</option>
+                                        <option value="ChoThueCanHo">Cho thuê căn hộ</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tiêu đề -->
+                        <label for="infoTitle" class="font-weight-bold">Tiêu đề:</label><br>
+                        <input type="text" name="infoTitle" id="infoTitle" class="form-control w-75">
+
+                        <!-- Nội dung mô tả -->
+                        <div class="infoContent" style="margin-top: 20px;">
+                            <label for="infoTitle" class="font-weight-bold">Nội dung mô tả:</label><br>
+                            <textarea id="infoContent" rows="5" class="form-control"></textarea>
+                        </div>
+
+                        <!-- Số điện thoại -->
+                        <label for="phoneNumber" class="font-weight-bold" style="margin-top: 20px">Số điện
+                            thoại:</label><br>
+                        <input type="text" name="phoneNumber" id="phoneNumber" class="form-control w-75">
+
+                        <!-- Giá cho thuê -->
+                        <label for="infoTitle" class="font-weight-bold" style="margin-top: 20px;">Giá cho
+                            thuê:</label><br>
+                        <div class="input-group mb-3 w-50">
+                            <input type="text" name="infoTitle" id="infoTitle" class="form-control">
+                            <div class="input-group-append">
+                                <span class="input-group-text">Đồng</span>
+                            </div>
+                        </div>
+
+                        <!-- Diện tích -->
+                        <label for="infoAcreage" class="font-weight-bold">Diện tích:</label><br>
+                        <div class="input-group mb-3 w-25">
+                            <input type="number" name="infoTitle" id="infoTitle" class="form-control">
+                            <div class="input-group-append">
+                                <span class="input-group-text">m2</span>
+                            </div>
+                        </div>
+
+                        <!-- Đối tượng cho thuê -->
+                        <div class="row">
+                            <div class="col-md-4 pt-3">
+                                <div class="form-group">
+                                    <select id="inputState" class="form-control w-100">
+                                        <option selected>Đối tượng cho thuê</option>
+                                        <option value="Nam">Nam</option>
+                                        <option value=" Nu">Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rentImage" style="margin-top: 50px;">
+                        <h3 class="font-weight-bold">Hình ảnh</h3>
+                        <p>Cập nhật hình ảnh rõ ràng sẽ cho thuê nhanh hơn</p>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Upload</span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile">
+                                <label for="inputGroupFile" class="custom-file-label">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block font-weight-bold"
+                        style="margin-top: 50px;">Hoàn
+                        thành</button>
+                </div>
+
+                <!-- Lưu ý đăng tin -->
+                <div class="col-md-4">
+                    <div class="rentAlert">
+                        <div class="alert alert-warning">
+                            <h5>Lưu ý khi đăng tin</h5>
+                            <p>
+                                1. Nội dung phải viết bằng tiếng Việt có dấu <br>
+                                2. Tiêu đề tin không dài quá 100 kí tự <br>
+                                3. Các bạn nên điền đầy đủ thông tin vào các mục để tin đăng có hiệu quả hơn. <br>
+                                4. Để tăng độ tin cậy và tin rao được nhiều người quan tâm hơn, hãy sửa vị trí tin
+                                rao
+                                của
+                                bạn trên bản đồ bằng cách kéo icon tới đúng vị trí của tin rao. <br>
+                                5. Tin đăng có hình ảnh rõ ràng sẽ được xem và gọi gấp nhiều lần so với tin rao
+                                không có
+                                ảnh. Hãy đăng ảnh để được giao dịch nhanh chóng! <br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+           
+    </section>
+</body>
+
+</html>

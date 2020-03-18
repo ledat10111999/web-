@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "config": "^3.3.0",
     "cookie-parser": "~1.4.4",
@@ -16,8 +17,11 @@
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
+    "node_module": "0.0.0",
     "promise": "^8.1.0",
     "q": "^1.5.1",
+    "session": "^0.1.0",
+    "socket.io": "^2.3.0",
     "trim-request-body": "^1.0.1"
   }
 }
