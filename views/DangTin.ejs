@@ -6,44 +6,24 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
     <link rel="stylesheet" href="/stylesheets/DangTin.css">
-    <script src="/javascripts/value.js"></script>
+   
     <script src="/javascripts/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <link rel="stylesheet" href="/stylesheets/dropzone.css">
+    <script src="/javascripts/dropzone.js"></script>
 
     <title>Đăng tin</title>
 </head>
 
 <body>
     <!-- Thanh Nav -->
-    <div class="Navigator">
-        <nav class="navbar navbar-expend-sm navbar-light bg-light">
-            <div class="container">
-                <a href="#" class="nav-brand"><img height="100" src="/images/logo2.png" alt="logo"></a>
-                <div class="row grid-divider mr-auto">
-                    <div class="col-sm-12">
-                        <ul class="nav mr-auto">
-                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold ">Trang
-                                    chủ</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold ">Cho thuê
-                                    phòng trọ</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold ">Nhà cho
-                                    thuê</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold ">Tìm người
-                                    ở ghép</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold ">Cho thuê
-                                    căn hộ</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
+    <% include header/headerPost %> 
 
     <!-- Content trang đăng tin -->
     <section class="contentDangTin">
         
         <div class="container">
-            <form action="/DangTin" method="POST" id="PostForm">
+            <form action="/DangTin" method="POST" id="PostForm" >
                
             <h1 class="text-center font-weight-bold">Đăng tin mới</h1>
             <p id="DangTin"></p>
@@ -71,7 +51,7 @@
                                     <select id="mySelect"  name="mySelect" class="form-control w-100" onchange="myFunction()">
                                         <option selected >Tỉnh thành</option>
                                         <%for(var i = 0 ; i<data.results.length;i++) {%>
-                                            <option value=" <%=data.results[i].tenTp%>"><%=data.results[i].tenTp%> </option>
+                                            <option value="<%=data.results[i].tenTp%>"><%=data.results[i].tenTp%> </option>
                                             <%}%> 
                                     </select>
                                 </div>
@@ -79,17 +59,23 @@
 
                             <div class="col-md-3 pt-3">
                                 <div class="form-group">
-                                    <select id="selectDis" class="form-control w-100" name="selectDis">
+                                    <select id="selectDis" class="form-control w-100" name="selectDis" onchange="functionDis()">
                                         <option selected>Quận huyện</option>
                                         
                                     </select>
-                                    
                                 </div>
                             </div>
-
                             <div class="col-md-3 pt-3">
                                 <div class="form-group">
-                                    <select id="inputState" class="form-control w-100">
+                                    <select id="selectWard" name="selectWard" class="form-control w-100" >
+                                        <option value="PhuongXa" selected>Phường xã</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 pt-3">
+                                <div class="form-group">
+                                    <select id="inputState" class="form-control w-100" name="selectStreet">
                                         <option selected>Đường phố</option>
                                         <option>Xa lộ Hà Nội</option>
                                         <option>Điện Biên Phủ</option>
@@ -98,21 +84,12 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3 pt-3">
-                                <div class="form-group">
-                                    <select id="inputState" class="form-control w-100">
-                                        <option value="PhuongXa" selected>Phường xã</option>
-                                        <option value="XaLo">Xa lộ Hà Nội</option>
-                                        <option value="DBP">Điện Biên Phủ</option>
-                                        <option value="UVK">Ung Văn Khiêm</option>
-                                    </select>
-                                </div>
-                            </div>
+                           
                         </div>
 
                         <!-- Số nhà -->
-                        <label for="address" class="font-weight-bold">Số nhà:</label><br>
-                        <input type="text" name="address" id="address" class="form-control w-25">
+                        <label for="address"  class="font-weight-bold">Số nhà:</label><br>
+                        <input type="text" name="numberaddress" id="address" class="form-control w-25">
 
                         <!-- Địa chỉ chính xác -->
                         <label for="excelentAddress" class="font-weight-bold" style="margin-top: 20px;">Địa chỉ chính
@@ -126,12 +103,12 @@
                         <div class="row">
                             <div class="col-md-6 pt-3">
                                 <div class="form-group">
-                                    <select id="inputState" class="form-control w-100">
-                                        <option value="Loai" selected>Loại chuyên mục</option>
-                                        <option value="PhongTro">Phòng trọ, nhà trọ</option>
-                                        <option value="NguyenCan">Nhà thuê nguyên căn</option>
-                                        <option value="OGhep">Tìm người ở ghép</option>
-                                        <option value="ChoThueCanHo">Cho thuê căn hộ</option>
+                                    <select id="inputState" class="form-control w-100" name="ThongTinMoTa">
+                                        <option value="Loại" selected>Loại chuyên mục</option>
+                                        <option value="Phòng trọ">Phòng trọ, nhà trọ</option>
+                                        <option value="Nhà nguyên căn">Nhà thuê nguyên căn</option>
+                                        <option value="Tìm người ở ghép">Tìm người ở ghép</option>
+                                        <option value="Cho thuê căn hộ">Cho thuê căn hộ</option>
                                     </select>
                                 </div>
                             </div>
@@ -139,12 +116,12 @@
 
                         <!-- Tiêu đề -->
                         <label for="infoTitle" class="font-weight-bold">Tiêu đề:</label><br>
-                        <input type="text" name="infoTitle" id="infoTitle" class="form-control w-75">
+                        <input type="text" name="title" id="infoTitle" class="form-control w-75">
 
                         <!-- Nội dung mô tả -->
                         <div class="infoContent" style="margin-top: 20px;">
                             <label for="infoTitle" class="font-weight-bold">Nội dung mô tả:</label><br>
-                            <textarea id="infoContent" rows="5" class="form-control"></textarea>
+                            <textarea name="content" id="infoContent" rows="5" class="form-control"></textarea>
                         </div>
 
                         <!-- Số điện thoại -->
@@ -156,7 +133,7 @@
                         <label for="infoTitle" class="font-weight-bold" style="margin-top: 20px;">Giá cho
                             thuê:</label><br>
                         <div class="input-group mb-3 w-50">
-                            <input type="text" name="infoTitle" id="infoTitle" class="form-control">
+                            <input type="text" name="gia" id="infoTitle" class="form-control">
                             <div class="input-group-append">
                                 <span class="input-group-text">Đồng</span>
                             </div>
@@ -165,9 +142,9 @@
                         <!-- Diện tích -->
                         <label for="infoAcreage" class="font-weight-bold">Diện tích:</label><br>
                         <div class="input-group mb-3 w-25">
-                            <input type="number" name="infoTitle" id="infoTitle" class="form-control">
+                            <input type="number" name="acreage" id="infoTitle" class="form-control">
                             <div class="input-group-append">
-                                <span class="input-group-text">m2</span>
+                                <span class="input-group-text"  >m2</span>
                             </div>
                         </div>
 
@@ -175,10 +152,10 @@
                         <div class="row">
                             <div class="col-md-4 pt-3">
                                 <div class="form-group">
-                                    <select id="inputState" class="form-control w-100">
-                                        <option selected>Đối tượng cho thuê</option>
+                                    <select id="inputState"  name="doituong" class="form-control w-100">
+                                        <option selected >Đối tượng cho thuê</option>
                                         <option value="Nam">Nam</option>
-                                        <option value=" Nu">Nữ</option>
+                                        <option value=" Nữ">Nữ</option>
                                     </select>
                                 </div>
                             </div>
@@ -188,15 +165,15 @@
                     <div class="rentImage" style="margin-top: 50px;">
                         <h3 class="font-weight-bold">Hình ảnh</h3>
                         <p>Cập nhật hình ảnh rõ ràng sẽ cho thuê nhanh hơn</p>
-                        <div class="input-group">
+                        <!-- <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Upload</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile">
+                                <input type="file" class="custom-file-input" id="inputGroupFile" name="upload">
                                 <label for="inputGroupFile" class="custom-file-label">Choose file</label>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-block font-weight-bold"
@@ -225,33 +202,77 @@
                     </div>
                 </div>
             </form>
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-8">
+                    <h3 class="font-weight-bold">Hình ảnh</h3>
+                    <p>Cập nhật hình ảnh rõ ràng sẽ cho thuê nhanh hơn</p>
+                    <form method="POST" id="PostForm" action="/uploadfile" placeholder="Drop files here to upload"
+                        class="dropzone w-100 text-center" readonly="true">
+                    </form>
+                </div>
             </div>
-           
+        </div>
+              
     </section>
+    <!-- Xử lý socket.io -->
     <script type="text/javascript" >
-        var socket = io.connect('http://localhost:3000');
+        var socket = io.connect('http://localhost:3000');/*kết nối tới socket*/
     
        function myFunction() {
-            var x = document.getElementById('mySelect').value;
-            document.getElementById('DangTin').innerHTML =x;
-            socket.emit('takeSelect',x);
-
-           socket.on("result",function(data){
+            var x = document.getElementById('mySelect').value; /*lấy giá trị id "mySelect"*/
+            
+            socket.emit('takeSelect',x); /*gửi giá trị về socket*/
+            
+           socket.on("result",function(data){   /*lấy giá trọ khi socket xử lý xong*/
+            $("#selectDis").children().remove(); /*xóa hết dữ liệu cũ của id "mySelct"*/
+            var a = [];
                if(data.length == 0 || data == undefined){
         
                 $("#selectDis").children().remove();
+                $("#selectWard").children().remove();
               
-
                }else if(data.length > 1 || data != undefined){
                 for(var i = 0 ; i< data.length; i++){
-                $("#selectDis").append( "<option value=" + data[i].tenQuan +">"+data[i].tenQuan+"</option>");
+                    a.push( data[i].tenQuan)
+                $("#selectDis").append( "<option value="+"'" + a[i] +"'"+">"+a[i]+"</option>");
                }
-               }
-               
-               
+               }      
            });
         }
+       function functionDis(){
+        var y = document.getElementById('selectDis').value;
+        
+            socket.emit('selectDis',y);
             
+           socket.on("updatewards",function(datas){
+               var a =[];
+
+               $("#selectWard").children().remove();
+
+               if(datas.length == 0 || datas == undefined){
+                $("#selectWard").children().remove();
+
+               }else if(datas.length > 1 || datas != undefined){
+                for(var i = 0 ; i< datas.length; i++){
+                    a.push(datas[i].tenPhuong)
+                $("#selectWard").append( "<option value="+"'" + a[i] +"'"+">"+a[i]+"</option>");
+               }
+               }
+           });
+        }
+    </script>
+    <!-- signout -->
+    <script src="/javascripts/sigout.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+    integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+    integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+    crossorigin="anonymous"></script> 
         </script>
 </body>
 </html>

@@ -2,9 +2,6 @@ var express = require('express');
 var router = express.Router();
 var user_check = require('../Module/users');
 var hash = require('../hash_pass/hash_pass');
-
-
-
 router.get('/signin', function(req, res, next) {
     res.render('SignInPage', { data : {}});
 });
@@ -25,20 +22,10 @@ router.post('/signin',function(req,res,next){
                     if(status== false){ // nếu status trả về false tức param.password !=user.Pass
                         res.render('SignInPage', { data : {error : "Tài khoản hoặc mật khẩu sai"}});// gửi lên SignInPage object data
                     }else{ // nếu không == true thì thông báo đăng nhập thành công 
-                       
-                         
                        req.session.user = user; // lưu thông tin biến user vào session
-                        console.log(req.session.user);
-                        
-                        
-                        res.redirect('/home.html');
-                            // res.render('SignInPage', { data: {q :"Đăng nhập thành công"} },
-                            // setTimeout(function(){
-                            //     res.redirect('/home.html')
-                            // },2000));
-                            // res.render('SignInPage', {data: {q : "đăng nhập thành công " + user.Email}})
-                          
-                          
+                      
+                        res.redirect('/');
+                            
                     }
                 }).catch(function(err){
                     res.render('SignInPage', { data : {error : "Tài khoản hoặc mật khẩu sai " + err  }});
@@ -46,8 +33,7 @@ router.post('/signin',function(req,res,next){
             }else{
                 res.render('SignInPage', { data : {error : "Tài khoản hoặc mật khẩu sai"}});
             }
-    }
-    
-})
+        }  
+    })
 module.exports = router;  
 

@@ -29,6 +29,7 @@ var server = http.createServer(app);
  var sv = server.listen(port);
 var io = socketio(sv);
 var socketControll = require('../common/socket')(io);
+// var _socket= require('../common/socket_wards')(io);
 server.on('error', onError);
 server.on('listening', onListening);
 

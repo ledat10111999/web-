@@ -1,0 +1,68 @@
+    <!-- Thanh Nav -->
+    <div class="Navigator">
+        <nav class="navbar navbar-expend-sm navbar-light bg-light">
+            <div class="container">
+                <!-- Logo -->
+                <a href="/" class="nav-brand"><img height="120" src="/images/logo2.png" alt="logo"></a>
+                <!-- Nav item signin/register -->
+                <ul class="nav ml-auto">
+                    <% if (!data.sign ) { %>
+                       
+                        <li class="nav-item font-weight-bold"><a href="signin" class="nav-link " >Đăng nhập</a></li>
+                        <li class="nav-item font-weight-bold"><a href="signup" class="nav-link" >Đăng kí</a></li>
+                        <% }else if(data.sign){%>
+
+                           
+                    <li class="nav-item nav-username">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle font-weight-bold"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=data.sign.ho  %>  <%=data.sign.ten  %> </button>
+                            <div class="dropdown-menu">
+                                <a href="#" class="dropdown-item">Thông tin tài khoản</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="/posted/<%=data.sign.ID %> " class="dropdown-item">Bài viết đã đăng</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="/savePosts/<%=data.sign.Email%> " class="dropdown-item">Bài viết đã lưu</a>
+                                <div class="dropdown-divider"></div>
+                            <button class="signout dropdown-item" id="signout">Đăng xuất</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="/DangTin"><button class="btn btn-primary font-weight-bold">Đăng tin</button> </a></li>
+                            <!-- <li class="nav-item"><a href="#" class="nav-link"> Chào mừng <%=data.sign.ho  %>  <%=data.sign.ten  %>  </a></li>
+                            <li class="nav-item"><a href="DangTin"><button class="btn btn-primary font-weight-bold">Đăng tin</button></a></li>                      -->
+                        <% } %>
+
+
+                    
+                </ul>
+        </nav>
+    </div>
+
+    <!-- Thanh Nav -->
+    <div class="Nav2">
+        <nav class="navbar navbar-expend-sm nav-custom navbar-light bg-nav">
+            <div class="container justify-content-center">
+                <div class="row grid-divider">
+                    <div class="col-sm-12">
+                        <ul class="nav mr-auto">
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Trang
+                                    chủ</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Cho thuê
+                                    phòng trọ</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Nhà cho
+                                    thuê</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Tìm người
+                                    ở ghép</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Cho thuê
+                                    căn hộ</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Hướng
+                                    dẫn</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Nạp
+                                    tiền</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>

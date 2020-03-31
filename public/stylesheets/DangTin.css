@@ -24,3 +24,6 @@ section{
 #PostForm{
     height: fit-content;
 }
+.nav-username{
+    padding-right: 10px;
+}

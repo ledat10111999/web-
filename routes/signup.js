@@ -44,18 +44,24 @@ router.post('/signup', function(req,res){
       var _data = data[0]; // gán _data = mảng đối tượng thứ 0 
       if(data.length ==0  || data == undefined ) // nếu mảng đối tượng có độ dài bằng 0 hoặc chưa được định nghĩa (undefined) thì tiến hành nhập user
       {
+        var date = new Date();
             var _pass = hash.hash_password(user.password); // hash pass word bằng bcryp
         var iUser ={
           First_name : user.firstname,
           Last_name : user.lastname,
           Email: user.email,
-          Pass : _pass
+          Pass : _pass,
+          Update_at: date,
+          Created_at: date,
         }
         var addUser = user_md.addUser(iUser); // add user vào databasr
         if(addUser){ // nếu có dữ liệu user được trả về
           addUser.then(function(data){ 
 
            res.render("signup",{data: {q:"đăng ký thành công" }})
+          //  req.session.user=iUser;
+         
+
           }).catch(function(error){
             res.render('signup', { data: {error :"Đăng ký không thành công " + error} });
           })
