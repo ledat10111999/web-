@@ -14,6 +14,8 @@ var signupRouter = require('./routes/signup');
 var signinRouter = require('./routes/signin');
 var DangTinRouter = require('./routes/DangTin');
 
+var testAngular = require('./routes/angular')
+
 
 var app = express();
 
@@ -45,7 +47,9 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/',signupRouter);
 app.use('/',signinRouter);
-app.use('/',DangTinRouter)
+app.use('/',DangTinRouter);
+
+app.use('/',testAngular);
 
 
 // catch 404 and forward to error handler

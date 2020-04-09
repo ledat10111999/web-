@@ -25,13 +25,14 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `Email` varchar(45) NOT NULL,
-  `Pass` varchar(45) NOT NULL,
+  `Pass` varchar(100) NOT NULL,
   `First_name` varchar(45) DEFAULT NULL,
   `Last_name` varchar(45) DEFAULT NULL,
+  `QuyenHan` varchar(10) DEFAULT NULL,
   `Created_at` datetime DEFAULT NULL,
   `Update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +41,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'ledat10111999@gmail.com','ledat123','Đạt','Lê',NULL,NULL),(2,'ledat10111999@gmail.com','ledat123','Đạt','Lê',NULL,NULL),(3,'ledat10111999@gmail.com','ledat123','Đạt','Lê',NULL,NULL),(4,'ledat10111999@gmail.com','ledat123','Đạt','Lê',NULL,NULL),(5,'ledat10111999@gmail.com','ledat123','Đạt','Lê',NULL,NULL),(6,'ledat10111999@gmail.com','ledat1','Đạt','Lê',NULL,NULL),(7,'ledat10111999@gmail.com','ledat123','Đạt','Lê',NULL,NULL),(8,'ledat10111999@gmail.com','','Đạt','Lê',NULL,NULL),(9,'ledat10111999@gmail.com','123456','Đạt','Lê',NULL,NULL),(10,'ledat10111999@gmail.com','123456','Đạt','Lê',NULL,NULL),(11,'ledat10111999@gmail.com','123456','Đạt','Lê',NULL,NULL),(12,'ledat10111999@gmail.com','123456','Đạt','Lê',NULL,NULL),(13,'ledat10111999@gmail.com','','Đạt','Lê',NULL,NULL),(14,'ledat10111999@gmail.com','123456','Đạt','Lê',NULL,NULL),(15,'ledat10111999@gmail.com','123456','Đạt','Lê',NULL,NULL),(16,'ledat10111999@gmail.com','12345','John','Lê',NULL,NULL),(17,'ledat10111999@gmail.com','12345','John','Lê',NULL,NULL),(18,'ledat10111999@gmail.com','12345','John','Lê',NULL,NULL),(19,'ledat10111999@gmail.com','123456','John','Lê',NULL,NULL),(20,'','','','',NULL,NULL),(21,'','','','',NULL,NULL),(22,'ledat10111999@gmail.com','123456','Đạt','Lê',NULL,NULL),(23,'ledat10111999@gmail.com','123456','Đạt','Lê',NULL,NULL),(24,'ledat10111999@gmail.com','123456','Đạt','Lê',NULL,NULL),(25,'ledat10111999@gmail.com','123456','Đạt','Lê',NULL,NULL),(26,'ledat10111999@gmail.com','123456','Đạt','Lê',NULL,NULL);
+INSERT INTO `users` VALUES (90,'ledat10111999@gmail.com','$2b$10$fyaeY4vpPJ6HIN8ZGSfg4uWHSomqNj3232feRyPJJ9RJ1AGy6PJm6','Đạt','Lê Văn','admin','2020-03-26 14:34:46','2020-03-26 14:34:46'),(91,'ledat1011','$2b$10$FvKhrERPzQajLprmH3mq6.MWrpIkUvQDKFzv1flL2fKuCs.RSqIki','Đạt','Lê','user','2020-03-26 23:55:43','2020-03-26 23:55:43'),(92,'ledat123','$2b$10$58.RSkr8sbK5rilmxKjfbu7NXwC1SBae3iO1vkukwrqMOjs3VwZgi','Đạt','Lê','user','2020-03-26 23:56:50','2020-03-26 23:56:50'),(93,'ledat12345','$2b$10$O3qBy0UvUwmf2yLpY53B6.Jx9OuFRvQFlPLd7v0UQhnx3EvJnws..','John','Lê','user','2020-03-29 15:04:53','2020-03-29 15:04:53');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-07 22:50:45
+-- Dump completed on 2020-04-09 16:52:31

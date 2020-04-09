@@ -6,35 +6,13 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
     <link rel="stylesheet" href="/stylesheets/DangTin.css">
+    <script src="/javascripts/jquery-3.4.1.min.js"></script>
     <title>Kiểm tra tin đăng</title>
 </head>
 
 <body>
     <!-- Thanh Nav -->
-    <div class="Navigator">
-        <nav class="navbar navbar-expend-sm navbar-light bg-light">
-            <div class="container">
-                <a href="/" class="nav-brand"><img height="100" src="/images/logo2.png" alt="logo"></a>
-                <div class="row grid-divider mr-auto">
-                    <div class="col-sm-12">
-                        <ul class="nav mr-auto">
-                            <li class="nav-item"><a href="/" class="nav-link font-weight-bold ">Trang
-                                    chủ</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold ">Cho thuê
-                                    phòng trọ</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold ">Nhà cho
-                                    thuê</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold ">Tìm người
-                                    ở ghép</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold ">Cho thuê
-                                    căn hộ</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
-
+   <% include header/headerPost %> 
     <section>
         <!-- Tên thông tin phòng trọ -->
         <div class="container">
@@ -52,9 +30,14 @@
                                     tiết</a></li>
                             <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-info">Hình ảnh</a>
                             </li>
-                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-info">Sửa tin</a>
+                                <% if(data.results && data.user && data.results[0].IDusers == data.user.ID) { %>  
+                            <li class="nav-item"><a href="/updatePost/<%=data.results[0].ID %> " class="nav-link font-weight-bold text-info" id="updatePost">Sửa tin</a>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-info" >Xóa tin</a>
+                            <% } else if(data.sign){ %>  
+                            
                                 <li class="nav-item" id="savepost"><a href="#" class="nav-link font-weight-bold text-info">Lưu bài</a>
                             </li>
+                        <% } %> 
                         </ul>
                     </div>
                 </div>
@@ -89,19 +72,19 @@
                                 <th scope="row">Đối tượng</th>
                                 <td><%=data.results[0].DoiTuongChoThue  %></td>
                                 <th>Số điện thoại</th>
-                                <td>0123456789</td>
+                                <td>0<%=data.results[0].SDT  %> </td>
                             </tr>
 
                             <tr>
-                                <th scope="row">Ngày cập nhật</th>
+                                <th scope="row">Ngày đăng</th>
                                 <td><%=data.results[0].created_at  %></td>
                                 <th>Diện tích</th>
                                 <td><%=data.results[0].DienTich  %> m2</td>
                             </tr>
 
                             <tr>
-                                <th scope="row">Ngày hết hạn</th>
-                                <td></td>
+                                <th scope="row">Ngày cập nhật</th>
+                                <td><%=data.results[0].update_at  %> </td>
                                 <th>Giá cho thuê</th>
                                 <td><%=data.results[0].Gia  %></td>
                             </tr>
@@ -132,7 +115,19 @@
             </div>
         </div>
     </section>
-    <script src="/javascripts/savepost.js"></script>
+       
+    </script>
+    <!-- signout -->
+    <script src="/javascripts/sigout.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+    integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+    integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

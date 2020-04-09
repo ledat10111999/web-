@@ -6,32 +6,23 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
     <link rel="stylesheet" href="/stylesheets/Style.css">
+    <script src="/javascripts/jquery-3.4.1.min.js"></script>
+    <script src="/javascripts/ajaxIndex.js"></script>
+    <!-- socket.io -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> -->
     <title>Trang chủ</title>
 </head>
 
 <body>
+    <!-- Thanh Nav -->
     <!-- Thanh Nav -->
     <div class="Navigator">
         <nav class="navbar navbar-expend-sm navbar-light bg-light">
             <div class="container">
                 <!-- Logo -->
                 <a href="/" class="nav-brand"><img height="120" src="/images/logo2.png" alt="logo"></a>
-                <!-- Nav item canh logo -->
-                <ul class="nav mr-auto">
-                   
-                    <li class="nav-item"><a href="#" class="nav-link font-weight-bold">Tìm mua</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link font-weight-bold">Tìm thuê</a></li>
-                </ul>
                 <!-- Nav item signin/register -->
-                <ul class="nav ml-auto">
-                    <% if (!data.sign ) { %>
-                        <li class="nav-item"><a href="signin" class="nav-link" >Đăng nhập</a></li>
-                        <li class="nav-item"><a href="signup" class="nav-link" >Đăng kí</a></li>
-                        <% }else if(data.sign){%>
-                            <li class="nav-item"><a href="#" class="nav-link"> Chào mừng <%=data.sign.ho  %>  <%=data.sign.ten  %>  </a></li>
-                            <li class="nav-item"><a href="DangTin"><button class="btn btn-primary font-weight-bold">Đăng tin</button></a></li>                     
-                        <% } %>
-                </ul>
+                
         </nav>
     </div>
 
@@ -39,39 +30,105 @@
     <div class="banner">
         <div class="container">
             <!-- Slogan -->
-            <h1 class="display-5 text-center banner-title text-white font-weight-bold">ĐÚNG NHÀ, ĐÚNG GIÁ, ĐÚNG THỜI ĐIỂM</h1>
+            <h1 class="display-5 text-center banner-title text-white font-weight-bold">ĐÚNG NHÀ, ĐÚNG GIÁ, ĐÚNG THỜI
+                ĐIỂM</h1>
             <!-- Thanh tim kiem -->
-            <div class="input-group input-group-lg mb-3 w-50 searching-bar">
-                <input type="text" class="form-control" placeholder="Bạn đang tìm kiếm gì?">
-                <div class="input-group-append">
-                    <button class="btn btn-primary">Search</button>
+            <div class="row searching-bar blur-bg">
+                <div class="col-md-2 pt-3">
+                    <div class="form-group">
+                        <select id="inputState" class="form-control w-100">
+                            <option selected>Loại tin</option>
+                            <option>Phòng trọ, nhà trọ</option>
+                            <option>Nhà thuê nguyên căn</option>
+                            <option>Tìm người ở ghép</option>
+                            <option>Cho thuê căn hộ</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2 pt-3">
+                    <div class="form-group">
+                        <select id="selectCity" class="form-control w-100">
+                            <option selected>Tỉnh thành</option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2 pt-3">
+                    <div class="form-group">
+                        <select id="selectDistric" class="form-control w-100" >
+                            <option selected>Quận huyện</option>
+                            
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2 pt-3">
+                    <div class="form-group">
+                        <select id="selectWard" class="form-control w-100">
+                            <option selected>Đường phố</option>
+                            
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2 pt-3">
+                    <div class="form-group">
+                        <select id="inputState" class="form-control w-100">
+                            <option selected>Khoảng giá</option>
+                            <option>Dưới 1 triệu</option>
+                            <option value=" 1000000" >1 triệu - 2 triệu</option>
+                            <option value=" 2000000"> 2 triệu - 3 triệu</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2 pt-3">
+                    <button type="button" class="btn btn-primary btn-block">Lọc tin</button>
                 </div>
             </div>
         </div>
-        </div>
+    </div>
+    <!-- Thanh Nav -->
+    <div class="Nav2">
+        <nav class="navbar navbar-expend-sm nav-custom navbar-light bg-nav">
+            <div class="container justify-content-center">
+                <div class="row grid-divider">
+                    <div class="col-sm-12">
+                        <ul class="nav mr-auto">
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Trang
+                                    chủ</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Cho thuê
+                                    phòng trọ</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Nhà cho
+                                    thuê</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Tìm người
+                                    ở ghép</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Cho thuê
+                                    căn hộ</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Hướng
+                                    dẫn</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Nạp
+                                    tiền</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Big Banner -->
+<!--    
         <div class="container posts" >
             <div class="row">
            
-                <% if(data && data.results) { %> 
-                <%for (var i =0;i< data.results.length;i++){%> 
-                <div class="col-sm-6">
-                    <a href="/DangTin/post/<%=data.results[i].ID%> ">
-                        <div class="box">
-                            <div class="img">
-                                <img class="img-fluid mx-auto img " src="<%=data.results[i].image %> " alt="">
-                            </div>
-                            <div class="text">
-                                <p><%=data.results[i].tenTp  %> </p>
-                                <strong><%=data.results[i].Gia  %> </strong><span>Đồng</span>
-                                <p><%=data.results[i].TieuDe %> </p>
-                            </div>
-                        </div>
-                    </a>
-                </div><% } %>
-            <% } %>  
+            
                
             </div>
-        </div>
+        </div> -->
+
+      
 </body>
 
 </html>

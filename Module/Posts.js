@@ -12,10 +12,12 @@ var connection = data_base.getConnection();
             }else{
                     defer.resolve(results);
             } 
-            return defer.promise;  
+            ;  
         });
-     }return false;
- }
+        return defer.promise
+     }
+     return false;
+    }
  function _Posts (post,param){
     if(post){
         var defer = q.defer();
@@ -25,6 +27,7 @@ var connection = data_base.getConnection();
        });
     }return false;
 }
+
  function img (post){
     if(post){
         var defer = q.defer();
@@ -34,9 +37,12 @@ var connection = data_base.getConnection();
            }else{
                    defer.resolve(results);
            } 
-           return defer.promise;  
+           
        });
-    }return false;
+       return defer.promise;  
+    }   
+    return false;
+
 }
  function infor( ){
     
@@ -56,7 +62,7 @@ var connection = data_base.getConnection();
     
 }
 function takeInforCities(){
-    var sql = "select * from cities";
+    var sql = "select * from province";
     var defer = q.defer();
     var query = connection.query(sql, function(error,results,fields){
         if(error)
@@ -71,7 +77,7 @@ function takeInforCities(){
 }
 
 function takeInforCities2(data){
-    var sql = "select * from cities";
+    var sql = "select * from province";
     var query = connection.query(sql, function(error,results,fields){
        if(error) throw error;
         data(results);
@@ -83,8 +89,8 @@ function takeInforDistric(x){
     
 //    var  _data =String(data);
 //     var __data = connection.escape(_data);    
- 
-   var sql ="select districts.tenQuan,districts.maQuan from cities, districts where cities.maTP = districts.maTP and cities.tenTp ="+ mysql.escape(x);
+ if(x){
+    var sql ="select  district.id, district._prefix, district._name from province,district where province.id = district._province_id and province._name ="+ mysql.escape(x);
     var defer = q.defer();
     var query = connection.query( sql, function(error,results,fields){
         if(error)
@@ -94,14 +100,16 @@ function takeInforDistric(x){
             defer.resolve(results); // trả về result
         }
     });
-    return defer.promise; // trả về mảng đối tượng nhận được từ result query
+    return defer.promise; // trả về mảng đối tượng nhận được từ result query   
+ }
+  return false;
 }
-function takeInforWard(y){
+function takeInforWard(district,province){
     
     //    var  _data =String(data);
     //     var __data = connection.escape(_data);    
-     
-       var sql ="select wards.tenPhuong,wards.maPhuong from  districts,wards where districts.maQuan = wards.maQuan and districts.tenQuan ="+ mysql.escape(y);
+     if (district && province){
+        var sql = " select  ward.id,ward._prefix,ward._name,ward._province_id from  province,district,ward where district.id = ward._district_id and ward._province_id = province.id  and district._name =" +mysql.escape(district) +" and province._name = "+ mysql.escape(province);
         var defer = q.defer();
         var query = connection.query( sql, function(error,results,fields){
             if(error)
@@ -112,12 +120,31 @@ function takeInforWard(y){
             }
         });
         return defer.promise; // trả về mảng đối tượng nhận được từ result query
+     }
+      return false;
     }
 // var sql    = 'SELECT * FROM users WHERE id = ' + connection.escape(userId);
 // connection.query('UPDATE users SET foo = ?, bar = ?, baz = ? WHERE id = ?', ['a', 'b', 'c', userId], function (error, results, fields) {
 //     if (error) throw error;
 //     // ...
 //   });
+
+function takeInforStreet (district,province){
+    if (district && province){
+        var sql = " select district._name ,street._prefix,street._name  from province,district,street where street._province_id = province.id and street._district_id = district.id and province._name = "+ mysql.escape(province)+ " and district._name =" + mysql.escape(district)+ "";
+        var defer = q.defer();
+        var query = connection.query( sql, function(error,results,fields){
+            if(error)
+            {
+                defer.reject(error); // nếu cố error trả về error
+            }else{
+                defer.resolve(results); // trả về result
+            }
+        });
+        return defer.promise; // trả về mảng đối tượng nhận được từ result query
+     }
+      return false;
+    }   
      function tablePosts(){
         var sql ="SELECT ID FROM posts";
         var defer = q.defer();
@@ -146,35 +173,41 @@ function takeInforWard(y){
 
      }
      function takeInforIDPosts(IDpost){
-        // var sql ="select users.First_name , users.Last_name,posts.ID, posts.tenTp,posts.tenQuan,posts.tenPhuong,posts.tenDuong,posts.soNha,posts.DiaChiChinhXac,posts.ThongTinMoTa,posts.DienTich,posts.TieuDe,posts.NoiDung,posts.DoiTuongChoThue,posts.Gia,posts.IDusers, posts.image,posts.SDT,posts.created_at,posts.update_at from users,posts where users.ID = posts.IDusers and posts.ID =" +IDpost;
-        var defer = q.defer();
-        var query = connection.query( "select users.First_name , users.Last_name,posts.ID, posts.tenTp,posts.tenQuan,posts.tenPhuong,posts.tenDuong,posts.soNha,posts.DiaChiChinhXac,posts.ThongTinMoTa,posts.DienTich,posts.TieuDe,posts.NoiDung,posts.DoiTuongChoThue,posts.Gia,posts.IDusers, posts.image,posts.SDT,posts.created_at,posts.update_at from users,posts where users.ID = posts.IDusers AND posts.ID =?",[IDpost], function(error,results,fields){
-            if(error)
-            {
-                defer.reject(error); // nếu cố error trả về error
-            }else{
-                defer.resolve(results); // trả về result
-            }
-        });
-        return defer.promise; // trả về mảng đối tượng nhận được từ res
-
+         if(IDpost){
+            var defer = q.defer();
+            var query = connection.query( "select users.First_name , users.Last_name,posts.ID, posts.tenTp,posts.tenQuan,posts.tenPhuong,posts.tenDuong,posts.soNha,posts.DiaChiChinhXac,posts.ThongTinMoTa,posts.DienTich,posts.TieuDe,posts.NoiDung,posts.DoiTuongChoThue,posts.Gia,posts.IDusers, posts.image,posts.SDT,posts.created_at,posts.update_at from users,posts where users.ID = posts.IDusers AND posts.ID =?",[IDpost], function(error,results,fields){
+                if(error)
+                {
+                    defer.reject(error); // nếu cố error trả về error
+                }else{
+                    defer.resolve(results); // trả về result
+                }
+            });
+            return defer.promise; // trả về mảng đối tượng nhận được từ res
+         }
+        // var sql ="select users.First_name,users.ID , users.Last_name,posts.ID, posts.tenTp,posts.tenQuan,posts.tenPhuong,posts.tenDuong,posts.soNha,posts.DiaChiChinhXac,posts.ThongTinMoTa,posts.DienTich,posts.TieuDe,posts.NoiDung,posts.DoiTuongChoThue,posts.Gia,posts.IDusers, posts.image,posts.SDT,posts.created_at,posts.update_at from users,posts where users.ID = posts.IDusers and posts.ID =" +IDpost;
+       
+         return false;
      }
      function takeInforIDPostsIDUsers(IDusers){
+         if(IDusers){
+            var defer = q.defer();
+            var query = connection.query( "select users.First_name , users.Last_name,posts.ID, posts.tenTp,posts.tenQuan,posts.tenPhuong,posts.tenDuong,posts.soNha,posts.DiaChiChinhXac,posts.ThongTinMoTa,posts.DienTich,posts.TieuDe,posts.NoiDung,posts.DoiTuongChoThue,posts.Gia,posts.IDusers, posts.image,posts.SDT,posts.created_at,posts.update_at from users,posts where users.ID = posts.IDusers AND  users.ID =?",[IDusers], function(error,results,fields){
+                if(error)
+                {
+                    defer.reject(error); // nếu cố error trả về error
+                }else{
+                    defer.resolve(results); // trả về result
+                }
+            });
+            return defer.promise; // trả về mảng đối tượng nhận được từ res
+         }
         // var sql ="select users.First_name , users.Last_name,posts.ID, posts.tenTp,posts.tenQuan,posts.tenPhuong,posts.tenDuong,posts.soNha,posts.DiaChiChinhXac,posts.ThongTinMoTa,posts.DienTich,posts.TieuDe,posts.NoiDung,posts.DoiTuongChoThue,posts.Gia,posts.IDusers, posts.image,posts.SDT,posts.created_at,posts.update_at from users,posts where users.ID = posts.IDusers and posts.ID =" +IDpost;
-        var defer = q.defer();
-        var query = connection.query( "select users.First_name , users.Last_name,posts.ID, posts.tenTp,posts.tenQuan,posts.tenPhuong,posts.tenDuong,posts.soNha,posts.DiaChiChinhXac,posts.ThongTinMoTa,posts.DienTich,posts.TieuDe,posts.NoiDung,posts.DoiTuongChoThue,posts.Gia,posts.IDusers, posts.image,posts.SDT,posts.created_at,posts.update_at from users,posts where users.ID = posts.IDusers AND  users.ID =?",[IDusers], function(error,results,fields){
-            if(error)
-            {
-                defer.reject(error); // nếu cố error trả về error
-            }else{
-                defer.resolve(results); // trả về result
-            }
-        });
-        return defer.promise; // trả về mảng đối tượng nhận được từ res
 
+         return false;
      }
      function takeInforImg(ID){
-     
+     if(ID){
         var defer = q.defer();
         var query = connection.query( 'select image from img where IDimg =? and IDpost = ?',[ID[0].IDimg,ID[0].IDpost], function(error,results,fields){
             if(error)
@@ -183,9 +216,24 @@ function takeInforWard(y){
             }else{
                 defer.resolve(results); // trả về result
             }
-        });
-        return defer.promise; // trả về mảng đối tượng nhận được từ res
+            });return defer.promise; // trả về mảng đối tượng nhận được từ res
+        }return false;
      }
+function updatePost(param,image){
+        if(param && image){
+            var defer = q.defer();
+            var sql ="UPDATE posts SET tenTp = "+ mysql.escape(param.tenTp)+",tenQuan = "+mysql.escape(param.tenQuan) +" ,tenDuong = " +mysql.escape(param.tenDuong) + ", tenPhuong = " +mysql.escape(param.tenPhuong) + ", soNha = " +param.soNha +",DiaChiChinhXac = "+mysql.escape(param.DiaChiChinhXac) +",ThongTinMoTa = "+ mysql.escape(param.ThongTinMoTa)+", DienTich = " +mysql.escape(param.DienTich) +" ,TieuDe = "+mysql.escape(param.TieuDe) +", NoiDung ="+mysql.escape(param.NoiDung)+",DoiTuongChoThue ="+mysql.escape(param.DoiTuongChoThue)+" , Gia = "+param.Gia+", image = "+mysql.escape(image)+" where ID = "+ param.ID+"";
+           var query = connection.query(sql ,function(error, results, fields){
+               if(error){
+                   defer.reject(error);
+               }else{
+                       defer.resolve(results);
+               }   
+           });return defer.promise; 
+        }return false;
+     }
+    // "UPDATE posts SET tenTp = ?,tenQuan =?,tenPhuong=? , tenDuong=?,soNha=?,DiaChiChinhXac=?,ThongTinMoTa = ?,DienTich = ?,TieuDe =?,NoiDung = ? ,DoiTuongChoThue = ?,Gia = ?,SDT = ?,update_at = ?,image=? where ID = ? "[param.tenTp,param.tenQuan,param.tenPhuong,param.tenDuong,param.soNha,param.DiaChiChinhXac,param.ThongTinMoTa,Param.DienTich,param.TieuDe,param.NoiDung,param.DoiTuongChoThue,param.Gia,param.SDT,param.update_at,image,param.ID]
+
  module.exports = {
      infor : infor,
     Posts : Posts,
@@ -199,5 +247,7 @@ function takeInforWard(y){
     takeInforImg:takeInforImg,
     takeInforIDPosts:takeInforIDPosts,
     takeInforCities2:takeInforCities2,
-    takeInforIDPostsIDUsers:takeInforIDPostsIDUsers
+    takeInforIDPostsIDUsers:takeInforIDPostsIDUsers,
+    updatePost: updatePost,
+    takeInforStreet : takeInforStreet
 };

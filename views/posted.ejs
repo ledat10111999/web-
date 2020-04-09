@@ -25,23 +25,28 @@
             <% if(!data.results) {%>
                 <h3 class="text-center">Bạn chưa đăng bài viết nào</h3>
             <% } else{ for(var i = 0 ; i< data.results.length; i++){ %> 
-            <div class="col-sm-6">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="/<%=data.results[i].image %> " height="200px" class="card-img" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title"><%=data.results[i].TieuDe  %> </h5>
-                                <p class="card-text font-weight-bold">Giá:<%=data.results[i].Gia  %> </p>
-                                <p class="card-text"><%=data.results[i].tenQuan %> - <%=data.results[i].tenTp  %>  </p>
-                                <p class="card-text"><%=data.results[i].NoiDung  %> </p>
+                
+                    <div class="col-sm-6">
+                        <a href="/DangTin/post/<%=data.results[i].ID  %> " style="text-decoration: none; color: #000;">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="/<%=data.results[i].image %> " height="200px" class="card-img" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%=data.results[i].TieuDe  %> </h5>
+                                        <p class="card-text font-weight-bold">Giá:<%=data.results[i].Gia  %> </p>
+                                        <p class="card-text"><%=data.results[i].tenQuan %> - <%=data.results[i].tenTp  %>  </p>
+                                        <p class="card-text"><%=data.results[i].NoiDung  %> </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div><% } %> 
+                    </a>
+                    </div>   
+            
+            <% } %> 
             <% } %> 
         
         </div>

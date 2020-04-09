@@ -45,7 +45,7 @@ CREATE TABLE `posts` (
   PRIMARY KEY (`ID`,`IDimg`),
   KEY `IDusers` (`IDusers`),
   CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`IDusers`) REFERENCES `users` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,7 +54,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (69,90,'Thành Phố Hồ Chí Minh','Quận 2','Xa lộ Hà Nội','Phường','1234','Xô Viết Nghệ Tĩnh','PhongTro',50,'Cho thuê phòng trọ','Cho thuê phòng trọ','Nam',500000,90,'upload\\1585407846394-villa.jpg',NULL,'2020-03-28 22:04:08','2020-03-28 22:04:08'),(70,90,'Thành Phố Hồ Chí Minh','Quận 2','Xa lộ Hà Nội','Phường','1234','Xô Viết Nghệ Tĩnh','PhongTro',50,'Cho thuê phòng trọ','Phòng trọ cao cấp','Nam',500000,90,'upload\\1585410539182-tải xuống.jpg',NULL,'2020-03-28 22:49:01','2020-03-28 22:49:01'),(71,91,'Thành Phố Hồ Chí Minh','Quận 2','Xa lộ Hà Nội','Phường An Lợi Đông','123','Xô Viết Nghệ Tĩnh','Nhà nguyên căn',50,'Cho thuê Nhà nguyên căn','Nhà nguyên căn','Nam',10000000,91,'upload\\1585467277413-tải xuống.jpg',NULL,'2020-03-29 14:34:40','2020-03-29 14:34:40'),(72,90,'Thành Phố Hồ Chí Minh','Quận 2','Điện Biên Phủ','Phường An Lợi Đông','1234','Xô Viết Nghệt tĩnh','Cho thuê căn hộ',100,'VIlla cao cấp','Villa','Nam',20000000,90,'upload\\1585651663980-villa2.jpg',376467658,'2020-03-31 17:47:46','2020-03-31 17:47:46');
+INSERT INTO `posts` VALUES (74,90,'Hồ Chí Minh','Phú Nhuận','Đường Đặng Văn Sâm','Phường 1','1234 ','Cô Bắc ','Phòng trọ',50,'Cho thuê phòng trọ ','Phòng trọ đẹp','Nam',10000000,90,'upload\\1586425262116-tải xuống.jpg',376467658,'2020-04-09 12:45:48','2020-04-09 16:41:04'),(75,90,'Hồ Chí Minh','Quận 1','Phố Bà Huyện Thanh Quan','Phường Bến Nghé','1234 ','Đường Bà Huyện Thanh Quan ','Nhà nguyên căn',100,'Cho thuê Nhà nguyên căn ','Cho thuê Nhà nguyên căn','Nam',20000000,90,'upload\\1586425262116-tải xuống.jpg',376467658,'2020-04-09 13:42:38','2020-04-09 16:41:21');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -67,4 +67,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-31 22:28:34
+-- Dump completed on 2020-04-09 16:52:29

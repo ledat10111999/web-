@@ -3,6 +3,7 @@ var router = express.Router();
 var test = require("../Module/Posts");
 const path = require('path');
 var multer = require('multer')
+var updatePost = require('../Module/updatePost');
 
 
 var _img = [];
@@ -24,22 +25,14 @@ var storage = multer.diskStorage({
      }
  }
  var upload = multer(
-    
     { storage: storage, fileFilter: checkFileUpload }) 
-
 router.get('/DangTin',function(req,res){
-    var val = req.session.user;
-    if(val){
-       var sign = {
-           ho: val.First_name,
-           ten:val.Last_name,
-           Email: val.Email,
-           ID: val.ID
-       }
+    var val = req.session.user;    
+    if(val){ 
         var takeInforCT = test.takeInforCities()
         if(takeInforCT){
             takeInforCT.then(function(results){
-                 res.render("DangTin",{data: {results: results,sign:sign}} );  
+                 res.render("DangTin",{data: {results: results,sign:val}} );  
             }).catch(function(error){
                 res.render("DangTin",{data:{error: "lỗi" + error}});
             })
@@ -47,18 +40,15 @@ router.get('/DangTin',function(req,res){
     }   else{
         res.redirect('/');
     }
-   
-   
 })
 // router up load file
 router.post('/uploadfile',upload.any(),function(req,res){
     for(var i = 0; i< req.files.length;i++){
         _img.push(req.files[i].path)
     }
-  
 });
 
-// router đăng tin
+// router thêm bài đăng
 router.post('/DangTin',function(req,res){
     var date = new Date() ;
    var post = req.body;
@@ -101,20 +91,60 @@ router.post('/DangTin',function(req,res){
       })
 });
 
-// router bài đăng
+// router bài đã đăng
 router.get('/DangTin/post/:id',function(req,res){
+    var user = req.session.user;
    var IDpost = req.params.id;
    var value = test.takeInforIDPosts(IDpost);
    if(value){
        value.then(function(results){
           console.log(IDpost);
-           res.render("post",{data:{results:results}})
+           res.render("post",{data:{results:results,user:user,sign:user}})
        }).catch(function(err){
-           console.log("Không có bài viết");
-           
+           console.log("Không có bài viết");       
        })
    }
-    
 });
 
+// router update
+var updateImg = [];
+router.post('/updateImg',upload.any(),function(req,res){
+    for(var i = 0; i< req.files.length;i++){
+        updateImg.push(req.files[i].path)
+    }
+});
+router.get('/updatePost/:id',function(req,res){
+    var id = req.params.id;
+    var val = req.session.user;
+    if(val){
+        var post = test.takeInforIDPosts(id);
+        if(post ){
+            
+            post.then(function(post){
+                test.takeInforCities2(function(data){
+                    res.render('updatePost',{data:{results:data,post:post,sign:val}})
+                })           
+            }).catch(function(err){
+                res.send(err);
+            })
+        }
+    }else{
+        res.redirect('/')
+    }
+})
+router.put('/updatePost',function(req,res){
+    var param = req.body;
+    var user = req.session.user;
+    var _update = updatePost.updatePost(param,updateImg[0])
+    if(_update){
+        _update.then(function(data){
+            res.json({statusCode: 200});
+        }).catch(function(err){
+            res.json({err:err});
+        })
+    }
+    else{
+        res.json({err:err})
+    }
+})
 module.exports = router;

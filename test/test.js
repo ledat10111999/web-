@@ -195,18 +195,97 @@ var test = require('../Module/Posts')
  
 // console.log(haha());
 
-function haha(a,b){
-  function hoho(){
-    console.log("hahaha x" +a*b);
+var val = require('../Module/Posts')
+var q = require('q');
+var data_base=  require('../common/data_base');
+var mysql = require('mysql');
+
+var connection = data_base.getConnection();
+// [param.tenTp,param.tenQuan,param.tenPhuong,param.tenDuong,param.soNha,param.DiaChiChinhXac,param.ThongTinMoTa,Param.DienTich,param.TieuDe,param.NoiDung,param.DoiTuongChoThue,param.Gia,param.SDT,param.update_at,image,param.ID]
+// function updatePost(param,image){
+//   if(param && image){
+//       var defer = q.defer();
+//       console.log(param);
+//       var sql ="UPDATE posts SET tenTp =" +mysql.escape(param.tenTp)+",tenQuan = "+ mysql.escape(param.tenQuan)+",tenPhuong= "+ mysql.escape(param.tenPhuong)+ ", tenDuong= " + mysql.escape(param.tenDuong) +  ",soNha= " + param.soNha + ",DiaChiChinhXac= "+ mysql.escape(param.DiaChiChinhXac) +  ",ThongTinMoTa = " + mysql.escape(param.ThongTinMoTa) + ",DienTich = "+  param.DienTich+  ",TieuDe ="+ mysql.escape(param.TieuDe) +",NoiDung = " +mysql.escape(param.NoiDung) + " ,DoiTuongChoThue = " +mysql.escape(param.DoiTuongChoThue) +",Gia = "+param.Gia+",SDT = "+param.SDT+",update_at = "+ new Date()+",image="+ image+" where ID = " + param.ID+" ";
+//      var query = connection.query(sql,function(error, results, fields){
+//          if(error){
+//              defer.reject(error);
+//          }else{
+//                  defer.resolve(results);
+//          } 
+//          return defer.promise;  
+//      });
+//   }return false;
+// }
+
+// function haha(){
+//   var param = {
+//     ID: "69 ",
+// tenTp: "Thành Phố Hồ Chí Minh",
+// tenQuan: "Quận 2",
+// tenPhuong: "Phường An Lợi Đông",
+// tenDuong: "Xa lộ Hà Nội",
+// soNha: "56 ",
+// DiaChiChinhXac: "Thanh Đa ",
+// ThongTinMoTa: "Phòng trọ",
+// DienTich: "100",
+// TieuDe: "Cho thuê nhà ",
+// NoiDung: "Nhà cho thuê",
+// DoiTuongChoThue: "Nam",
+// Gia: "10000000 ",
+// SDT: "0376467658 ",
     
-  }
-  hoho();
-};
+//   }
+//   var image = 'upload/1585407846394-villa.jpg';
+//      var value = val.updatePost(param,image);
+//      if(value){
+//        value.then(function(data){
+//          console.log('Cập nhật thành công');
+         
+//        }).catch(function(err){
+//          console.log(err);
+         
+//        });
+//      }else{
+//        console.log("lỗi");
+       
+//      }
+// }
 
-function hoho (){
-    new haha(2,3);
-}
-hoho()
+// haha();
 
 
+// var param = {
+//   ID: 69, 
+//   tenTp: "Thành Phố Hồ Chí Minh",
+//   tenQuan: "Quận 2",
+//   tenPhuong: "Phường An Lợi Đông",
+//   tenDuong: "Xa lộ Hà Nội",
+//   soNha: 56, 
+//   DiaChiChinhXac: "Thanh Đa    ",
+//   ThongTinMoTa: "Phòng trọ",
+//   DienTich: 100,
+//   TieuDe: "Cho thuê nhà    ",
+//   NoiDung: "Nhà cho thuê",
+//   DoiTuongChoThue: "Nam",
+//   Gia: 10000000 ,
+//   SDT: 376467658 ,
+// update_at: new Date()
+// }
+// var val = require('../Module/updatePost')
+// function haha (param){
+//   var image = 'upload/1585407846394-villa.jpg';
+//         var value = val.updatePost(param,image);
+//         if(value){
+//           value.then(function(data){
 
+//             console.log("Thành công "+data.ID);
+            
+//           }).catch(function(err){
+//             console.log("có lối " + err);
+            
+//           })
+//         }
+// }
+
+console.log('đây là đường dẫn' +__dirname);

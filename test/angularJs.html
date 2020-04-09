@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
+    <script type="text/javascript" src="../public/javascripts/angular.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script> -->
+</head>
+<body>
+        <div ng-app = "myapp" my>
+           
+        </div>
+        <div ng-></div>
+        <script type="text/javascript">
+        var app = angular.module("myapp", []);
+        
+app.directive("my", function() {
+    return {
+        template : "I was made in a directive constructor!"
+    };
+});
+        </script>    
+</body>
+</html>

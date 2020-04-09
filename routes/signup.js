@@ -3,13 +3,6 @@ var router = express.Router();
 var user_md = require('../Module/users');
 var hash = require('../hash_pass/hash_pass');
 
-var mysql = require ('mysql');
-var db = require('../common/data_base');
-var q = require ('q');
-var connection = db.getConnection();
-
-
-
 router.get('/signup', function(req, res, next) { // khi user /signup thì dẫn đến thư mục render 
     res.render('signup', { data: {} }); // render đến thư mục /router/signup.ejs, data là 1 object gửi đến đường dẫn
   });
@@ -51,6 +44,7 @@ router.post('/signup', function(req,res){
           Last_name : user.lastname,
           Email: user.email,
           Pass : _pass,
+          QuyenHan:'user',
           Update_at: date,
           Created_at: date,
         }
@@ -61,7 +55,6 @@ router.post('/signup', function(req,res){
            res.render("signup",{data: {q:"đăng ký thành công" }})
           //  req.session.user=iUser;
          
-
           }).catch(function(error){
             res.render('signup', { data: {error :"Đăng ký không thành công " + error} });
           })
