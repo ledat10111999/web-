@@ -1,17 +1,15 @@
-var mysql = require ('mysql');
+var mysql = require('mysql');
 var db = require('../common/data_base');
-var q = require ('q');
+var q = require('q');
 var connection = db.getConnection();
 
-function addUser(user){
-    if(user)
-    {
+function addUser(user) {
+    if (user) {
         var defer = q.defer();
-        var query = connection.query('INSERT INTO users SET ?', user, function (error, results, fields){
-            if(error)
-            {
+        var query = connection.query('INSERT INTO users SET ?', user, function (error, results, fields) {
+            if (error) {
                 defer.reject(error);
-            }else{
+            } else {
                 defer.resolve(results);
             }
         });
@@ -20,14 +18,13 @@ function addUser(user){
     return false;
 }
 
-function checkUser (email ){
-    if(email ){
+function checkUser(email) {
+    if (email) {
         var defer = q.defer();
-        var query = connection.query('SELECT * FROM users WHERE ? ', {Email:email}, function(error,results,fields){
-            if(error)
-            {
+        var query = connection.query('SELECT * FROM users WHERE ? ', { Email: email }, function (error, results, fields) {
+            if (error) {
                 defer.reject(error); // nếu cố error trả về error
-            }else{
+            } else {
                 defer.resolve(results); // trả về result
             }
         });
@@ -35,15 +32,13 @@ function checkUser (email ){
     }
     return false;
 }
-function addTest(user){
-    if(user)
-    {
+function addTest(user) {
+    if (user) {
         var defer = q.defer();
-        var query = connection.query('INSERT INTO test SET ?', user, function (error, results, fields){
-            if(error)
-            {
+        var query = connection.query('INSERT INTO test SET ?', user, function (error, results, fields) {
+            if (error) {
                 defer.reject(error);
-            }else{
+            } else {
                 defer.resolve(results);
             }
         });
@@ -52,7 +47,7 @@ function addTest(user){
     return false;
 }
 module.exports = {
-    addUser : addUser,
-    checkU : checkUser,
-    addTest : addTest
+    addUser: addUser,
+    checkU: checkUser,
+    addTest: addTest
 };

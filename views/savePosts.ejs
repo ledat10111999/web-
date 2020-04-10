@@ -1,62 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!DOCTYPE html>
-    <html>
-    
-    <head lang="vi">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="/stylesheets/bootstrap.css">
-        <link rel="stylesheet" href="/stylesheets/Style.css">
-    
-        <!-- jquery -->
-        <script src="/javascripts/jquery-3.4.1.min.js"></script>
-        <!-- socket.io -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-        <title>Trang chủ</title>
-    </head>
+<!DOCTYPE html>
+<html>
+
+<head lang="vi">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/Style.css">
+    <!-- jquery -->
+    <script src="/javascripts/jquery-3.4.1.min.js"></script>
+    <!-- socket.io -->
+    <title>Trang chủ</title>
+</head>
+
 <body>
     <%include header/headerPost  %>
 
     <div class="savePosts" style=" margin-top: 20px; "></div>
     <div class="container">
         <h3 class="text-center">Bài viết đã lưu</h3>
-        <div class="row">
-            <% if(!data.savePosts) {%>
-                <h3 class="text-center", style="margin-top: 20px;">Bạn chưa có lưu bài nào</h3>
-            <% } else{ %> 
+        <div class="row justify-content-center">
+            <% if(!data.saved[0]) {%>
+            <h3 class="text-center" style="margin-top: 20px;">Bạn chưa có lưu bài nào</h3>
+            <% } else{ for (let i = 0; i < data.saved.length; i++) {%>
             <div class="col-sm-6">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="./Sources/img/IMG_9483.JPG" height="200px" class="card-img" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text font-weight-bold">Giá:</p>
-                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <a href="/DangTin/post/<%=data.saved[i].ID  %>  " style="text-decoration: none; color: #000;">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img src="/<%=data.saved[i].image  %> " height="200px" class="card-img" alt="">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%=data.saved[i].TieuDe  %> </h5>
+                                    <p class="card-text font-weight-bold">Giá:<%=data.saved[i].Gia  %> </p>
+                                    <p class="card-text"><%=data.saved[i].NoiDung  %> </p>
+                                    <p class="card-text"><%=data.saved[i].tenQuan  %> - <%=data.saved[i].tenTp  %> </p>
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div><% } %> 
-        
+                </a>
+            </div>
+
+            <%}%>    
+            <% } %>
+
         </div>
     </div>
-    <script src="/javascripts/index.js" type="text/javascript" >
-       
+    <script src="/javascripts/index.js" type="text/javascript">
+
     </script>
     <!-- signout -->
     <script src="/javascripts/sigout.js"></script>
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-    integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-    crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-    integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-    crossorigin="anonymous"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

@@ -1,0 +1,20 @@
+1. Cài Node js bản 12.16.2 LTS
+-Link : https://nodejs.org/dist/v12.16.2/node-v12.16.2-x64.msi.
+
+2. Cài MySQL WorkBench
+
+3.Cài Visual Studio Code
+
+4. Config lại thông tin connect to MySQL tại file : web-\common\data_base.js.
+Bao gồm : host:"localhost",  //Giữ nguyên
+	user: "",	            //Tên đăng nhập
+	password: "",        //Mật khẩu
+	database:"",          //Tên Data Base	
+	port: 3306          //Giữ nguyên		
+5.Góc trái màn hình click chuột phải "Open terminal"
+
+6. Tại ô terminal gõ "npm start".
+
+7.Mở trình duyệt lên gõ : localhost:3000.
+
+8.Done

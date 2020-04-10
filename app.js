@@ -13,6 +13,7 @@ var usersRouter = require('./routes/users');
 var signupRouter = require('./routes/signup');
 var signinRouter = require('./routes/signin');
 var DangTinRouter = require('./routes/DangTin');
+var savePost = require('./routes/savePost');
 
 var testAngular = require('./routes/angular')
 
@@ -48,6 +49,7 @@ app.use('/users', usersRouter);
 app.use('/',signupRouter);
 app.use('/',signinRouter);
 app.use('/',DangTinRouter);
+app.use('/',savePost);
 
 app.use('/',testAngular);
 

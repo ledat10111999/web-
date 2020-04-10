@@ -77,17 +77,6 @@ router.delete('/', function (req, res) {
     }
   });
 })
-
-router.get('/savePosts/:param', function (req, res, next) {
-  var val = req.session.user;
-
-  if (val) {
-    res.render('savePosts', { data: { sign: val } });
-
-  } else {
-    res.redirect('/');
-  }
-})
 router.get('/posted/:ID', function (req, res) {
   var val = req.session.user;
 
@@ -108,7 +97,6 @@ router.get('/posted/:ID', function (req, res) {
 })
 
 // search bar
-
 router.post('/Distric', function (req, res) {
   var Distric = req.body;
   var arr = ['<option value="">Quận huyện</option>'];
@@ -128,8 +116,8 @@ router.post('/Distric', function (req, res) {
 router.post('/Ward', function (req, res) {
   var param = req.body;
   var arr = ['<option value="">Phường xã</option>'];
-  
-  var val = value.takeInforWard(param.tenQuan,param.tenTp);
+
+  var val = value.takeInforWard(param.tenQuan, param.tenTp);
   if (val) {
     val.then(function (data) {
       for (var i = 0; i < data.length; i++) {
@@ -142,8 +130,7 @@ router.post('/Ward', function (req, res) {
 router.post('/street', function (req, res) {
   var param = req.body;
   var arr = ['<option value="">Đường Phố</option>'];
-  
-  var val = value.takeInforStreet(param.tenQuan,param.tenTp);
+  var val = value.takeInforStreet(param.tenQuan, param.tenTp);
   if (val) {
     val.then(function (data) {
       for (var i = 0; i < data.length; i++) {
