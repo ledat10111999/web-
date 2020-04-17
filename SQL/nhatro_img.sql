@@ -29,8 +29,8 @@ CREATE TABLE `img` (
   `IDimg` int DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `fk_img` (`IDpost`,`IDimg`),
-  CONSTRAINT `fk_img` FOREIGN KEY (`IDpost`, `IDimg`) REFERENCES `posts` (`ID`, `IDimg`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `fk_img` FOREIGN KEY (`IDpost`, `IDimg`) REFERENCES `posts` (`ID`, `IDimg`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `img` (
 
 LOCK TABLES `img` WRITE;
 /*!40000 ALTER TABLE `img` DISABLE KEYS */;
-INSERT INTO `img` VALUES (27,'upload\\1586411146391-tải xuống.jpg',74,90),(28,'upload\\1586414556930-villa.jpg',75,90);
+INSERT INTO `img` VALUES (27,'upload\\1586411146391-tải xuống.jpg',74,90),(28,'upload\\1586414556930-villa.jpg',75,90),(29,'upload\\1586510387023-villa2.jpg',76,92),(31,'upload\\1587048761102-villa.jpg',78,90),(32,'upload\\1587048761108-villa2.jpg',78,90),(33,'upload\\1587048761109-villa3.jpg',78,90);
 /*!40000 ALTER TABLE `img` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-09 16:52:27
+-- Dump completed on 2020-04-18  0:11:45

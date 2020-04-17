@@ -46,8 +46,24 @@ function addTest(user) {
     }
     return false;
 }
+function takeInforUser(ID) {
+    if (ID) {
+        var defer = q.defer();
+        var query = connection.query('select * from users WHERE ID = ?', [ID], function (error, results, fields) {
+            if (error) {
+                defer.reject(error);
+            } else {
+                defer.resolve(results);
+            }
+        });
+        return defer.promise;
+    }
+    return false;
+
+}
 module.exports = {
     addUser: addUser,
     checkU: checkUser,
-    addTest: addTest
+    addTest: addTest,
+    takeInforUser: takeInforUser
 };

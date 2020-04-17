@@ -14,6 +14,8 @@ var signupRouter = require('./routes/signup');
 var signinRouter = require('./routes/signin');
 var DangTinRouter = require('./routes/DangTin');
 var savePost = require('./routes/savePost');
+var deletePost = require('./routes/deletePost');
+var updateInforUser = require('./routes/updateInforUser');
 
 var testAngular = require('./routes/angular')
 
@@ -45,11 +47,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/upload',express.static('upload'));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', usersRouter);
 app.use('/',signupRouter);
 app.use('/',signinRouter);
 app.use('/',DangTinRouter);
 app.use('/',savePost);
+app.use('/',deletePost);
+app.use('/',updateInforUser);
 
 app.use('/',testAngular);
 

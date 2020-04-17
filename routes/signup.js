@@ -41,6 +41,7 @@ router.post('/signup', function (req, res) {
           Last_name: user.lastname,
           Email: user.email,
           Pass: _pass,
+          SDT:user.phonenumber,
           QuyenHan: 'user',
           Update_at: date,
           Created_at: date,

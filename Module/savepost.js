@@ -42,8 +42,6 @@ function deleteSavePost(IDusers,IDpost) {
         return defer.promise;
     }
     return false;
-   
-
 }
 function saved(ID){
     if(ID){

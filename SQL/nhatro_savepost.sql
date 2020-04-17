@@ -27,11 +27,11 @@ CREATE TABLE `savepost` (
   `IDusers` int NOT NULL,
   `IDpost` int NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `IDusers` (`IDusers`),
-  KEY `IDpost` (`IDpost`),
-  CONSTRAINT `savepost_ibfk_1` FOREIGN KEY (`IDusers`) REFERENCES `users` (`ID`),
-  CONSTRAINT `savepost_ibfk_2` FOREIGN KEY (`IDpost`) REFERENCES `posts` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_posts` (`IDpost`),
+  KEY `fk_users` (`IDusers`),
+  CONSTRAINT `fk_posts` FOREIGN KEY (`IDpost`) REFERENCES `posts` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_users` FOREIGN KEY (`IDusers`) REFERENCES `users` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `savepost` (
 
 LOCK TABLES `savepost` WRITE;
 /*!40000 ALTER TABLE `savepost` DISABLE KEYS */;
+INSERT INTO `savepost` VALUES (3,92,75),(5,92,74),(17,91,74),(18,91,76),(26,90,76);
 /*!40000 ALTER TABLE `savepost` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-09 16:52:30
+-- Dump completed on 2020-04-18  0:11:47

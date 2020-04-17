@@ -153,7 +153,8 @@ function tablePosts() {
     return defer.promise; // trả về mảng đối tượng nhận được từ result query
 }
 function takeInforPosts() {
-    var sql = "select * from img,posts where img.IDimg = posts.IDimg and img.IDpost = posts.ID";
+    // var sql = "select * from img,posts where img.IDimg = posts.IDimg and img.IDpost = posts.ID";
+     var sql = 'select * from posts'
     var defer = q.defer();
     var query = connection.query(sql, function (error, results, fields) {
         if (error) {

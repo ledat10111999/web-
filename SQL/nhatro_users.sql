@@ -26,8 +26,9 @@ CREATE TABLE `users` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `Email` varchar(45) NOT NULL,
   `Pass` varchar(100) NOT NULL,
-  `First_name` varchar(45) DEFAULT NULL,
-  `Last_name` varchar(45) DEFAULT NULL,
+  `First_name` varchar(45) NOT NULL,
+  `Last_name` varchar(45) NOT NULL,
+  `SDT` int NOT NULL,
   `QuyenHan` varchar(10) DEFAULT NULL,
   `Created_at` datetime DEFAULT NULL,
   `Update_at` datetime DEFAULT NULL,
@@ -41,7 +42,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (90,'ledat10111999@gmail.com','$2b$10$fyaeY4vpPJ6HIN8ZGSfg4uWHSomqNj3232feRyPJJ9RJ1AGy6PJm6','Đạt','Lê Văn','admin','2020-03-26 14:34:46','2020-03-26 14:34:46'),(91,'ledat1011','$2b$10$FvKhrERPzQajLprmH3mq6.MWrpIkUvQDKFzv1flL2fKuCs.RSqIki','Đạt','Lê','user','2020-03-26 23:55:43','2020-03-26 23:55:43'),(92,'ledat123','$2b$10$58.RSkr8sbK5rilmxKjfbu7NXwC1SBae3iO1vkukwrqMOjs3VwZgi','Đạt','Lê','user','2020-03-26 23:56:50','2020-03-26 23:56:50'),(93,'ledat12345','$2b$10$O3qBy0UvUwmf2yLpY53B6.Jx9OuFRvQFlPLd7v0UQhnx3EvJnws..','John','Lê','user','2020-03-29 15:04:53','2020-03-29 15:04:53');
+INSERT INTO `users` VALUES (90,'ledat10111999@gmail.com','$2b$10$fyaeY4vpPJ6HIN8ZGSfg4uWHSomqNj3232feRyPJJ9RJ1AGy6PJm6','Lê','Văn Đạt',376467659,'admin','2020-03-26 14:34:46','2020-04-17 22:59:16'),(91,'ledat1011','$2b$10$FvKhrERPzQajLprmH3mq6.MWrpIkUvQDKFzv1flL2fKuCs.RSqIki','Lê','Văn Đạt ',376467658,'user','2020-03-26 23:55:43','2020-04-17 22:20:09'),(92,'ledat123','$2b$10$58.RSkr8sbK5rilmxKjfbu7NXwC1SBae3iO1vkukwrqMOjs3VwZgi','Đạt','Lê',376467658,'user','2020-03-26 23:56:50','2020-03-26 23:56:50'),(93,'ledat12345','$2b$10$O3qBy0UvUwmf2yLpY53B6.Jx9OuFRvQFlPLd7v0UQhnx3EvJnws..','John','Lê',376467658,'user','2020-03-29 15:04:53','2020-03-29 15:04:53');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-09 16:52:31
+-- Dump completed on 2020-04-18  0:11:48

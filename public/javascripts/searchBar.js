@@ -41,7 +41,7 @@ function search() {
         })
     }
     function street() {
-        $('#selectDistric,selectCity').change(function (e) {
+        $('#selectDistric,#selectCity').change(function (e) {
             var province = $('#selectCity').val();
             var district = $('#selectDistric').val();
             var base_url = location.protocol + '//' + document.domain + ':' + location.port;

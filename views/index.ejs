@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
-
 <head lang="vi">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
     <link rel="stylesheet" href="/stylesheets/Style.css">
-
     <!-- jquery -->
     <script src="/javascripts/jquery-3.4.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>>
+    <!-- AngulatJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <!-- search bar -->
     <script src="/javascripts/searchBar.js"></script>
     <title>Trang chủ</title>
 </head>
@@ -39,7 +38,7 @@
                                 data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false"><%=data.sign.First_name  %> <%=data.sign.Last_name  %> </button>
                             <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Thông tin tài khoản</a>
+                                <a href="/users/<%=data.sign.Email%>"  class="dropdown-item">Thông tin tài khoản</a>
                                 <div class="dropdown-divider"></div>
                                 <a href="/posted/<%=data.sign.ID %> " class="dropdown-item">Bài viết đã đăng</a>
                                 <div class="dropdown-divider"></div>
@@ -78,15 +77,15 @@
                                 <option selected value="">Loại tin</option>
                                 <option value="Phòng trọ">Phòng trọ, nhà trọ</option>
                                 <option value="Nhà nguyên căn">Nhà thuê nguyên căn</option>
-                                <option value="Tìm người ở ghép" >Tìm người ở ghép</option>
-                                <option value="Cho thuê căn hộ" >Cho thuê căn hộ</option>
+                                <option value="Tìm người ở ghép">Tìm người ở ghép</option>
+                                <option value="Cho thuê căn hộ">Cho thuê căn hộ</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-2 pt-3">
                         <div class="form-group">
-                            <select id="selectCity" class="form-control w-100" ng-model="tenTp">
-                                <option value="" selected>Tỉnh thành</option>
+                            <select id="selectCity" class="form-control w-100" >
+                                <option value=" " selected>Tỉnh thành</option>
                                 <%if(data.cities ){ %>
                                 <% for(var i = 0 ; i< data.cities.length; i++){ %>
                                 <option value="<%=data.cities[i]._name%>"> <%=data.cities[i]._name%> </option>
@@ -107,11 +106,9 @@
                         <div class="form-group">
                             <select id="selectWard" class="form-control w-100">
                                 <option value=""> Chọn Phường/Xã</option>
-
                             </select>
                         </div>
                     </div>
-
                     <div class="col-md-2 pt-3">
                         <div class="form-group">
                             <select id="inputState" class="form-control w-100">
@@ -125,7 +122,7 @@
 
                     <div class="col-md-2 pt-3">
                         <button type="button" id="search" class="btn btn-primary btn-block"
-                            ng-click="myClick(tenTp,loaiTin)">Lọc tin</button>
+                            ng-click="myClick(loaiTin)">Lọc tin</button>
                     </div>
                 </div>
             </div>
@@ -137,13 +134,14 @@
                     <div class="row grid-divider">
                         <div class="col-sm-12">
                             <ul class="nav mr-auto">
-                                <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Trang
+                                <li class="nav-item"><a href="/" class="nav-link font-weight-bold text-white">Trang
                                         chủ</a></li>
                                 <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Cho thuê
                                         phòng trọ</a></li>
                                 <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Nhà cho
                                         thuê</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Tìm người
+                                <li class="nav-item" ng-click="timClick()"><a href=""
+                                        class="nav-link font-weight-bold text-white">Tìm người
                                         ở ghép</a></li>
                                 <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-white">Cho thuê
                                         căn hộ</a></li>
@@ -162,7 +160,7 @@
 
         <div class="container">
             <h3>Tin nổi bật</h3>
-            <div class="row justify-content-center">
+            <div class="row ">
                 <div class="col-sm-6" ng-repeat='x in data | filter: search '>
                     <a href="/DangTin/post/{{x.ID}} " style="text-decoration: none; color: #000;">
                         <div class="card mb-3" style="max-width: 540px;">
@@ -187,31 +185,30 @@
         </div>
 
     </div>
-
+<!-- Lọc thông tin từ thanh search bar bằng AngulaJS -->
     <script type="text/javascript">
         var app = angular.module('myApp', []);
         app.controller('controller1', function ($scope, $http) {
             var base_url = location.protocol + '//' + document.domain + ':' + location.port;
             $http.post(base_url + '/laydulieu').then((result) => {
                 $scope.data = result.data;
-
-
             }).catch((err) => {
                 $scope.data = err
             });
             $scope.myClick = function (tenTp, loaiTin) {
-
-
                 $scope.search = {
-                    tenTp: tenTp,
+                    tenTp:$('#selectCity').val(),
                     tenQuan: $("#selectDistric").val(),
                     tenPhuong: $("#selectWard").val(),
                     ThongTinMoTa: $("#ThongTinMoTa").val()
                 }
-
+            }
+            $scope.timClick = function () {
+                $scope.search = {
+                    ThongTinMoTa: "Tìm người ở ghép"
+                }
             }
         })
-
     </script>
     <!-- Xử lý socket.io -->
     <!-- <script src="/javascripts/index.js" type="text/javascript" ></script> -->
@@ -228,7 +225,5 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script>
-
 </body>
-
 </html>

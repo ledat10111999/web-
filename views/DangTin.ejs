@@ -23,7 +23,7 @@
     <section class="contentDangTin">
 
         <div class="container">
-            <form action="/DangTin" method="POST" id="PostForm">
+            <form action="/DangTin" method="POST" id="PostForm" enctype="multipart/form-data">
 
                 <h1 class="text-center font-weight-bold">Đăng tin mới</h1>
                 <p id="DangTin"></p>
@@ -126,7 +126,7 @@
                         <!-- Số điện thoại -->
                         <label for="phoneNumber" class="font-weight-bold" style="margin-top: 20px">Số điện
                             thoại:</label><br>
-                        <input type="text" name="phoneNumber" id="phoneNumber" class="form-control w-75">
+                        <input type="text" name="phoneNumber" id="phoneNumber" value="0<%=data.sign.SDT  %> " class="form-control w-75">
 
                         <!-- Giá cho thuê -->
                         <label for="infoTitle" class="font-weight-bold" style="margin-top: 20px;">Giá cho
@@ -161,7 +161,7 @@
                         </div>
                     </div>
 
-                    <!-- <div class="rentImage" style="margin-top: 50px;">
+                    <div class="rentImage" style="margin-top: 50px;">
                         <h3 class="font-weight-bold">Hình ảnh</h3>
                         <p>Cập nhật hình ảnh rõ ràng sẽ cho thuê nhanh hơn</p>
                          <div class="input-group">
@@ -169,12 +169,14 @@
                                 <span class="input-group-text">Upload</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile" name="upload">
+                                <input type="file" class="custom-file-input" id="inputGroupFile" name="uploadImg" multiple>
                                 <label for="inputGroupFile" class="custom-file-label">Choose file</label>
                             </div>
                         </div> 
-                    </div> -->
+                    </div>
+                    <div class="row" id="addImg">
 
+                    </div>
                     <button type="submit" class="btn btn-primary btn-block font-weight-bold"
                         style="margin-top: 50px;">Hoàn
                         thành</button>
@@ -204,7 +206,7 @@
 
             
         </div>
-        <div class="coitaner">
+        <!-- <div class="coitaner">
             <div class="row" style="margin-top: 20px;">
                 <div class="col-md-8">
                     <h3 class="font-weight-bold">Hình ảnh</h3>
@@ -214,12 +216,46 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> -->
               
     </section>
     <!-- Xử lý socket.io -->
     <!-- <script type="text/javascript" src="/javascripts/DangTin.js" ></script> -->
        <script src="/javascripts/searchBar.js" ></script>
+    </script>
+    <!-- preview img -->
+    <script>
+$(document).ready(function () {
+    $('#inputGroupFile').on('change', function () {
+      var files = $(this)[0].files;
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+       
+        
+        var fileReader = new FileReader();
+        fileReader.onload = (function (fileParams) {
+          return function (event) {
+          
+            
+            var str = `<div class="col-md-4 pt-3">' 
+              <img class="img-thumbnail js-file-image" id="_${i}" style="width: 100%; height: 100%"> 
+              </div>`;
+            $('#addImg').append(str);
+            var imageSrc = event.target.result;
+            var fileName = fileParams.name;
+            var fileSize = fileParams.size;
+            
+            // $('.js-file-name').last().text(fileName);
+            // $('.js-file-size').last().text(fileSize);
+            $('.js-file-image').last().attr('src', imageSrc);
+          };
+        })(file);
+        fileReader.readAsDataURL(file);
+        
+      }
+    });
+  });
+
     </script>
     <!-- signout -->
     <script src="/javascripts/sigout.js"></script>

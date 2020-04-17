@@ -15,7 +15,7 @@
                             <button type="button" class="btn btn-primary dropdown-toggle font-weight-bold"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=data.sign.First_name  %>  <%=data.sign.Last_name  %> </button>
                             <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Thông tin tài khoản</a>
+                                <a href="/users/<%=data.sign.Email%>" class="dropdown-item">Thông tin tài khoản</a>
                                 <div class="dropdown-divider"></div>
                                 <a href="/posted/<%=data.sign.ID %> " class="dropdown-item">Bài viết đã đăng</a>
                                 <div class="dropdown-divider"></div>

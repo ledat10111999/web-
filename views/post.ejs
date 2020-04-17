@@ -6,8 +6,12 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
     <link rel="stylesheet" href="/stylesheets/DangTin.css">
-
+    <!-- jquery -->
     <script src="/javascripts/jquery-3.4.1.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">  -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>  -->
+    <link rel="stylesheet" href="/stylesheets/jquery-confirm.min.css">
+    <script src="/javascripts/jquery.confirm.min.js" ></script>
     <script src="/javascripts/savepost.js"></script>
     <title>Kiểm tra tin đăng</title>
 
@@ -36,14 +40,15 @@
                             <% if(data.results && data.user && data.results[0].IDusers == data.user.ID) { %>
                             <li class="nav-item"><a href="/updatePost/<%=data.results[0].ID %> "
                                     class="nav-link font-weight-bold text-info" id="updatePost">Sửa tin</a>
-                            <li class="nav-item"><a href="#" class="nav-link font-weight-bold text-info">Xóa tin</a>
+                            <li class="nav-item" id="deletepost"><button class=" btn btn-link  font-weight-bold text-info " style="text-decoration: none;"> Xóa tin</button></li>
                                 <% } else if(data.sign){ %>
-                                    <% if (data.savePost[0]  && data.savePost[0].IDusers == data.sign.ID) { %>
-                                        <li class="nav-item" id="deleteSavePost"><a href="#" class="nav-link font-weight-bold text-info"> Bỏ Lưu</a></li>
-                                    <% } else {%>
-                            <li class="nav-item" id="savepost"><a href="#"
+                                <% if (data.savePost[0]  && data.savePost[0].IDusers == data.sign.ID) { %>
+                            <li class="nav-item" id="deleteSavePost"><a href=""
+                                    class="nav-link font-weight-bold text-info"> Bỏ Lưu</a></li>
+                            <% } else {%>
+                            <li class="nav-item" id="savepost"><a href=""
                                     class="nav-link font-weight-bold text-info">Lưu bài</a>
-                            </li><% } %> 
+                            </li><% } %>
                             <input type="text" id="IDuser" hidden value="<%=data.user.ID%> ">
                             <input type="text" id="IDpost" hidden value="<%=data.results[0].ID  %> ">
                             <% } %>
@@ -57,6 +62,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <% if(data && data.results){ %>
+                        <input type="text" hidden value="<%=data.results[0].ID  %>" id="IDpost">
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
@@ -74,7 +80,7 @@
 
                             <tr>
                                 <th scope="row">Mã tin</th>
-                                <td><%=data.results[0].ID  %></td>
+                                <td ><%=data.results[0].ID  %></td>
                                 <th>Người đăng</th>
                                 <td><%=data.results[0].First_name%> <%=data.results[0].Last_name  %></td>
                             </tr>
@@ -130,6 +136,8 @@
     </script>
     <!-- signout -->
     <script src="/javascripts/sigout.js"></script>
+    <!-- delete -->
+    <script src="/javascripts/deletePost.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script> -->

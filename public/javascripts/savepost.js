@@ -37,7 +37,7 @@ function savePost(){
                 dataType:'json',
                 success: function(res){
                     if(res || res.statusCode == 200){
-                            $('#deleteSavePost').html('<li class="nav-item" id="savepost"><a href="#" class="nav-link font-weight-bold text-info"> Lưu bài</a></li>');
+                            $('#deleteSavePost').html('<li class="nav-item" id="savepost"><a href="" class="nav-link font-weight-bold text-info"> Lưu bài</a></li>');
                     }
                 }
             })  

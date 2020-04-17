@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head lang="vi">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
@@ -11,7 +10,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <link rel="stylesheet" href="/stylesheets/dropzone.css">
     <script src="/javascripts/dropzone.js"></script>
-
 
     <title>Cập nhật</title>
 </head>
@@ -50,8 +48,7 @@
                             <div class="row">
                                 <div class="col-md-3 pt-3">
                                     <div class="form-group">
-                                        <select id="selectCity" name="mySelect" class="form-control w-100"
-                                            onchange="myFunction()">
+                                        <select id="selectCity" name="mySelect" class="form-control w-100">
                                             <option selected><%=data.post[0].tenTp %> </option>
                                             <%for(var i = 0 ; i<data.results.length;i++) {%>
                                             <option value="<%=data.results[i]._name%>"><%=data.results[i]._name%>
@@ -63,9 +60,8 @@
 
                             <div class="col-md-3 pt-3">
                                 <div class="form-group">
-                                    <select id="selectDistric" class="form-control w-100" name="selectDis" onchange="functionDis()">
+                                    <select id="selectDistric" class="form-control w-100" name="selectDis" >
                                         <option selected ><%=data.post[0].tenQuan %> </option>
-
                                         </select>
                                     </div>
                                 </div>
@@ -190,7 +186,6 @@
                         <button type="button" class="btn btn-primary btn-block font-weight-bold"
                             style="margin-top: 50px;" id="update">Cập nhật</button>
                     </div>
-
                     <!-- Lưu ý đăng tin -->
                     <div class="col-md-4">
                         <div class="rentAlert">

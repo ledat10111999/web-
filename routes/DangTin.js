@@ -7,8 +7,7 @@ var updatePost = require('../Module/updatePost');
 var savePost = require('../Module/savepost')
 
 
-var _img = [];
-var ID_img;
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './upload')
@@ -26,7 +25,8 @@ function checkFileUpload(req, file, cb) {
 }
 var upload = multer(
     { storage: storage, fileFilter: checkFileUpload })
-router.get('/DangTin', function (req, res) {
+
+router.get('/DangTin',upload.any('upload',12), function (req, res) {
     var val = req.session.user;
     if (val) {
         var takeInforCT = test.takeInforCities()
@@ -42,14 +42,14 @@ router.get('/DangTin', function (req, res) {
     }
 })
 // router up load file
-router.post('/uploadfile', upload.any(), function (req, res) {
-    for (var i = 0; i < req.files.length; i++) {
-        _img.push(req.files[i].path)
-    }
-});
+// router.post('/uploadfile', upload.any(), function (req, res) {
+//     for (var i = 0; i < req.files.length; i++) {
+//         _img.push(req.files[i].path)
+//     }
+// });
 
 // router thêm bài đăng
-router.post('/DangTin', function (req, res) {
+router.post('/DangTin',upload.any('upload',12), function (req, res) {
     var date = new Date();
     var post = req.body;
     var user = req.session.user;
@@ -69,18 +69,18 @@ router.post('/DangTin', function (req, res) {
         Gia: post.gia,
         SDT: post.phoneNumber,
         IDusers: user.ID,
-        image: _img[0],
+        image: req.files[0].path,
         created_at: date,
         update_at: date
     };
     var add = test._Posts(valueposts, function (param) {
         if (param) {
-            for (var i = 0; i < _img.length; i++) {
+            for (var i = 0; i < req.files.length; i++) {
                 var valueimg =
                 {
                     IDimg: user.ID,
                     IDpost: param,
-                    image: _img[i]
+                    image: req.files[i].path
                 }
                 test.img(valueimg);
             }
@@ -104,11 +104,9 @@ router.get('/DangTin/post/:id', function (req, res) {
                 if (_savePost) {
                     _savePost.then(function (data) {
                         console.log(data);
-
                         res.render("post", { data: { results: results, user: user, sign: user, savePost: data } })
                     })
                 }
-
             }).catch(function (err) {
                 console.log("Không có bài viết");
             })

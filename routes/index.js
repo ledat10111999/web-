@@ -28,6 +28,8 @@ router.get('/', function (req, res, next) {
     var posts = value.takeInforPosts();
     if (posts) {
       posts.then(function (results) {
+        
+        
         res.render('index', { data: { results: results, sign: val, cities: arrcities } });
       }).then(function (error) {
         console.log(error);
@@ -37,6 +39,7 @@ router.get('/', function (req, res, next) {
     var posts = value.takeInforPosts();
     if (posts) {
       posts.then(function (results) {
+        
         res.render('index', { data: { results: results, cities: arrcities } });
       }).catch(function (error) {
         console.log(error);
@@ -99,7 +102,7 @@ router.get('/posted/:ID', function (req, res) {
 // search bar
 router.post('/Distric', function (req, res) {
   var Distric = req.body;
-  var arr = ['<option value="">Quận huyện</option>'];
+  var arr = ['<option value=" ">Quận huyện</option>'];
   var val = value.takeInforDistric(Distric.tenTp);
   if (val) {
     val.then(function (data) {
@@ -115,7 +118,7 @@ router.post('/Distric', function (req, res) {
 })
 router.post('/Ward', function (req, res) {
   var param = req.body;
-  var arr = ['<option value="">Phường xã</option>'];
+  var arr = ['<option value=" ">Phường xã</option>'];
 
   var val = value.takeInforWard(param.tenQuan, param.tenTp);
   if (val) {
@@ -129,7 +132,7 @@ router.post('/Ward', function (req, res) {
 })
 router.post('/street', function (req, res) {
   var param = req.body;
-  var arr = ['<option value="">Đường Phố</option>'];
+  var arr = ['<option value=" ">Đường Phố</option>'];
   var val = value.takeInforStreet(param.tenQuan, param.tenTp);
   if (val) {
     val.then(function (data) {
