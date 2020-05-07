@@ -23,12 +23,10 @@ router.post('/signin', function (req, res, next) {
                     res.render('SignInPage', { data: { error: "Tài khoản hoặc mật khẩu sai" } });// gửi lên SignInPage object data
                 } else { // nếu không == true thì thông báo đăng nhập thành công 
                     req.session.user = user; // lưu thông tin biến user vào session
-
                     res.redirect('/');
-
                 }
             }).catch(function (err) {
-                res.render('SignInPage', { data: { error: "Tài khoản hoặc mật khẩu sai " + err } });
+                res.render('SignInPage', { data: { error: "Tài khoản hoặc mật khẩu sai " } });
             })
         } else {
             res.render('SignInPage', { data: { error: "Tài khoản hoặc mật khẩu sai" } });

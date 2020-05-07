@@ -64,6 +64,8 @@ function search() {
     distric();
     ward();
     street();
+   
+    
 }
 
 

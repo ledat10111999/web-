@@ -288,4 +288,5 @@ var connection = data_base.getConnection();
 //         }
 // }
 
-console.log('đây là đường dẫn' +__dirname);
+var path = require('path');
+console.log( path.join(__dirname + '/express'));

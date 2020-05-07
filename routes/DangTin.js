@@ -6,8 +6,6 @@ var multer = require('multer');
 var updatePost = require('../Module/updatePost');
 var savePost = require('../Module/savepost')
 
-
-
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './upload')
@@ -26,7 +24,7 @@ function checkFileUpload(req, file, cb) {
 var upload = multer(
     { storage: storage, fileFilter: checkFileUpload })
 
-router.get('/DangTin',upload.any('upload',12), function (req, res) {
+router.get('/DangTin', upload.any('upload', 12), function (req, res) {
     var val = req.session.user;
     if (val) {
         var takeInforCT = test.takeInforCities()
@@ -49,7 +47,7 @@ router.get('/DangTin',upload.any('upload',12), function (req, res) {
 // });
 
 // router thêm bài đăng
-router.post('/DangTin',upload.any('upload',12), function (req, res) {
+router.post('/DangTin', upload.any('upload', 12), function (req, res) {
     var date = new Date();
     var post = req.body;
     var user = req.session.user;
@@ -92,36 +90,65 @@ router.post('/DangTin',upload.any('upload',12), function (req, res) {
 });
 
 // router bài đã đăng
-router.get('/DangTin/post/:id', function (req, res) {
+// router.get('/DangTin/post/:id', function (req, res) {
+//     var user = req.session.user;
+//     var IDpost = req.params.id;
+//     if (user) {
+//         var value = test.takeInforIDPosts(IDpost);
+
+//         if (value) {
+//             value.then(function (results) {
+//                 var _savePost = savePost.takeInforSavePost(user.ID, IDpost);
+//                 if (_savePost) {
+//                     _savePost.then(function (data) {
+//                         console.log(data);
+//                         res.render("post", { data: { results: results, user: user, sign: user, savePost: data } })
+//                     })
+//                 }
+//             }).catch(function (err) {
+//                 console.log("Không có bài viết");
+//             })
+//         }
+//     } else {
+//         var value = test.takeInforIDPosts(IDpost);
+//         if (value) {
+//             value.then(function (results) {
+//                 res.render("post", { data: { results: results } })
+//             }).catch(function (err) {
+//                 console.log("Không có bài viết");
+//             })
+//         }
+//     }
+
+// });
+
+router.get('/DangTin/post/:id', async function (req, res) {
     var user = req.session.user;
     var IDpost = req.params.id;
-    if (user) {
-        var value = test.takeInforIDPosts(IDpost);
-
-        if (value) {
-            value.then(function (results) {
-                var _savePost = savePost.takeInforSavePost(user.ID, IDpost);
+    if (user ) {
+        try {
+            var value = await test.takeInforIDPosts(IDpost);
+            if (value) {
+                var _savePost = await savePost.takeInforSavePost(user.ID, IDpost);
                 if (_savePost) {
-                    _savePost.then(function (data) {
-                        console.log(data);
-                        res.render("post", { data: { results: results, user: user, sign: user, savePost: data } })
-                    })
+                    res.render("post", { data: { results: value, user: user, sign: user, savePost: _savePost } })
                 }
-            }).catch(function (err) {
-                console.log("Không có bài viết");
-            })
+            }
+        } catch (err) {
+            console.log(err +'');   
         }
     } else {
-        var value = test.takeInforIDPosts(IDpost);
-        if (value) {
-            value.then(function (results) {
-                res.render("post", { data: { results: results } })
-            }).catch(function (err) {
-                console.log("Không có bài viết");
-            })
-        }
+       try{
+        var value = await test.takeInforIDPosts(IDpost);
+            if(value.length !=0){
+                res.render("post", { data: { results: value } })
+            }else{
+                res.redirect('/')
+            }
+       }catch (err){
+           res.redirect('/')
+       }
     }
-
 });
 // router update
 var updateImg = [];
@@ -136,7 +163,6 @@ router.get('/updatePost/:id', function (req, res) {
     if (val) {
         var post = test.takeInforIDPosts(id);
         if (post) {
-
             post.then(function (post) {
                 test.takeInforCities2(function (data) {
                     res.render('updatePost', { data: { results: data, post: post, sign: val } })

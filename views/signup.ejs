@@ -43,17 +43,17 @@
                             <!-- FirstName -->
                             <div class="form-group">
                                 <label for="username" class="text-info">Họ:</label><br>
-                                <input type="text" name="firstname" class="form-control">
+                                <input type="text" pattern="(.+[a-z])" minlength="1" name="firstname" class="form-control">
                             </div>
                             <!-- LastName -->
                             <div class="form-group">
                                 <label for="username" class="text-info">Tên:</label><br>
-                                <input type="text" name="lastname" class="form-control">
+                                <input type="text" name="lastname" pattern="(.+[a-z])" minlength="2" class="form-control">
                             </div>
                             <!-- Phone Number -->
                             <div class="form-group">
                                 <label for="email" class="text-info">Số điện thoại:</label><br>
-                                <input type="text" name="phonenumber" class="form-control">
+                                <input placeholder="012345678" pattern="[0-9]{10}" title="Nhập số" type="text" name="phonenumber" class="form-control">
                             </div>
 
                             <!-- Email -->
@@ -65,7 +65,8 @@
                             <!-- Mật khẩu -->
                             <div class="form-group">
                                 <label for="password" class="text-info">Mật khẩu:</label><br>
-                                <input type="password" name="password" class="form-control">
+                                <input type="password" placeholder="Có chữ hoa - chữa thường -số" name="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                title="Có chữ hoa - chữa thường -số">
 
                             </div>
                             <div class="form-group">

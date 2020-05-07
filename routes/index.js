@@ -4,13 +4,14 @@ var value = require('../Module/Posts')
 
 /* GET home page. */
 
-router.post('/laydulieu', function (req, res) {
-  var _data = value.takeInforPosts();
-  if (_data) {
-    _data.then(function (results) {
-      res.json(results);
-    })
+router.post('/laydulieu', async function (req, res,next) {
+  try{
+    var _data = await value.takeInforPosts();
+    res.json(_data);
+  }catch(err){
+    console.log(err);
   }
+ 
 })
 
 router.get('/', function (req, res, next) {
@@ -22,6 +23,7 @@ router.get('/', function (req, res, next) {
       arrcities.push(data[i]);
     }
   });
+
 
   var val = req.session.user;
   if (val) {
@@ -39,7 +41,7 @@ router.get('/', function (req, res, next) {
     var posts = value.takeInforPosts();
     if (posts) {
       posts.then(function (results) {
-        
+    
         res.render('index', { data: { results: results, cities: arrcities } });
       }).catch(function (error) {
         console.log(error);

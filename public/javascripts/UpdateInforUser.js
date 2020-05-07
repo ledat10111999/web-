@@ -1,7 +1,6 @@
 function catchEnven() {
     function updateFirstName() {
         $('#btn_FirstName').click(function () {
-
             var First_name = $('#First_name').val();
             if (First_name && First_name.length != 0) {
                 var ID = $('#user-id').val();
@@ -16,14 +15,15 @@ function catchEnven() {
                     dataType: "json",
                     success: function (res) {
                         if (res && res.statusCode == 200) {
+                            
                             location.reload();
                         }
                     }
 
                 })
-            } else {
-               
-                return;
+            } else {       
+ 
+                return;        
             }
 
 
@@ -47,9 +47,9 @@ function catchEnven() {
                     dataType: "json",
                     success: function (res) {
                         if (res && res.statusCode == 200) {
-
                             location.reload();
-
+                        }else{
+                            alert('Không thành công');
                         }
                     }
 
@@ -78,6 +78,8 @@ function catchEnven() {
                     success: function (res) {
                         if (res && res.statusCode == 200) {
                             location.reload();
+                        }else{
+                            alert('Không thành công')
                         }
                     }
 
@@ -87,9 +89,43 @@ function catchEnven() {
             }
         })
     }
+    function updatePassWord(){
+        $('#changepassword').click(function(){
+            var oldpassword = $('#oldPassWord').val();
+            var newpassword = $('#newPassWord').val();
+            var renewpassword = $('#reNewPassWord').val();
+            var ID = $('#user-id').val();
+            var base_url = location.protocol + '//' + document.domain + ':' + location.port;
+            if(oldpassword.length !=0 && newpassword.length !=0 && newpassword == renewpassword){
+                $.ajax({
+                    url:base_url +'/ChangePass',
+                    method:'put',
+                    dataType:'json',
+                    data:{
+                        oldpassword:oldpassword,
+                        newpassword:newpassword,
+                        renewpassword:renewpassword,
+                        ID:ID
+                    },
+                    success:(res)=>{
+                        if(res && res.statusCode ==200){
+                            alert("Thành công");
+                        }else{
+                            alert(res.err)
+                        }
+                    }    
+                })
+            }else{
+                alert('Mat khau cu khong dung');
+                location.reload();
+                return;
+            } 
+        })
+    }
     updateFirstName();
     updateLastName();
     updatePhoneNumber();
+    updatePassWord();
 }
 $(document).ready(function () {
     new catchEnven();

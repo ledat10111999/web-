@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="vi">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
     <link rel="stylesheet" href="/stylesheets/Style.css">
+    <link rel="stylesheet" href="/stylesheets/pagination.min.css">
     <!-- jquery -->
     <script src="/javascripts/jquery-3.4.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <!-- AngulatJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="/javascripts/dirPagination.js"></script>
     <!-- search bar -->
     <script src="/javascripts/searchBar.js"></script>
+    <!-- pagination -->
+
     <title>Trang chủ</title>
 </head>
 
@@ -30,15 +36,13 @@
                     <li class="nav-item font-weight-bold"><a href="signin" class="nav-link ">Đăng nhập</a></li>
                     <li class="nav-item font-weight-bold"><a href="signup" class="nav-link">Đăng kí</a></li>
                     <% }else if(data.sign){%>
-
-
                     <li class="nav-item nav-username">
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary dropdown-toggle font-weight-bold"
                                 data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false"><%=data.sign.First_name  %> <%=data.sign.Last_name  %> </button>
                             <div class="dropdown-menu">
-                                <a href="/users/<%=data.sign.Email%>"  class="dropdown-item">Thông tin tài khoản</a>
+                                <a href="/users/<%=data.sign.Email%>" class="dropdown-item">Thông tin tài khoản</a>
                                 <div class="dropdown-divider"></div>
                                 <a href="/posted/<%=data.sign.ID %> " class="dropdown-item">Bài viết đã đăng</a>
                                 <div class="dropdown-divider"></div>
@@ -71,7 +75,7 @@
                     ĐIỂM</h1>
                 <!-- Thanh tim kiem -->
                 <div class="row searching-bar blur-bg">
-                    <div class="col-md-2 pt-3">
+                    <div class="col-md-2 col-sm-2 col-lg-2 pt-3">
                         <div class="form-group">
                             <select id="ThongTinMoTa" class="form-control w-100">
                                 <option selected value="">Loại tin</option>
@@ -82,9 +86,9 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-2 pt-3">
+                    <div class="col-md-2 col-sm-2 col-lg-2 pt-3">
                         <div class="form-group">
-                            <select id="selectCity" class="form-control w-100" >
+                            <select id="selectCity" class="form-control w-100">
                                 <option value=" " selected>Tỉnh thành</option>
                                 <%if(data.cities ){ %>
                                 <% for(var i = 0 ; i< data.cities.length; i++){ %>
@@ -95,21 +99,21 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2 pt-3">
+                    <div class="col-md-2 col-sm-2 col-lg-2 pt-3">
                         <div class="form-group">
                             <select id="selectDistric" class="form-control w-100">
                                 <option value=""> Chọn Quận huyện</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-2 pt-3">
+                    <div class="col-md-2 col-sm-2 col-lg-2 pt-3">
                         <div class="form-group">
                             <select id="selectWard" class="form-control w-100">
                                 <option value=""> Chọn Phường/Xã</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-2 pt-3">
+                    <div class="col-md-2 col-sm-2 col-lg-2 pt-3">
                         <div class="form-group">
                             <select id="inputState" class="form-control w-100">
                                 <option selected>Khoảng giá</option>
@@ -120,7 +124,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2 pt-3">
+                    <div class="col-md-2 col-sm-2 col-lg-2 pt-3 ">
                         <button type="button" id="search" class="btn btn-primary btn-block"
                             ng-click="myClick(loaiTin)">Lọc tin</button>
                     </div>
@@ -132,7 +136,7 @@
             <nav class="navbar navbar-expend-sm nav-custom navbar-light bg-nav">
                 <div class="container justify-content-center">
                     <div class="row grid-divider">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
                             <ul class="nav mr-auto">
                                 <li class="nav-item"><a href="/" class="nav-link font-weight-bold text-white">Trang
                                         chủ</a></li>
@@ -155,13 +159,17 @@
                 </div>
             </nav>
         </div>
-
         <!-- Tin Noi Bat -->
-
         <div class="container">
-            <h3>Tin nổi bật</h3>
+            <h3 ng-show='hienthi'>Tin nổi bật</h3>
+            <h3 class="text-center" ng-show='showresult' ng-if="filtered.length !=0">Tìm thấy <strong
+                    style="color: red;"> {{filtered.length}}</strong> kết quả</h3>
+            <div class="row justify-content-center mt-2" ng-if="filtered.length ==0"
+                style="height: 150px; border:solid 1px gray ;">
+                <h3 class="">No result</h3>
+            </div>
             <div class="row ">
-                <div class="col-sm-6" ng-repeat='x in data | filter: search '>
+                <div class="col-sm-6" dir-paginate='x in data | filter: search |itemsPerPage:4 as filtered '>
                     <a href="/DangTin/post/{{x.ID}} " style="text-decoration: none; color: #000;">
                         <div class="card mb-3" style="max-width: 540px;">
                             <div class="row no-gutters">
@@ -173,8 +181,7 @@
                                         <h5 class="card-title">{{x.TieuDe}} </h5>
                                         <p class="card-text font-weight-bold">Giá:{{x.Gia}} </p>
                                         <p class="card-text">{{x.NoiDung}} </p>
-                                        <p class="card-text">{{x.tenQuan + "-" + x.tenTp }} </p>
-
+                                        <p class="card-text">{{x.tenQuan + "-" + x.tenTp  }} </p>
                                     </div>
                                 </div>
                             </div>
@@ -182,12 +189,18 @@
                     </a>
                 </div>
             </div>
+
+            <div class="row">
+                <dir-pagination-controls [max-size="4" ] [direction-links="true" ] [boundary-links="true" ]>
+                </dir-pagination-controls>
+            </div>
         </div>
 
     </div>
-<!-- Lọc thông tin từ thanh search bar bằng AngulaJS -->
+
+    <!-- Lọc thông tin từ thanh search bar bằng AngulaJS -->
     <script type="text/javascript">
-        var app = angular.module('myApp', []);
+        var app = angular.module('myApp', ['angularUtils.directives.dirPagination']);
         app.controller('controller1', function ($scope, $http) {
             var base_url = location.protocol + '//' + document.domain + ':' + location.port;
             $http.post(base_url + '/laydulieu').then((result) => {
@@ -195,13 +208,17 @@
             }).catch((err) => {
                 $scope.data = err
             });
+            $scope.hienthi = true;
+            $scope.shoresult = false;
             $scope.myClick = function (tenTp, loaiTin) {
                 $scope.search = {
-                    tenTp:$('#selectCity').val(),
+                    tenTp: $('#selectCity').val(),
                     tenQuan: $("#selectDistric").val(),
                     tenPhuong: $("#selectWard").val(),
                     ThongTinMoTa: $("#ThongTinMoTa").val()
                 }
+                $scope.hienthi = false;
+                $scope.showresult = true;
             }
             $scope.timClick = function () {
                 $scope.search = {
@@ -226,4 +243,5 @@
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script>
 </body>
+
 </html>
