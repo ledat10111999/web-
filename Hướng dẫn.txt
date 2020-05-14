@@ -1,7 +1,7 @@
 1. Cài Node js bản 12.16.2 LTS
 -Link : https://nodejs.org/dist/v12.16.2/node-v12.16.2-x64.msi.
 
-2. Cài MySQL WorkBench
+2. Cài MySQL WorkBench(community server )
 
 3.Cài Visual Studio Code
 

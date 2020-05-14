@@ -69,7 +69,8 @@ router.post('/DangTin', upload.any('upload', 12), function (req, res) {
         IDusers: user.ID,
         image: req.files[0].path,
         created_at: date,
-        update_at: date
+        update_at: date,
+        display:0
     };
     var add = test._Posts(valueposts, function (param) {
         if (param) {

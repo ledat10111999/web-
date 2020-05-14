@@ -45,6 +45,7 @@ router.post('/signup', function (req, res) {
           QuyenHan: 'user',
           Update_at: date,
           Created_at: date,
+          money:100000
         }
         var addUser = user_md.addUser(iUser); // add user vào databasr
         if (addUser) { // nếu có dữ liệu user được trả về
