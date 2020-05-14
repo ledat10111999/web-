@@ -154,7 +154,7 @@ function tablePosts() {
 }
 function takeInforPosts() {
     // var sql = "select * from img,posts where img.IDimg = posts.IDimg and img.IDpost = posts.ID";
-     var sql = 'select * from posts'
+     var sql = 'select * from posts where display = true'
     var defer = q.defer();
     var query = connection.query(sql, function (error, results, fields) {
         if (error) {

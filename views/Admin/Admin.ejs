@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="vi">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/admin.css">
+    <script src="https://use.fontawesome.com/8b70c06b18.js"></script>
+    <script src="/javascripts/angularRouter.js" ></script>
+    <title>Quản lý tin đăng</title>
+</head>
+
+<body>
+    <% include ../header/headerPost %>
+    <!-- Sidebar Menu -->
+    <div class="container-fluid" ng-app="myApp">
+        <div class="row">
+            <nav class="col-lg-2 d-none d-lg-block bg-light sidebar">
+                <div class="user-info">
+                    <a href="#" class="clearfix">
+                        <div class="user-avatar">
+                            <img width="50px" src="/images/boy_1544603222.png" alt="avatar">
+                        </div>
+                        <div class="user-meta" style="margin-top: 20px">
+                            <div class="inner">
+                                <div class="user-name">
+                                    <%=data.sign.First_name  %> <%=data.sign.Last_name  %>  
+                                </div>
+                                <div class="user-verify font-weight-bold" style="color: #555; font-size: 0.9rem;">
+                                    Admin
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <ul class="nav nav-sidebar">
+                    <li class="nav-item"><a href="#!post" class="nav-link font-weight-bold">Quản lý tin đăng</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link font-weight-bold">Quản lý doanh thu</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link font-weight-bold">Quản lý người dùng</a></li>
+                </ul>
+            </nav>
+
+            <!-- Thông tin tài khoản -->
+         
+    </div>
+    </div>
+    <script type="text/javascript" >
+    var app = angular.module("myApp",['ngRoute']);
+    app.config(function($routeProvider) {
+    $routeProvider
+   
+    .when("/red", {
+        templateUrl : "red.htm"
+    })
+    .when("/green", {
+        templateUrl : "green.htm"
+    })
+    .when("/blue", {
+        templateUrl : "blue.htm"
+    });
+});
+    </script>
+</body>
