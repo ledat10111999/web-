@@ -16,7 +16,8 @@ var DangTinRouter = require('./routes/DangTin');
 var savePost = require('./routes/savePost');
 var deletePost = require('./routes/deletePost');
 var updateInforUser = require('./routes/updateInforUser');
-
+var adminPost = require('./routes/Admin/Post');
+var admin = require('./routes/admin/admin');
 var testAngular = require('./routes/angular')
 
 
@@ -54,6 +55,8 @@ app.use('/',DangTinRouter);
 app.use('/',savePost);
 app.use('/',deletePost);
 app.use('/',updateInforUser);
+app.use('/',admin);
+app.use('/admin/',adminPost);
 
 app.use('/',testAngular);
 
