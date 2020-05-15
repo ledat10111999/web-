@@ -3,7 +3,7 @@ var router = express.Router();
 
 router.get('/admin',function(req,res){
     var user = req.session.user;
-    if(user.QuyenHan == 'admin' && user){
+    if( user && user.QuyenHan === 'admin'){
         res.render("Admin/admin",{data:{sign: user}});
     }else{
         res.redirect('/');

@@ -52,29 +52,34 @@ function upDatePhone_number(param) {
 
     return false;
 }
+
 function upDateFirst_namePromise(param) {
     if (param) {
-        var query = connection.query("UPDATE users set First_name = ?,Update_at = ? WHERE ID = ? ", [param.First_name, new Date(), param.ID], function (error, results, fields) {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            var query = connection.query("UPDATE users set First_name = ?,Update_at = ? WHERE ID = ? ", [param.First_name, new Date(), param.ID], function (error, results, fields) {
                 if(error){
                     return reject(error);
                 }
                 resolve(results);
-            })
-        });
+            });
+        })
+       
     }
     return false;
 }
+
+
 function upDatePass_Word(param) {
     if (param) {
-        var query = connection.query("UPDATE users set Pass = ?,Update_at = ? WHERE ID = ? ", [param.Pass, new Date(), param.ID], function (error, results, fields) {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            var query = connection.query("UPDATE users set Pass = ?,Update_at = ? WHERE ID = ? ", [param.Pass, new Date(), param.ID], function (error, results, fields) {
                 if(error){
                     return reject(error);
                 }
                 resolve(results);
-            })
-        });
+            });
+        })
+       
     }
     return false;
 }

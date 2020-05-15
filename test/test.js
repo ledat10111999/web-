@@ -287,6 +287,27 @@ var connection = data_base.getConnection();
 //           })
 //         }
 // }
+var base = require('../Module/admin');
+var base2 = require('../Module/Posts')
 
-var path = require('path');
-console.log( path.join(__dirname + '/express'));
+ function convert(str) {
+  var date = new Date(),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+  return [date.getFullYear(), mnth, day].join("-");
+}
+
+async function data (){
+  
+  var test = await  base.takeInforPosts();
+  var up =  test.map((value,index)=>{
+    value.created_at = convert(value.created_at);
+   
+  })
+
+}
+
+
+
+
+  

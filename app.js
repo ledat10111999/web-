@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var config = require('config');
 var io = require('socket.io');
+var expressLayouts = require('express-ejs-layouts');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -16,8 +18,10 @@ var DangTinRouter = require('./routes/DangTin');
 var savePost = require('./routes/savePost');
 var deletePost = require('./routes/deletePost');
 var updateInforUser = require('./routes/updateInforUser');
+// admin
 var adminPost = require('./routes/Admin/Post');
 var admin = require('./routes/admin/admin');
+
 var testAngular = require('./routes/angular')
 
 
@@ -59,6 +63,7 @@ app.use('/',admin);
 app.use('/admin/',adminPost);
 
 app.use('/',testAngular);
+
 
 
 // catch 404 and forward to error handler

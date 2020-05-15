@@ -18,8 +18,9 @@ function catchEvent(){
                             success:function(res){
                                 if(res&& res.statusCode == 200){
                                     $.alert('Đã xóa bài viết');
-                                    location = base_url;
+                                    
                                 }
+                                location = base_url;
                             }
                         })
                         

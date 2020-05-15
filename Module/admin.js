@@ -1,20 +1,63 @@
 var data_base = require('../common/data_base');
-
+var q = require('q');
 var connection = data_base.getConnection();
 
-var takeInforPost = () =>{
-    var sql = "SELECT * FROM posts where display = false ";
-    var query = connection.query(sql,function(error, result,fields){
-        return new Promise((resolve,reject) => {
+function takeInforPosts() {
+    return new Promise((resolve, reject) => {
+        var query = connection.query("SELECT * FROM posts WHERE display = false", function (error, results, fields) {
             if(error){
-                return reject(error);
-            }else{
-                return resolve(result);
+                return reject(new Error(error));
             }
-        })
+            resolve(results);
+        });
     })
+      
+   
+      
+}
+function deletePost(ID){
+    if(ID){
+        return new Promise((resolve,reject)=>{
+            var query = connection.query("DELETE FROM posts WHERE ID = ?",[ID],function(error, results, fields){
+                if(error){
+                    return reject(new error(error));
+                }
+                resolve(results);
+            })
+        })
+    }
     return false;
 }
+function postUp(ID){
+    if(ID){
+        return new Promise((resolve,reject)=>{
+            var query = connection.query("UPDATE posts SET display = 1 WHERE ID = ? ",[ID],function(error, results, fields){
+                if(error){
+                    return reject(new error(error));
+                }
+                resolve(results);
+            })
+        })
+    }
+    return false;
+}
+function money(ID){
+    if(ID){
+        return new Promise((resolve,reject)=>{
+            var query = connection.query("UPDATE users SET money =(money -10000) WHERE ID = ? ",[ID],function(error, results, fields){
+                if(error){
+                    return reject(new error(error));
+                }
+                resolve(results);
+            })
+        })
+    }
+    return false;
+}
+
 module.exports = {
-    takeInforPost:takeInforPost
+    takeInforPosts:takeInforPosts,
+    deletePost:deletePost,
+    postUp : postUp,
+    money:money
 }

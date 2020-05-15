@@ -5,7 +5,14 @@ const path = require('path');
 var multer = require('multer');
 var updatePost = require('../Module/updatePost');
 var savePost = require('../Module/savepost')
-
+//-----------------
+function convert(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [ day,mnth,date.getFullYear()].join("-");
+  }
+// ---------------
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './upload')
@@ -123,12 +130,17 @@ router.post('/DangTin', upload.any('upload', 12), function (req, res) {
 
 // });
 
+
 router.get('/DangTin/post/:id', async function (req, res) {
     var user = req.session.user;
     var IDpost = req.params.id;
     if (user ) {
         try {
             var value = await test.takeInforIDPosts(IDpost);
+            for(var i = 0 ; i< value.length; i++){
+                value[i].created_at = convert(value[i].created_at);
+                value[i].update_at = convert(value[i].update_at);
+            }
             if (value) {
                 var _savePost = await savePost.takeInforSavePost(user.ID, IDpost);
                 if (_savePost) {
@@ -142,6 +154,10 @@ router.get('/DangTin/post/:id', async function (req, res) {
        try{
         var value = await test.takeInforIDPosts(IDpost);
             if(value.length !=0){
+                for(var i = 0 ; i< value.length; i++){
+                    value[i].created_at = convert(value[i].created_at);
+                    value[i].update_at = convert(value[i].update_at);
+                }
                 res.render("post", { data: { results: value } })
             }else{
                 res.redirect('/')
