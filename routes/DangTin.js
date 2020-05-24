@@ -154,10 +154,14 @@ router.get('/DangTin/post/:id', async function (req, res) {
        try{
         var value = await test.takeInforIDPosts(IDpost);
             if(value.length !=0){
-                for(var i = 0 ; i< value.length; i++){
-                    value[i].created_at = convert(value[i].created_at);
-                    value[i].update_at = convert(value[i].update_at);
-                }
+                // for(var i = 0 ; i< value.length; i++){
+                //     value[i].created_at = convert(value[i].created_at);
+                //     value[i].update_at = convert(value[i].update_at);
+                // }
+                value.map((val)=>{
+                    val.created_at = convert(val.created_at);
+                    val.update_at = convert(val.update_at);
+                })
                 res.render("post", { data: { results: value } })
             }else{
                 res.redirect('/')

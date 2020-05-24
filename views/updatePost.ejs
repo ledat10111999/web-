@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="vi">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
@@ -48,8 +49,8 @@
                             <div class="row">
                                 <div class="col-md-3 pt-3">
                                     <div class="form-group">
+                                        <input type="text" hidden value="<%=data.post[0].tenTp %>" id="optioncity">
                                         <select id="selectCity" name="mySelect" class="form-control w-100">
-                                            <option selected><%=data.post[0].tenTp %> </option>
                                             <%for(var i = 0 ; i<data.results.length;i++) {%>
                                             <option value="<%=data.results[i]._name%>"><%=data.results[i]._name%>
                                             </option>
@@ -60,23 +61,26 @@
 
                             <div class="col-md-3 pt-3">
                                 <div class="form-group">
-                                    <select id="selectDistric" class="form-control w-100" name="selectDis" >
-                                        <option selected ><%=data.post[0].tenQuan %> </option>
-                                        </select>
+                                    <input type="hidden" value="<%=data.post[0].tenQuan %>" id="optiondistrict">
+                                            <select id="selectDistric" class="form-control w-100" name="selectDis">
+                                                <!-- <option selected ></option> -->
+                                            </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3 pt-3">
                                     <div class="form-group">
+                                        <input type="hidden" value="<%=data.post[0].tenPhuong %>" , id="optionward">
                                         <select id="selectWard" name="selectWard" class="form-control w-100">
-                                            <option selected><%=data.post[0].tenPhuong %> </option>
+
 
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3 pt-3">
                                     <div class="form-group">
+                                        <input type="hidden" value="<%=data.post[0].tenDuong %>" id="optionstreet">
                                         <select id="selectStreet" class="form-control w-100" name="selectStreet">
-                                            <option selected><%=data.post[0].tenDuong %> </option>
+
                                         </select>
                                     </div>
                                 </div>
@@ -101,10 +105,11 @@
                             <div class="row">
                                 <div class="col-md-6 pt-3">
                                     <div class="form-group">
+                                        <input type="hidden" value="<%=data.post[0].ThongTinMoTa  %>"
+                                            id="optionThongTinMT">
                                         <select id="ThongTinMoTa" class="form-control w-100" name="ThongTinMoTa">
-                                            <option value="<%=data.post[0].ThongTinMoTa  %>" selected>
-                                                <%=data.post[0].ThongTinMoTa  %> </option>
-                                            <option value="Phòng trọ">Phòng trọ, nhà trọ</option>
+
+                                            <option val="Phòng trọ">Phòng trọ, nhà trọ</option>
                                             <option value="Nhà nguyên căn">Nhà thuê nguyên căn</option>
                                             <option value="Tìm người ở ghép">Tìm người ở ghép</option>
                                             <option value="Cho thuê căn hộ">Cho thuê căn hộ</option>
@@ -159,8 +164,9 @@
                             <div class="row">
                                 <div class="col-md-4 pt-3">
                                     <div class="form-group">
+                                        <input type="hidden" value="<%=data.post[0].DoiTuongChoThue  %>" id="optionDoiTuong">
                                         <select id="doituong" name="doituong" class="form-control w-100">
-                                            <option selected><%=data.post[0].DoiTuongChoThue  %> </option>
+                                           
                                             <option value="Nam">Nam</option>
                                             <option value="Nữ">Nữ</option>
                                         </select>
@@ -228,10 +234,96 @@
     <script type="text/javascript">
         var x = document.getElementById('taketext').value;
         document.getElementById("infoContent").defaultValue = x;
-
-
+        //
     </script>
+    <script type="text/javascript">
+        function catcheven() {
+            function selectCity() {
+                var optioncity = $('#optioncity').val();
+                $(`#selectCity option[value="${optioncity}"]`).prop('selected', true);
 
+            }
+            function selectDistrict() {
+                $(document).ready(() => {
+                    var optiondistrict = $('#optiondistrict').val();
+                    console.log(optiondistrict);
+                    var base_url = location.protocol + '//' + document.domain + ':' + location.port;
+                    var IDdis = $('#selectCity').val();
+                    $.ajax({
+                        url: base_url + "/Distric",
+                        dataType: "json",
+                        method: "POST",
+                        data: { tenTp: IDdis },
+                        success: function (res) {
+                            if (res && res.statusCode == 200 && res.distric) {
+                                $("#selectDistric").append(res.distric);
+                                $(`#selectDistric option[value="${optiondistrict}"]`).prop('selected', true);
+                            }
+                        }
+                    })
+                })
+            }
+            function selectward() {
+                $(document).ready(() => {
+                    var optiondistrict = $('#optiondistrict').val();
+                    var optionward = $('#optionward').val();
+
+                    var IDdis = $('#selectCity').val();
+                    var base_url = location.protocol + '//' + document.domain + ':' + location.port;
+
+                    $.ajax({
+                        url: base_url + '/Ward',
+                        method: 'POST',
+                        dataType: 'json',
+                        data: {
+                            tenTp: IDdis,
+                            tenQuan: optiondistrict
+                        },
+                        success: function (res) {
+                            if (res && res.statusCode == 200 && res.ward) {
+                                $("#selectWard").html(res.ward);
+                                $(`#selectWard option[value="${optionward}"]`).prop('selected', true);  
+                            }
+                        }
+                    })
+                })
+            }
+            function street() {
+                $(document).ready(function () {
+                    var province = $('#optioncity').val();
+                    var district = $('#optiondistrict').val();
+                    var optionstreet = $('#optionstreet').val();
+                    var base_url = location.protocol + '//' + document.domain + ':' + location.port;
+                    $.ajax({
+                        url: base_url + '/street',
+                        method: 'POST',
+                        dataType: 'json',
+                        data: {
+                            tenTp: province,
+                            tenQuan: district
+                        },
+                        success: function (res) {
+                            if (res && res.statusCode == 200 && res.ward) {
+                                $("#selectStreet").html(res.ward)
+                                $(`#selectStreet option[value="${optionstreet}"]`).prop('selected', true);
+                            }
+                        }
+                    })
+                })
+            }
+            selectCity();
+            selectDistrict();
+            selectward();
+            street();
+        }
+        $(document).ready(() => {
+            new catcheven();
+            var optionThongTinMT = $("#optionThongTinMT").val();
+            $(`#ThongTinMoTa option[value="${optionThongTinMT}"]`).prop('selected', true);
+            var optionDoiTuong =$("#optionDoiTuong").val();
+            $(`#doituong option[value="${optionDoiTuong}"]`).prop('selected',true);
+        })
+    </script>
     <!-- socket.io -->
     <script src="/javascripts/searchBar.js"></script>
     <!-- signout -->
@@ -239,12 +331,8 @@
     <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-        crossorigin="anonymous"></script>
+    <script src="/javascripts/popper.min.js"></script>
+        <script src="/javascripts/bootstrap.min.js"></script>
     </script>
 </body>
 
