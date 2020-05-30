@@ -20,9 +20,10 @@ var deletePost = require('./routes/deletePost');
 var updateInforUser = require('./routes/updateInforUser');
 // admin
 var adminPost = require('./routes/Admin/Post');
-var admin = require('./routes/admin/admin');
+var admin = require('./routes/Admin/admin');
+var adminUser = require('./routes/Admin/user');
+var adminstatistical = require('./routes/Admin/statistical');
 
-var testAngular = require('./routes/angular')
 
 
 var app = express();
@@ -61,8 +62,10 @@ app.use('/',deletePost);
 app.use('/',updateInforUser);
 app.use('/',admin);
 app.use('/admin/',adminPost);
+app.use('/admin/',adminUser);
+app.use('/admin/',adminstatistical);
 
-app.use('/',testAngular);
+
 
 
 

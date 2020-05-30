@@ -49,8 +49,8 @@
                             <div class="row">
                                 <div class="col-md-3 pt-3">
                                     <div class="form-group">
-                                        <select id="selectCity" name="mySelect" class="form-control w-100">
-                                            <option selected>Tỉnh thành</option>
+                                        <select id="selectCity" name="mySelect" class="form-control w-100" required>
+                                            <option value=" " selected>Tỉnh thành</option>
                                             <%for(var i = 0 ; i<data.results.length;i++) {%>
                                             <option value="<%=data.results[i]._name%>"><%=data.results[i]._name%>
                                             </option>
@@ -61,14 +61,14 @@
 
                             <div class="col-md-3 pt-3">
                                 <div class="form-group">
-                                    <select id="selectDistric" class="form-control w-100" name="selectDis" >
+                                    <select id="selectDistric" class="form-control w-100" name="selectDis" required>
                                         <option selected>Quận huyện</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-3 pt-3">
                                 <div class="form-group">
-                                    <select id="selectWard" name="selectWard" class="form-control w-100" >
+                                    <select id="selectWard" name="selectWard" class="form-control w-100" required >
                                         <option value="PhuongXa" selected>Phường xã</option>
                                         
                                     </select>
@@ -76,7 +76,7 @@
                             </div>
                             <div class="col-md-3 pt-3">
                                 <div class="form-group">
-                                    <select id="selectStreet" class="form-control w-100" name="selectStreet">
+                                    <select id="selectStreet" class="form-control w-100" name="selectStreet" required>
                                         <option selected>Đường phố</option>
                                         
                                     </select>
@@ -88,12 +88,12 @@
 
                         <!-- Số nhà -->
                         <label for="address"  class="font-weight-bold">Số nhà:</label><br>
-                        <input type="text" name="numberaddress" id="address" class="form-control w-25">
+                        <input type="text" name="numberaddress" id="address" class="form-control w-25" required >
 
                         <!-- Địa chỉ chính xác -->
                         <label for="excelentAddress" class="font-weight-bold" style="margin-top: 20px;">Địa chỉ chính
                             xác</label><br>
-                        <input type="text" name="excelentAddress" id="excelentAddress" class="form-control">
+                        <input type="text" name="excelentAddress" id="excelentAddress" class="form-control" required>
                     </div>
 
                     <!-- Thông tin mô tả -->
@@ -102,7 +102,7 @@
                         <div class="row">
                             <div class="col-md-6 pt-3">
                                 <div class="form-group">
-                                    <select id="inputState" class="form-control w-100" name="ThongTinMoTa">
+                                    <select id="inputState" class="form-control w-100" name="ThongTinMoTa" required >
                                         <option value="Loại" selected>Loại chuyên mục</option>
                                         <option value="Phòng trọ">Phòng trọ, nhà trọ</option>
                                         <option value="Nhà nguyên căn">Nhà thuê nguyên căn</option>
@@ -115,24 +115,24 @@
 
                         <!-- Tiêu đề -->
                         <label for="infoTitle" class="font-weight-bold">Tiêu đề:</label><br>
-                        <input type="text" name="title" id="infoTitle" class="form-control w-75">
+                        <input type="text" name="title" id="infoTitle" class="form-control w-75" required>
 
                         <!-- Nội dung mô tả -->
                         <div class="infoContent" style="margin-top: 20px;">
                             <label for="infoTitle" class="font-weight-bold">Nội dung mô tả:</label><br>
-                            <textarea name="content" id="infoContent" rows="5" class="form-control"></textarea>
+                            <textarea name="content" id="infoContent" rows="5" class="form-control" required></textarea>
                         </div>
 
                         <!-- Số điện thoại -->
                         <label for="phoneNumber" class="font-weight-bold" style="margin-top: 20px">Số điện
                             thoại:</label><br>
-                        <input type="text" name="phoneNumber" id="phoneNumber" value="0<%=data.sign.SDT  %> " class="form-control w-75">
+                        <input type="text" name="phoneNumber" id="phoneNumber" value="0<%=data.sign.SDT  %> " class="form-control w-75" required>
 
                         <!-- Giá cho thuê -->
                         <label for="infoTitle" class="font-weight-bold" style="margin-top: 20px;">Giá cho
                             thuê:</label><br>
                         <div class="input-group mb-3 w-50">
-                            <input type="text" name="gia" id="infoTitle" class="form-control">
+                            <input type="text" name="gia" id="infoTitle" class="form-control" required>
                             <div class="input-group-append">
                                 <span class="input-group-text">Đồng</span>
                             </div>
@@ -141,7 +141,7 @@
                         <!-- Diện tích -->
                         <label for="infoAcreage" class="font-weight-bold">Diện tích:</label><br>
                         <div class="input-group mb-3 w-25">
-                            <input type="number" name="acreage" id="infoTitle" class="form-control">
+                            <input type="number" name="acreage" id="infoTitle" class="form-control" required>
                             <div class="input-group-append">
                                 <span class="input-group-text"  >m2</span>
                             </div>
@@ -151,7 +151,7 @@
                         <div class="row">
                             <div class="col-md-4 pt-3">
                                 <div class="form-group">
-                                    <select id="inputState"  name="doituong" class="form-control w-100">
+                                    <select id="inputState"  name="doituong" class="form-control w-100" required>
                                         <option selected >Đối tượng cho thuê</option>
                                         <option value="Nam">Nam</option>
                                         <option value=" Nữ">Nữ</option>
@@ -169,7 +169,7 @@
                                 <span class="input-group-text">Upload</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile" name="uploadImg" multiple>
+                                <input type="file" class="custom-file-input" id="inputGroupFile" name="uploadImg" multiple required>
                                 <label for="inputGroupFile" class="custom-file-label">Choose file</label>
                             </div>
                         </div> 
@@ -181,7 +181,7 @@
                         style="margin-top: 50px;">Hoàn
                         thành</button>
                 </div>
-
+            
                 <!-- Lưu ý đăng tin -->
                 <div class="col-md-4">
                     <div class="rentAlert">
@@ -202,6 +202,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </form>
 
             

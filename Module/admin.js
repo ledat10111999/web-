@@ -55,9 +55,20 @@ function money(ID){
     return false;
 }
 
+function takeinforuser(){
+    return new Promise((resolve,reject)=>{
+        var query = connection.query("SELECT * FROM users",function(error, results, fields){
+            if(error){
+                return reject(new error(error));
+            }
+            resolve(results);
+        })
+    })
+}
 module.exports = {
     takeInforPosts:takeInforPosts,
     deletePost:deletePost,
     postUp : postUp,
-    money:money
+    money:money,
+    takeinforuser: takeinforuser
 }

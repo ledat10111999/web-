@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Thống kê</title>
+
+		<style type="text/css">
+.highcharts-figure, .highcharts-data-table table {
+    min-width: 360px; 
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+	font-family: Verdana, sans-serif;
+	border-collapse: collapse;
+	border: 1px solid #EBEBEB;
+	margin: 10px auto;
+	text-align: center;
+	width: 100%;
+	max-width: 500px;
+}
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+.highcharts-data-table th {
+	font-weight: 600;
+    padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+		</style>
+	</head>
+	<body>
+<script src="/javascripts/highcharts.js"></script>
+<script src="/javascripts/series-label.js"></script>
+<script src="/javascripts/exporting.js"></script>
+<script src="/javascripts/export-data.js"></script>
+<script src="/javascripts/accessibility.js"></script>
+<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+<link rel="stylesheet" href="/stylesheets/admin.css">
+<script src="https://use.fontawesome.com/8b70c06b18.js"></script>
+<script src="/javascripts/jquery-3.4.1.min.js"></script>
+<script src="/javascripts/jquery.confirm.min.js" ></script>
+<link rel="stylesheet" href="/stylesheets/jquery-confirm.min.css">
+
+<% include ../header/headerPost %>
+<!-- Sidebar Menu -->
+<div class="container-fluid" ng-app="myApp">
+    <div class="row">
+        <nav class="col-lg-2 d-none d-lg-block bg-light sidebar">
+            <div class="user-info">
+                <a href="#" class="clearfix">
+                    <div class="user-avatar">
+                        <img width="50px" src="/images/boy_1544603222.png" alt="avatar">
+                    </div>
+                    <div class="user-meta" style="margin-top: 20px">
+                        <div class="inner">
+                            <div class="user-name">
+                                <%=data.sign.First_name  %> <%=data.sign.Last_name  %>  
+                            </div>
+                            <div class="user-verify font-weight-bold" style="color: #555; font-size: 0.9rem;">
+                                Admin
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <ul class="nav nav-sidebar">
+                <li class="nav-item"><a href="/admin/Post" class="nav-link font-weight-bold">Quản lý tin đăng</a></li>
+                <li class="nav-item"><a href="/admin/user" class="nav-link font-weight-bold">Quản lý người dùng</a></li>
+                <li class="nav-item"><a href="/admin/statistical" class="nav-link font-weight-bold"> Quản lý doanh thu</a></li>
+            </ul>
+        </nav>
+        <div class="col-md-10">
+            
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+      Thống kê theo từng tháng
+    </p>
+</figure>
+        </div>
+
+        <!-- Thông tin tài khoản -->
+     
+</div>
+</div>
+
+
+
+<script type="text/javascript">
+Highcharts.chart('container', {
+
+    title: {
+        text: 'Số tiền thu được'
+    },
+
+    subtitle: {
+        text: 'Tro123.com'
+    },
+
+    yAxis: {
+        title: {
+            text: 'Number of Money'
+        }
+    },
+
+    xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+   
+
+    series: [{
+        name: 'Số tiền',
+        data: [100000,200000,300000,400000,300000,600000,650000,800000,900000,1000000,1100000,1200000]
+    
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+        </script>
+        <script src="/javascripts/sigout.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script> 
+            </script>
+        
+	</body>
+</html>

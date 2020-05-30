@@ -54,82 +54,104 @@ router.get('/DangTin', upload.any('upload', 12), function (req, res) {
 // });
 
 // router thêm bài đăng
-router.post('/DangTin', upload.any('upload', 12), function (req, res) {
-    var date = new Date();
-    var post = req.body;
-    var user = req.session.user;
-    var valueposts = {
-        IDimg: user.ID,
-        tenTp: post.mySelect,
-        tenQuan: post.selectDis,
-        tenPhuong: post.selectWard,
-        tenDuong: post.selectStreet,
-        soNha: post.numberaddress,
-        DiaChiChinhXac: post.excelentAddress,
-        ThongTinMoTa: post.ThongTinMoTa,
-        DienTich: post.acreage,
-        TieuDe: post.title,
-        NoiDung: post.content,
-        DoiTuongChoThue: post.doituong,
-        Gia: post.gia,
-        SDT: post.phoneNumber,
-        IDusers: user.ID,
-        image: req.files[0].path,
-        created_at: date,
-        update_at: date,
-        display:0
-    };
-    var add = test._Posts(valueposts, function (param) {
-        if (param) {
-            for (var i = 0; i < req.files.length; i++) {
-                var valueimg =
-                {
-                    IDimg: user.ID,
-                    IDpost: param,
-                    image: req.files[i].path
-                }
-                test.img(valueimg);
-            }
-            res.redirect('/')
-        } else {
-            res.send("thêm thất bại")
+router.post('/DangTin', upload.any('upload', 12), async function (req, res) {
+
+
+    var val = req.session.user;
+    if(val){
+        var date = new Date();
+        var post = req.body;
+        var takeInforCT = await test.takeInforCities()
+        if(post.mySelect.trim().length == 0){
+            res.render("DangTin", { data: { error: "Chưa chọn thành phố",results: takeInforCT, sign: val} });
         }
-    })
+        if(post.selectDis.trim().length == 0){
+            res.render("DangTin", { data: { error: "Chưa chọn Quận huyện",results: takeInforCT, sign: val} });
+        }
+        if(post.selectWard.trim().length == 0){
+            res.render("DangTin", { data: { error: "Chưa chọn phường xã",results: takeInforCT, sign: val} });
+        }
+        if(post.selectStreet.trim().length == 0){
+            res.render("DangTin", { data: { error: "Chưa chọn Đường",results: takeInforCT, sign: val} });
+        }
+        if(post.numberaddress.trim().length == 0){
+            res.render("DangTin", { data: { error: "Chưa nhập số nhà",results: takeInforCT, sign: val} });
+        }
+        if(post.excelentAddress.trim().length == 0){
+            res.render("DangTin", { data: { error: "Chưa nhập địa chỉ chính xác",results: takeInforCT, sign: val} });
+        }
+        if(post.ThongTinMoTa.trim().length == 0){
+            res.render("DangTin", { data: { error: "Chưa nhập thông tin mô tả",results: takeInforCT, sign: val} });
+        }
+        if(post.title.trim().length == 0){
+            res.render("DangTin", { data: { error: "chưa nhập tiêu để",results: takeInforCT, sign: val} });
+        }
+        if(post.content.trim().length == 0){
+            res.render("DangTin", { data: { error: "chưa nhập nội dung",results: takeInforCT, sign: val} });
+        }
+        if(post.content.trim().length == 0){
+            res.render("DangTin", { data: { error: "chưa nhập nội dung",results: takeInforCT, sign: val} });
+        }
+        if(post.phoneNumber.trim().length == 0){
+            res.render("DangTin", { data: { error: "chưa nhập số diện thoại",results: takeInforCT, sign: val} });
+        }
+        if(post.gia.trim().length == 0){
+            res.render("DangTin", { data: { error: "chưa nhập giá cho thuê",results: takeInforCT, sign: val} });
+        }
+        if(post.acreage.trim().length == 0){
+            res.render("DangTin", { data: { error: "chưa nhập diện tích",results: takeInforCT, sign: val} });
+        }
+        if(post.doituong.trim().length == 0){
+            res.render("DangTin", { data: { error: "Chọn đối tượng cho thuê",results: takeInforCT, sign: val} });
+        }
+        if(req.files[0].path.trim().length == 0){
+            res.render("DangTin", { data: { error: "Chọn ảnh",results: takeInforCT, sign: val} });
+        }
+    
+    
+        var user = req.session.user;
+        var valueposts = {
+            IDimg: user.ID,
+            tenTp: post.mySelect,
+            tenQuan: post.selectDis,
+            tenPhuong: post.selectWard,
+            tenDuong: post.selectStreet,
+            soNha: post.numberaddress,
+            DiaChiChinhXac: post.excelentAddress,
+            ThongTinMoTa: post.ThongTinMoTa,
+            DienTich: post.acreage,
+            TieuDe: post.title,
+            NoiDung: post.content,
+            DoiTuongChoThue: post.doituong,
+            Gia: post.gia,
+            SDT: post.phoneNumber,
+            IDusers: user.ID,
+            image: req.files[0].path,
+            created_at: date,
+            update_at: date,
+            display:0
+        };
+        var add = test._Posts(valueposts, function (param) {
+            if (param) {
+                for (var i = 0; i < req.files.length; i++) {
+                    var valueimg =
+                    {
+                        IDimg: user.ID,
+                        IDpost: param,
+                        image: req.files[i].path
+                    }
+                    test.img(valueimg);
+                }
+                res.redirect('/')
+            } else {
+                res.send("thêm thất bại")
+            }
+        })
+    }else{
+        res.redirect('/');
+    }
+   
 });
-
-// router bài đã đăng
-// router.get('/DangTin/post/:id', function (req, res) {
-//     var user = req.session.user;
-//     var IDpost = req.params.id;
-//     if (user) {
-//         var value = test.takeInforIDPosts(IDpost);
-
-//         if (value) {
-//             value.then(function (results) {
-//                 var _savePost = savePost.takeInforSavePost(user.ID, IDpost);
-//                 if (_savePost) {
-//                     _savePost.then(function (data) {
-//                         console.log(data);
-//                         res.render("post", { data: { results: results, user: user, sign: user, savePost: data } })
-//                     })
-//                 }
-//             }).catch(function (err) {
-//                 console.log("Không có bài viết");
-//             })
-//         }
-//     } else {
-//         var value = test.takeInforIDPosts(IDpost);
-//         if (value) {
-//             value.then(function (results) {
-//                 res.render("post", { data: { results: results } })
-//             }).catch(function (err) {
-//                 console.log("Không có bài viết");
-//             })
-//         }
-//     }
-
-// });
-
 
 router.get('/DangTin/post/:id', async function (req, res) {
     var user = req.session.user;

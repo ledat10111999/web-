@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var infor = require('../../Module/admin')
 var delPost = require('../../Module/deletePost');
+var PostByID = require("../../Module/Posts");
 
 function convert(str) {
     var date = new Date(str),
@@ -24,7 +25,6 @@ router.get('/post',async function(req,res){
                Value.created_at = convert(Value.created_at);
                Value.update_at = convert(Value.update_at);
            })
-            
             res.render('Admin/Post',{data:{sign:admin,post:post}});
         }catch(e){
             res.send(e + '');
@@ -58,5 +58,30 @@ router.put('/PostUp',async (req,res)=>{
     }
    
 })
+router.get('/post/:id',async(req,res,next)=>{
+    var IDpost = req.params.id;
+    var admin = req.session.user;
+    if(admin && admin.QuyenHan == 'admin'){
+        if(IDpost){
+            try{
+                var post = await PostByID.takeInforIDPosts(IDpost);
+                post.map((Value)=>{
+                    Value.created_at = convert(Value.created_at);
+                    Value.update_at = convert(Value.update_at);
+                })
+                res.render("Admin/DetailPost",{data:{results:post}})
+            }catch(e){
+                res.send(e + "");
+            }
+           
 
+        }
+        else{
+            res.redirect("/admin");
+        }
+    }else{
+        res.redirect('/');
+    }
+   
+})
 module.exports = router;

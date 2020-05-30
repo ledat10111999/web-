@@ -37,9 +37,9 @@
                     </a>
                 </div>
                 <ul class="nav nav-sidebar">
-                    <li class="nav-item"><a href="/admin/post" class="nav-link font-weight-bold">Quản lý tin đăng</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link font-weight-bold">Quản lý doanh thu</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link font-weight-bold">Quản lý người dùng</a></li>
+                    <li class="nav-item"><a href="/admin/Post" class="nav-link font-weight-bold">Quản lý tin đăng</a></li>
+                    <li class="nav-item"><a href="/admin/user" class="nav-link font-weight-bold">Quản lý người dùng</a></li>
+                    <li class="nav-item"><a href="/admin/statistical" class="nav-link font-weight-bold"> Quản lý doanh thu</a></li>
                 </ul>
             </nav>
 
@@ -63,26 +63,28 @@
                                 <th scope="col" class="text-center">Đối tượng cho thuê</th>
                                 <th scope="col" class="text-center">Diện tích</th>
                                 <th scope="col" class="text-center">Ngày đăng</th>
-                                <th scope="col" class="text-center">Ảnh</th>
+                               
+                                <th scope="col" class="text-center"></th>
                                 <th scope="col" class="text-center"></th>
                                 <th scope="col" class="text-center"></th>
                             </tr>
                         </thead>
                         <% for(var i = 0 ; i< data.post.length;i++) {%> 
                         <tbody>
+                          
                             <tr>
                                 <input type="text" hidden id="ID" value="<%=data.post[i].ID  %> ">
                               <th scope="row"><%=data.post[i].ID  %>  </th>
                               <td></td>
-                              <td><%=data.post[i].Gia  %> </td>
-                              <td><%=data.post[i].TieuDe  %> </td>
-                              <td><%=data.post[i].DoiTuongChoThue  %> </td>
-                              <td><%=data.post[i].DienTich  %> </td>
-                              <td><%=data.post[i].update_at  %> </td>
-                              <td>n/a</td>
-                              <td><button type="button" id="post" class="btn btn-primary btn-block font-weight-bold">Đăng</button></td>
-                              <td><button type="button" id="delete" class="btn btn-primary btn-block font-weight-bold">Xóa</button></td>
+                              <td scope="col" class="text-center"><%=data.post[i].Gia  %> </td>
+                              <td  scope="col" class="text-center"><%=data.post[i].DoiTuongChoThue  %> </td>
+                              <td  scope="col" class="text-center"><%=data.post[i].DienTich  %> </td>
+                              <td scope="col" class="text-center"><%=data.post[i].update_at  %> </td>  
+                              <td><button type="button" id="post" class="btn btn-outline-success btn-block font-weight-bold">Đăng</button></td>
+                              <td><button type="button" id="delete" class="btn btn-outline-danger btn-block font-weight-bold">Xóa</button></td>
+                              <td><a href="/admin/post/<%=data.post[i].ID %>" class="btn btn-outline-primary font-weight-bold">Chi Tiết</a></td>
                             </tr>
+                            </tbody>
                         <% } %> <% } %> 
                     </table>
                    
