@@ -42,7 +42,6 @@
                     <li class="nav-item"><a href="/admin/statistical" class="nav-link font-weight-bold"> Quản lý doanh thu</a></li>
                 </ul>
             </nav>
-
             <!-- Thông tin tài khoản -->
             <main role="main" class="ml-sm-auto col-md-10" style="margin-top: 20px">
                 <div
@@ -71,12 +70,13 @@
                         </thead>
                         <% for(var i = 0 ; i< data.post.length;i++) {%> 
                         <tbody>
-                          
+
                             <tr>
                                 <input type="text" hidden id="ID" value="<%=data.post[i].ID  %> ">
                               <th scope="row"><%=data.post[i].ID  %>  </th>
-                              <td></td>
+                              <td scope="col" class="text-center"><%=data.post[i].TieuDe  %></td>
                               <td scope="col" class="text-center"><%=data.post[i].Gia  %> </td>
+                              <td scope="col" class="text-center"><%=data.post[i].tenDuong  %> - <%=data.post[i].tenPhuong  %> - <%=data.post[i].tenTp  %></td>
                               <td  scope="col" class="text-center"><%=data.post[i].DoiTuongChoThue  %> </td>
                               <td  scope="col" class="text-center"><%=data.post[i].DienTich  %> </td>
                               <td scope="col" class="text-center"><%=data.post[i].update_at  %> </td>  
