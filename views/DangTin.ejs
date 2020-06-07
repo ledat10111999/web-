@@ -126,86 +126,96 @@
                         <!-- Số điện thoại -->
                         <label for="phoneNumber" class="font-weight-bold" style="margin-top: 20px">Số điện
                             thoại:</label><br>
-                        <input type="text" name="phoneNumber" id="phoneNumber" value="0<%=data.sign.SDT  %> " class="form-control w-75" required>
+                        <input type="text" name="phoneNumber" id="phoneNumber" value="0<%=data.sign.SDT  %> "
+                                            class="form-control w-75" required>
 
-                        <!-- Giá cho thuê -->
-                        <label for="infoTitle" class="font-weight-bold" style="margin-top: 20px;">Giá cho
-                            thuê:</label><br>
-                        <div class="input-group mb-3 w-50">
-                            <input type="text" name="gia" id="infoTitle" class="form-control" required>
-                            <div class="input-group-append">
-                                <span class="input-group-text">Đồng</span>
-                            </div>
-                        </div>
+                                            <!-- Giá cho thuê -->
+                                            <label for="infoTitle" class="font-weight-bold"
+                                                style="margin-top: 20px;">Giá cho
+                                                thuê:</label><br>
+                                            <div class="input-group mb-3 w-50">
+                                                <input type="text" name="gia" id="infoTitle" class="form-control"
+                                                    required>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">Đồng</span>
+                                                </div>
+                                            </div>
 
-                        <!-- Diện tích -->
-                        <label for="infoAcreage" class="font-weight-bold">Diện tích:</label><br>
-                        <div class="input-group mb-3 w-25">
-                            <input type="number" name="acreage" id="infoTitle" class="form-control" required>
-                            <div class="input-group-append">
-                                <span class="input-group-text"  >m2</span>
-                            </div>
-                        </div>
+                                            <!-- Diện tích -->
+                                            <label for="infoAcreage" class="font-weight-bold">Diện tích:</label><br>
+                                            <div class="input-group mb-3 w-25">
+                                                <input type="number" name="acreage" id="infoTitle" class="form-control"
+                                                    required>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">m2</span>
+                                                </div>
+                                            </div>
 
-                        <!-- Đối tượng cho thuê -->
-                        <div class="row">
-                            <div class="col-md-4 pt-3">
-                                <div class="form-group">
-                                    <select id="inputState"  name="doituong" class="form-control w-100" required>
-                                        <option selected >Đối tượng cho thuê</option>
-                                        <option value="Nam">Nam</option>
-                                        <option value=" Nữ">Nữ</option>
-                                    </select>
+                                            <!-- Đối tượng cho thuê -->
+                                            <div class="row">
+                                                <div class="col-md-4 pt-3">
+                                                    <div class="form-group">
+                                                        <select id="inputState" name="doituong"
+                                                            class="form-control w-100" required>
+                                                            <option selected>Đối tượng cho thuê</option>
+                                                            <option value="Nam">Nam</option>
+                                                            <option value=" Nữ">Nữ</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                    <div class="rentImage" style="margin-top: 50px;">
+                                        <h3 class="font-weight-bold">Hình ảnh</h3>
+                                        <p>Cập nhật hình ảnh rõ ràng sẽ cho thuê nhanh hơn</p>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Upload</span>
+                                            </div>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="inputGroupFile"
+                                                    name="uploadImg" multiple required>
+                                                <label for="inputGroupFile" class="custom-file-label">Choose
+                                                    file</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="addImg">
+
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block font-weight-bold"
+                                        style="margin-top: 50px;">Hoàn
+                                        thành</button>
+                                </div>
+
+                                <!-- Lưu ý đăng tin -->
+                                <div class="col-md-4">
+                                    <div class="rentAlert">
+                                        <div class="alert alert-warning">
+                                            <h5>Lưu ý khi đăng tin</h5>
+                                            <p>
+                                                1. Nội dung phải viết bằng tiếng Việt có dấu <br>
+                                                2. Tiêu đề tin không dài quá 100 kí tự <br>
+                                                3. Các bạn nên điền đầy đủ thông tin vào các mục để tin đăng có hiệu quả
+                                                hơn. <br>
+                                                4. Để tăng độ tin cậy và tin rao được nhiều người quan tâm hơn, hãy sửa
+                                                vị trí tin
+                                                rao
+                                                của
+                                                bạn trên bản đồ bằng cách kéo icon tới đúng vị trí của tin rao. <br>
+                                                5. Tin đăng có hình ảnh rõ ràng sẽ được xem và gọi gấp nhiều lần so với
+                                                tin rao
+                                                không có
+                                                ảnh. Hãy đăng ảnh để được giao dịch nhanh chóng! <br>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="rentImage" style="margin-top: 50px;">
-                        <h3 class="font-weight-bold">Hình ảnh</h3>
-                        <p>Cập nhật hình ảnh rõ ràng sẽ cho thuê nhanh hơn</p>
-                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Upload</span>
-                            </div>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile" name="uploadImg" multiple required>
-                                <label for="inputGroupFile" class="custom-file-label">Choose file</label>
-                            </div>
-                        </div> 
-                    </div>
-                    <div class="row" id="addImg">
-
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block font-weight-bold"
-                        style="margin-top: 50px;">Hoàn
-                        thành</button>
-                </div>
-            
-                <!-- Lưu ý đăng tin -->
-                <div class="col-md-4">
-                    <div class="rentAlert">
-                        <div class="alert alert-warning">
-                            <h5>Lưu ý khi đăng tin</h5>
-                            <p>
-                                1. Nội dung phải viết bằng tiếng Việt có dấu <br>
-                                2. Tiêu đề tin không dài quá 100 kí tự <br>
-                                3. Các bạn nên điền đầy đủ thông tin vào các mục để tin đăng có hiệu quả hơn. <br>
-                                4. Để tăng độ tin cậy và tin rao được nhiều người quan tâm hơn, hãy sửa vị trí tin
-                                rao
-                                của
-                                bạn trên bản đồ bằng cách kéo icon tới đúng vị trí của tin rao. <br>
-                                5. Tin đăng có hình ảnh rõ ràng sẽ được xem và gọi gấp nhiều lần so với tin rao
-                                không có
-                                ảnh. Hãy đăng ảnh để được giao dịch nhanh chóng! <br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
             </form>
 
-            
+
         </div>
         <!-- <div class="coitaner">
             <div class="row" style="margin-top: 20px;">
@@ -218,59 +228,60 @@
                 </div>
             </div>
         </div> -->
-              
+
     </section>
     <!-- Xử lý socket.io -->
     <!-- <script type="text/javascript" src="/javascripts/DangTin.js" ></script> -->
-       <script src="/javascripts/searchBar.js" ></script>
+    <script src="/javascripts/searchBar.js"></script>
     </script>
     <!-- preview img -->
     <script>
-$(document).ready(function () {
-    $('#inputGroupFile').on('change', function () {
-      var files = $(this)[0].files;
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-       
-        
-        var fileReader = new FileReader();
-        fileReader.onload = (function (fileParams) {
-          return function (event) {
-          
-            
-            var str = `<div class="col-md-4 pt-3">' 
+        $(document).ready(function () {
+            $('#inputGroupFile').on('change', function () {
+                var files = $(this)[0].files;
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+
+
+                    var fileReader = new FileReader();
+                    fileReader.onload = (function (fileParams) {
+                        return function (event) {
+
+
+                            var str = `<div class="col-md-4 pt-3">' 
               <img class="img-thumbnail js-file-image" id="_${i}" style="width: 100%; height: 100%"> 
               </div>`;
-            $('#addImg').append(str);
-            var imageSrc = event.target.result;
-            var fileName = fileParams.name;
-            var fileSize = fileParams.size;
-            
-            // $('.js-file-name').last().text(fileName);
-            // $('.js-file-size').last().text(fileSize);
-            $('.js-file-image').last().attr('src', imageSrc);
-          };
-        })(file);
-        fileReader.readAsDataURL(file);
-        
-      }
-    });
-  });
+                            $('#addImg').append(str);
+                            var imageSrc = event.target.result;
+                            var fileName = fileParams.name;
+                            var fileSize = fileParams.size;
+
+                            // $('.js-file-name').last().text(fileName);
+                            // $('.js-file-size').last().text(fileSize);
+                            $('.js-file-image').last().attr('src', imageSrc);
+                        };
+                    })(file);
+                    fileReader.readAsDataURL(file);
+
+                }
+            });
+        });
 
     </script>
     <!-- signout -->
     <script src="/javascripts/sigout.js"></script>
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
     integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
     crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
     integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
     crossorigin="anonymous"></script> 
         </script> -->
-        <script src="/javascripts/popper.min.js"></script>
-        <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/popper.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
 </body>
+
 </html>

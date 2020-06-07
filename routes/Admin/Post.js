@@ -84,4 +84,22 @@ router.get('/post/:id',async(req,res,next)=>{
     }
    
 })
+
+router.get('/posted/:ID', function (req, res) {
+    var val = req.session.user;
+    if (val && val.QuyenHan == 'admin') {
+      var post = PostByID.takeInforIDPostsIDUsers(req.params.ID);
+      if (post) {
+        post.then(function (results) {
+          res.render('posted', { data: { sign: val, results: results } });
+        }).catch(function (err) {
+          res.render('Admin/posted', { data: { sign: val, err: err } });
+        })
+      }
+  
+    } else {
+      res.redirect('/');
+    }
+  })
+
 module.exports = router;

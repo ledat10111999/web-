@@ -20,6 +20,30 @@ function deletePost(ID) {
 
     return false;
 }
+function updatestatus(ID){
+    if(ID){
+        return new Promise((resolve,reject)=>{
+            var query = connection.query('UPDATE posts set status = 0 WHERE ID = ?',[ID],(err,results)=>{
+                if(err){
+                    return reject(new Error(err));
+                } resolve(results);
+            })
+        })
+    }return false;
+}
+function status(ID){
+    if(ID){
+        return new Promise((resolve,reject)=>{
+            var query = connection.query('UPDATE posts set status = 1 WHERE ID = ?',[ID],(err,results)=>{
+                if(err){
+                    return reject(new Error(err));
+                } resolve(results);
+            })
+        })
+    }return false;
+}
 module.exports = {
-    deletePost: deletePost
+    deletePost: deletePost,
+    updatestatus:updatestatus,
+    status:status
 }

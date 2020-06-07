@@ -107,8 +107,6 @@ router.post('/DangTin', upload.any('upload', 12), async function (req, res) {
         if(req.files[0].path.trim().length == 0){
             res.render("DangTin", { data: { error: "Chọn ảnh",results: takeInforCT, sign: val} });
         }
-    
-    
         var user = req.session.user;
         var valueposts = {
             IDimg: user.ID,
@@ -129,7 +127,8 @@ router.post('/DangTin', upload.any('upload', 12), async function (req, res) {
             image: req.files[0].path,
             created_at: date,
             update_at: date,
-            display:0
+            display:0,
+            status:0
         };
         var add = test._Posts(valueposts, function (param) {
             if (param) {
@@ -165,8 +164,14 @@ router.get('/DangTin/post/:id', async function (req, res) {
             }
             if (value) {
                 var _savePost = await savePost.takeInforSavePost(user.ID, IDpost);
+                var paramet = {
+                    tenTp:value[0].tenTp,
+                    tenQuan:value[0].tenQuan
+                }
+                var image = await test.image(IDpost);
+                var project = await test.takeInforProject(paramet);
                 if (_savePost) {
-                    res.render("post", { data: { results: value, user: user, sign: user, savePost: _savePost } })
+                    res.render("post", { data: { results: value, user: user, sign: user, savePost: _savePost,project:project,image:image } })
                 }
             }
         } catch (err) {
@@ -184,7 +189,15 @@ router.get('/DangTin/post/:id', async function (req, res) {
                     val.created_at = convert(val.created_at);
                     val.update_at = convert(val.update_at);
                 })
-                res.render("post", { data: { results: value } })
+                var paramet = {
+                    tenTp:value[0].tenTp,
+                    tenQuan:value[0].tenQuan
+                } 
+                var image = await test.image(IDpost);             
+                var project = await test.takeInforProject(paramet);
+                
+                
+                res.render("post", { data: { results: value,project:project,image:image } })
             }else{
                 res.redirect('/')
             }

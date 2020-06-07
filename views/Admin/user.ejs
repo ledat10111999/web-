@@ -21,7 +21,7 @@
         <div class="row">
             <nav class="col-lg-2 d-none d-lg-block bg-light sidebar">
                 <div class="user-info">
-                    <a href="#" class="clearfix">
+                    <a href="/admin" class="clearfix">
                         <div class="user-avatar">
                             <img width="50px" src="/images/boy_1544603222.png" alt="avatar">
                         </div>
@@ -39,7 +39,7 @@
                 </div>
                 <ul class="nav nav-sidebar">
                     <li class="nav-item"><a href="/admin/Post" class="nav-link font-weight-bold">Quản lý tin đăng</a></li>
-                    <li class="nav-item"><a href="/admin/user" class="nav-link font-weight-bold">Quản lý người dùng</a></li>
+                    <li class="nav-item active"><a href="/admin/user" class="nav-link font-weight-bold">Quản lý người dùng</a></li>
                     <li class="nav-item"><a href="/admin/statistical" class="nav-link font-weight-bold"> Quản lý doanh thu</a></li>
                 </ul>
             </nav>
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="manager-table">
-                    <table class="table">
+                    <table class="table  ">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col" class="text-center">ID</th>
@@ -62,12 +62,13 @@
                                 <th scope="col" class="text-center">Số điện thoại</th>
                                 <th scope="col" class="text-center">Ngày tạo</th>
                                 <th scope="col" class="text-center">Ngày cập nhật</th>
+                                <th scope="col" class="text-center"></th>
                             </tr>
                         </thead>
                         <% for(var i = 0;i< data.user.length;i++) {%> 
                         <tbody>
                           
-                            <tr>
+                            <tr >
                               <th scope="col"><%=data.user[i].ID  %> </th>
                               <td scope="col" class="text-left"><%=data.user[i].Email  %> </td>
                               <td scope="col" class="text-center"><%=data.user[i].First_name  %> </td>
@@ -75,6 +76,8 @@
                               <td scope="col" class="text-center">0<%=data.user[i].SDT  %> </td>
                               <td scope="col" class="text-center"><%=data.user[i].Created_at  %> </td>
                               <td scope="col" class="text-center"><%=data.user[i].Update_at  %> </td>
+                              <td> <a href="/admin/posted/<%=data.user[i].ID %> " class="nav-link">
+                                  <button type="button" id="post" class="btn btn-outline-success btn-block font-weight-bold">Bài viết đã đăng</button></a></td>
                             </tr>
                       
                         </tbody>

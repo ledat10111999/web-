@@ -38,7 +38,7 @@
                     <% }else if(data.sign){%>
                     <li class="nav-item nav-username">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary dropdown-toggle font-weight-bold"
+                            <button type="button" class="btn btn-primary dropdown-toggle font-weight-bold mr-2"
                                 data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false"><%=data.sign.First_name  %> <%=data.sign.Last_name  %> </button>
                             <div class="dropdown-menu">
@@ -200,11 +200,15 @@
 
     <!-- Lọc thông tin từ thanh search bar bằng AngulaJS -->
     <script type="text/javascript">
+   
+    
         var app = angular.module('myApp', ['angularUtils.directives.dirPagination']);
         app.controller('controller1', function ($scope, $http) {
             var base_url = location.protocol + '//' + document.domain + ':' + location.port;
             $http.post(base_url + '/laydulieu').then((result) => {
-                $scope.data = result.data;
+             console.log(result);
+             
+                $scope.data = result.data.reverse();
             }).catch((err) => {
                 $scope.data = err
             });

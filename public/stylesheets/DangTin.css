@@ -27,3 +27,25 @@ section{
 .nav-username{
     padding-right: 10px;
 }
+.carousel-control-next {
+    left: 260px;
+}
+
+
+.carousel-indicators {
+    position: absolute;
+    right: auto;
+    bottom: 10px;
+    left: 0;
+    z-index: 15;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-left: 0;
+    margin-right: 15%;
+    margin-left: 15%;
+    list-style: none;
+}

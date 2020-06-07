@@ -154,7 +154,22 @@ function tablePosts() {
 }
 function takeInforPosts() {
     // var sql = "select * from img,posts where img.IDimg = posts.IDimg and img.IDpost = posts.ID";
-     var sql = 'select * from posts where display = true'
+     var sql = 'select users.First_name ,posts.status, users.Last_name,posts.ID, posts.tenTp,posts.tenQuan,posts.tenPhuong,posts.tenDuong,posts.soNha,posts.DiaChiChinhXac,posts.ThongTinMoTa,posts.DienTich,posts.TieuDe,posts.NoiDung,posts.DoiTuongChoThue,posts.Gia,posts.IDusers, posts.image,posts.SDT,posts.created_at,posts.update_at from users,posts where users.ID = posts.IDusers and display = true and status = true'
+    //  var sql = 'select * from posts where display = true and status = true'
+    var defer = q.defer();
+    var query = connection.query(sql, function (error, results, fields) {
+        if (error) {
+            defer.reject(error); // nếu cố error trả về error
+        } else {
+            defer.resolve(results); // trả về result
+        }
+    });
+    return defer.promise; // trả về mảng đối tượng nhận được từ res
+
+}
+function takeInforFullPosts() {
+    // var sql = "select * from img,posts where img.IDimg = posts.IDimg and img.IDpost = posts.ID";
+     var sql = 'select * from posts '
     var defer = q.defer();
     var query = connection.query(sql, function (error, results, fields) {
         if (error) {
@@ -169,7 +184,7 @@ function takeInforPosts() {
 function takeInforIDPosts(IDpost) {
     if (IDpost) {
         var defer = q.defer();
-        var query = connection.query("select users.First_name , users.Last_name,posts.ID, posts.tenTp,posts.tenQuan,posts.tenPhuong,posts.tenDuong,posts.soNha,posts.DiaChiChinhXac,posts.ThongTinMoTa,posts.DienTich,posts.TieuDe,posts.NoiDung,posts.DoiTuongChoThue,posts.Gia,posts.IDusers, posts.image,posts.SDT,posts.created_at,posts.update_at from users,posts where users.ID = posts.IDusers AND posts.ID =?", [IDpost], function (error, results, fields) {
+        var query = connection.query("select users.First_name ,posts.status, users.Last_name,posts.ID, posts.tenTp,posts.tenQuan,posts.tenPhuong,posts.tenDuong,posts.soNha,posts.DiaChiChinhXac,posts.ThongTinMoTa,posts.DienTich,posts.TieuDe,posts.NoiDung,posts.DoiTuongChoThue,posts.Gia,posts.IDusers, posts.image,posts.SDT,posts.created_at,posts.update_at from users,posts where users.ID = posts.IDusers AND posts.ID =?", [IDpost], function (error, results, fields) {
             if (error) {
                 defer.reject(error); // nếu cố error trả về error
             } else {
@@ -223,6 +238,32 @@ function updatePost(param, image) {
         }); return defer.promise;
     } return false;
 }
+function takeInforProject(param){
+    if(param){
+        return new Promise((resolve,reject)=>{
+            var query = connection.query("SELECT project.id, project._name,project._lat,project._lng FROM project,district,province where project._province_id = province.id and project._district_id = district.id and province._name = ? and district._name = ?",[param.tenTp,param.tenQuan], function (error, results, fields) {
+                if (error) {
+                   return reject(new Error(error))
+                } 
+                   resolve(results);
+                
+            });
+        })
+    }return false;
+}
+function image(ID){
+    if(ID){
+        return new Promise((resolve,reject)=>{
+            var query = connection.query("select img.image  from posts,img where posts.IDimg = img.IDimg and posts.ID  = img.IDpost and posts.ID = ?",[ID], function (error, results, fields) {
+                if (error) {
+                   return reject(new Error(error))
+                } 
+                   resolve(results);
+                
+            });
+        })
+    }return false;
+}
 // "UPDATE posts SET tenTp = ?,tenQuan =?,tenPhuong=? , tenDuong=?,soNha=?,DiaChiChinhXac=?,ThongTinMoTa = ?,DienTich = ?,TieuDe =?,NoiDung = ? ,DoiTuongChoThue = ?,Gia = ?,SDT = ?,update_at = ?,image=? where ID = ? "[param.tenTp,param.tenQuan,param.tenPhuong,param.tenDuong,param.soNha,param.DiaChiChinhXac,param.ThongTinMoTa,Param.DienTich,param.TieuDe,param.NoiDung,param.DoiTuongChoThue,param.Gia,param.SDT,param.update_at,image,param.ID]
 
 module.exports = {
@@ -232,6 +273,7 @@ module.exports = {
     takeInforDistric: takeInforDistric,
     takeInforWard: takeInforWard,
     img: img,
+    image:image,
     _Posts: _Posts,
     tablePosts: tablePosts,
     takeInforPosts: takeInforPosts,
@@ -240,5 +282,7 @@ module.exports = {
     takeInforCities2: takeInforCities2,
     takeInforIDPostsIDUsers: takeInforIDPostsIDUsers,
     updatePost: updatePost,
-    takeInforStreet: takeInforStreet
+    takeInforStreet: takeInforStreet,
+    takeInforFullPosts:takeInforFullPosts,
+    takeInforProject:takeInforProject
 };

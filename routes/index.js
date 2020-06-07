@@ -31,7 +31,6 @@ router.get('/', function (req, res, next) {
     if (posts) {
       posts.then(function (results) {
         
-        
         res.render('index', { data: { results: results, sign: val, cities: arrcities } });
       }).then(function (error) {
         console.log(error);
@@ -52,23 +51,7 @@ router.get('/', function (req, res, next) {
 
 // test
 
-router.get('/index2', function (req, res, next) {
-  res.render('index2');
 
-})
-
-router.get('/index3', function (req, res, next) {
-  var val = value.takeInforCities();
-  if (val) {
-    val.then(function (data) {
-      res.json({ statusCode: 200, cities: data })
-    }).catch(function (err) {
-      res.json({ statusCode: 500 })
-    })
-  } else {
-    res.json({ statusCode: 500 })
-  }
-})
 // end test
 
 
@@ -84,9 +67,7 @@ router.delete('/', function (req, res) {
 })
 router.get('/posted/:ID', function (req, res) {
   var val = req.session.user;
-
   if (val) {
-
     var post = value.takeInforIDPostsIDUsers(val.ID);
     if (post) {
       post.then(function (results) {
