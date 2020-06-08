@@ -19,12 +19,24 @@ router.get('/user',async function(req,res){
            })
            
            
-            res.render('Admin/user',{data:{sign:admin,user:post}});
+            res.render('Admin/user',{data:{sign:admin}});
         }catch(e){
             res.send(e + '');
         }
     }else{
         res.redirect('/');
     }
+})
+router.post('/listuser', async (req,res)=>{
+  try{
+    var post= await infor.takeinforuser();
+    post.map((Value)=>{
+        Value.Created_at = convert(Value.Created_at);
+        Value.Update_at = convert(Value.Update_at);
+    })
+    res.json(post);
+  }catch(e){
+      res.json(e + " ");
+  }
 })
 module.exports = router;

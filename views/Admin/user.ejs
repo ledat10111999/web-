@@ -11,6 +11,10 @@
     <script src="/javascripts/jquery.confirm.min.js" ></script>
     <link rel="stylesheet" href="/stylesheets/jquery-confirm.min.css">
     <script src="https://use.fontawesome.com/8b70c06b18.js"></script>
+     <!-- AngulatJS -->
+     <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script> -->
+     <script src="/javascripts/angular.min.js"></script>
+     <script src="/javascripts/dirPagination.js"></script>
     <title>Quản lý danh sách người dùng</title>
 </head>
 
@@ -39,18 +43,38 @@
                 </div>
                 <ul class="nav nav-sidebar">
                     <li class="nav-item"><a href="/admin/Post" class="nav-link font-weight-bold">Quản lý tin đăng</a></li>
-                    <li class="nav-item active"><a href="/admin/user" class="nav-link font-weight-bold">Quản lý người dùng</a></li>
+                    <li class="nav-item ml-3"><a href="/admin/user" class="nav-link active font-weight-bold ">Quản lý người dùng</a></li>
                     <li class="nav-item"><a href="/admin/statistical" class="nav-link font-weight-bold"> Quản lý doanh thu</a></li>
                 </ul>
             </nav>
 
             <!-- Thông tin tài khoản -->
-            <main role="main" class="ml-sm-auto col-md-10" style="margin-top: 20px">
+            <main ng-app="myapp" role="main" class="ml-sm-auto col-md-10" style="margin-top: 20px" ng-controller="controller1">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
                     <h1 class="h2">Welcome, Admin</h1>
                 </div>
-
+                <div class="row">
+                    <div class="col-md-5 ">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1">Tìm kiếm</span>
+                            </div>
+                            <input type="text" ng-model="search.Email" class="form-control w-50 "  placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                          </div>
+                    </div>
+                    <div class="col-md-3 float-right">
+                        <div class="form-group">
+                            <select id="inputState" ng-model="Sort" class="form-control w-100">
+                                <option selected value="">Sort by</option>
+                                
+                                <option value="Created_at">Ngày tạo</option>
+                                <option value="Email"> Email</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+               
                 <div class="manager-table">
                     <table class="table  ">
                         <thead class="thead-dark">
@@ -65,29 +89,44 @@
                                 <th scope="col" class="text-center"></th>
                             </tr>
                         </thead>
-                        <% for(var i = 0;i< data.user.length;i++) {%> 
+                       
                         <tbody>
                           
-                            <tr >
-                              <th scope="col"><%=data.user[i].ID  %> </th>
-                              <td scope="col" class="text-left"><%=data.user[i].Email  %> </td>
-                              <td scope="col" class="text-center"><%=data.user[i].First_name  %> </td>
-                              <td scope="col" class="text-center"><%=data.user[i].Last_name  %> </td>
-                              <td scope="col" class="text-center">0<%=data.user[i].SDT  %> </td>
-                              <td scope="col" class="text-center"><%=data.user[i].Created_at  %> </td>
-                              <td scope="col" class="text-center"><%=data.user[i].Update_at  %> </td>
-                              <td> <a href="/admin/posted/<%=data.user[i].ID %> " class="nav-link">
-                                  <button type="button" id="post" class="btn btn-outline-success btn-block font-weight-bold">Bài viết đã đăng</button></a></td>
+                            <tr  dir-paginate='x in data | filter: search |itemsPerPage:10 |  orderBy: Sort'  >
+                              <th scope="col"> {{x.ID}}</th>
+                              <td scope="col" class="text-left">{{x.Email}} </td>
+                              <td scope="col" class="text-center">{{x.First_name}}</td>
+                              <td scope="col" class="text-center">{{x.Last_name}}</td>
+                              <td scope="col" class="text-center">0{{x.SDT}}</td>
+                              <td scope="col" class="text-center">{{x.Created_at}} </td>
+                              <td scope="col" class="text-center">{{x.Update_at}}</td>
+                              <td> <a href="/admin/posted/{{x.ID}}" class="nav-link">
+                                <button type="button" id="post" class="btn btn-outline-success btn-block font-weight-bold">Bài viết đã đăng</button></a></td>
                             </tr>
                       
                         </tbody>
-                        <% } %> 
+                        
                     </table>
+                    <div class="row">
+                        <dir-pagination-controls [max-size="6" ] [direction-links="true" ] [boundary-links="true" ]>
+                        </dir-pagination-controls>
+                    </div>
                 </div>
+            </main>
         </div>
-        </main>
+        
     </div>
     </div>
+    <script type="text/javascript">
+    var app = angular.module('myapp',['angularUtils.directives.dirPagination']);
+    app.controller('controller1',($scope,$http)=>{
+        var base_url = location.protocol + '//' + document.domain + ':' + location.port;
+        $http.post(base_url +'/admin/listuser').then((result)=>{
+            $scope.data = result.data.reverse(); 
+        })
+        $scope.Sort ="";
+    })
+    </script>
     <script src="/javascripts/sigout.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

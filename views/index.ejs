@@ -169,7 +169,7 @@
                 <h3 class="">No result</h3>
             </div>
             <div class="row ">
-                <div class="col-sm-6" dir-paginate='x in data | filter: search |itemsPerPage:4 as filtered '>
+                <div class="col-sm-6" dir-paginate='x in data | filter: search |itemsPerPage:6 as filtered '>
                     <a href="/DangTin/post/{{x.ID}} " style="text-decoration: none; color: #000;">
                         <div class="card mb-3" style="max-width: 540px;">
                             <div class="row no-gutters">
@@ -191,7 +191,7 @@
             </div>
 
             <div class="row">
-                <dir-pagination-controls [max-size="4" ] [direction-links="true" ] [boundary-links="true" ]>
+                <dir-pagination-controls [max-size="6" ] [direction-links="true" ] [boundary-links="true" ]>
                 </dir-pagination-controls>
             </div>
         </div>
@@ -206,7 +206,7 @@
         app.controller('controller1', function ($scope, $http) {
             var base_url = location.protocol + '//' + document.domain + ':' + location.port;
             $http.post(base_url + '/laydulieu').then((result) => {
-             console.log(result);
+             
              
                 $scope.data = result.data.reverse();
             }).catch((err) => {
