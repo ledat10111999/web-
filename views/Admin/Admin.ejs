@@ -53,24 +53,24 @@
             <div class="ml-sm-auto col-md-10 text-center"   ng-controller="controller1">
                 <h2>Thống kê bài viết</h2>
                 <div class="row">
-                    <!-- <div class="col-md-2 col-sm-2 col-lg-2 pt-3">
+                    <div class="col-md-2 col-sm-2 col-lg-2 pt-3">
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <select id="advenceSearch" class="form-control ">
-                                        <option selected value="">Tìm kiếm theo</option>
-                                        <option  value="">Tên</option>
-                                        <option  value="">ID</option>
+                                    <select id="advenceSearch" class="form-control " ng-model="queryBy">
+                                        <option selected value="$">Tìm kiếm theo</option>
+                                        
+                                        <option  value="ID">ID</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <input type="text"  class="form-control " >
+                                <input type="text"  class="form-control " ng-model="search[queryBy]">
                             </div>
                           
                         </div>
                       
-                    </div> -->
+                    </div>
                     <div class="col-md-2 col-sm-2 col-lg-2 pt-3">
                         <div class="form-group">
                             <select id="ThongTinMoTa" class="form-control ">
@@ -118,7 +118,7 @@
                 </div>
                 <div class="row ">
                     
-                    <div class="col-sm-6" dir-paginate='x in data | filter: search |itemsPerPage:6 as filtered '>
+                    <div class="col-sm-6" dir-paginate='x in data | filter: search |itemsPerPage:6  as filtered '>
                         <a href="/DangTin/post/{{x.ID}} " style="text-decoration: none; color: #000;">
                             <div class="card mb-3" style="max-width: 540px;">
                                 <div class="row no-gutters">
@@ -166,11 +166,18 @@
             var base_url = location.protocol + '//' + document.domain + ':' + location.port;
             $http.post(base_url + '/laydulieufull').then((result) => {
                 $scope.data = result.data;
+                
+                
             }).catch((err) => {
                 $scope.data = err
             });
+           
+          
+            $scope.search = {}
+            $scope.queryBy = '$'
             $scope.hienthi = true;
             $scope.shoresult = false;
+           
             $scope.myClick = function (tenTp, loaiTin) {
                 $scope.search = {
                     tenTp: $('#selectCity').val(),
