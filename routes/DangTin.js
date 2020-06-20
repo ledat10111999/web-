@@ -128,7 +128,7 @@ router.post('/DangTin', upload.any('upload', 12), async function (req, res) {
             created_at: date,
             update_at: date,
             display:0,
-            status:0
+            status:1
         };
         var add = test._Posts(valueposts, function (param) {
             if (param) {

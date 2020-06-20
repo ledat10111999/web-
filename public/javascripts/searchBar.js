@@ -2,6 +2,7 @@ function search() {
     function distric() {
         $("#selectCity").change(function (e) {
             var IDdis = $('#selectCity').val();
+           
             var base_url = location.protocol + '//' + document.domain + ':' + location.port;
             $.ajax({
                 url: base_url + '/Distric',

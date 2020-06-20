@@ -4,6 +4,7 @@ var MTdelete = require('../Module/deletePost');
 
 router.delete('/deletePost',function(req,res){
     var ID = req.body.ID;
+    
     var del = MTdelete.deletePost(ID);
     if(del){
         del.then(function(){

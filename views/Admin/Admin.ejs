@@ -8,13 +8,18 @@
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/admin.css">
     <script src="https://use.fontawesome.com/8b70c06b18.js"></script>
-    <script src="/javascripts/jquery-3.4.1.min.js"></script>
-    <link rel="stylesheet" href="/stylesheets/pagination.min.css">
+   <script src="/javascripts/jquery-3.4.1.min.js"></script>
+
     <!-- <script src="/javascripts/angularRouter.js" ></script> -->
  <!-- AngulatJS -->
- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
- <script src="/javascripts/dirPagination.js"></script>
+ <script src="/javascripts/angular.min.js"></script>
+ <script src='/javascripts/angularRouter.js'></script>
+ <!-- <script src="/javascripts/dirPagination.js"></script> -->
+ 
+
+
+  
+
     <title>Quản lý tin đăng</title>
 </head>
 
@@ -23,6 +28,7 @@
     <!-- Sidebar Menu -->
     <div class="container-fluid" ng-app="myApp">
         <div class="row">
+          
             <nav class="col-lg-2 d-none d-lg-block bg-light sidebar">
                 <div class="user-info">
                     <a href="/admin" class="clearfix">
@@ -42,112 +48,21 @@
                     </a>
                 </div>
                 <ul class="nav nav-sidebar">
-                    <li class="nav-item"><a href="/admin/Post" class="nav-link font-weight-bold">Quản lý tin đăng</a>
+                    
+                    <li class="nav-item"><a href="#!/DuyetPost" class="nav-link font-weight-bold">Quản lý bài đăng</a>
                     </li>
-                    <li class="nav-item"><a href="/admin/user" class="nav-link font-weight-bold">Quản lý người dùng</a>
+                    <li class="nav-item"><a href="#!/User" class="nav-link font-weight-bold">Quản lý người dùng</a>
                     </li>
-                    <li class="nav-item"><a href="/admin/statistical" class="nav-link font-weight-bold"> Quản lý doanh
+                    <li class="nav-item"><a href="#!/Statisticial" class="nav-link font-weight-bold"> Quản lý doanh
                             thu</a></li>
                 </ul>
             </nav>
-            <div class="ml-sm-auto col-md-10 text-center"   ng-controller="controller1">
-                <h2>Thống kê bài viết</h2>
-                <div class="row">
-                    <div class="col-md-2 col-sm-2 col-lg-2 pt-3">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <select id="advenceSearch" class="form-control " ng-model="queryBy">
-                                        <option selected value="$">Tìm kiếm theo</option>
-                                        
-                                        <option  value="ID">ID</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <input type="text"  class="form-control " ng-model="search[queryBy]">
-                            </div>
-                          
-                        </div>
-                      
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-lg-2 pt-3">
-                        <div class="form-group">
-                            <select id="ThongTinMoTa" class="form-control ">
-                                <option selected value="">Loại tin</option>
-                                <option value="Phòng trọ">Phòng trọ, nhà trọ</option>
-                                <option value="Nhà nguyên căn">Nhà thuê nguyên căn</option>
-                                <option value="Tìm người ở ghép">Tìm người ở ghép</option>
-                                <option value="Cho thuê căn hộ">Cho thuê căn hộ</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-lg-2 pt-3">
-                        <div class="form-group">
-                            <select id="selectCity" class="form-control ">
-                                <option value=" " selected>Tỉnh thành</option>
-                                <%if(data.cities ){ %>
-                                <% for(var i = 0 ; i< data.cities.length; i++){ %>
-                                <option value="<%=data.cities[i]._name%>"> <%=data.cities[i]._name%> </option>
-                                <% } %>
-                                <% } %>
-                            </select>
-                        </div>
-                    </div>
-    
-                    <div class="col-md-2 col-sm-2 col-lg-2 pt-3">
-                        <div class="form-group">
-                            <select id="selectDistric" class="form-control ">
-                                <option value=""> Chọn Quận huyện</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-lg-2 pt-3">
-                        <div class="form-group">
-                            <select id="selectWard" class="form-control ">
-                                <option value=""> Chọn Phường/Xã</option>
-                            </select>
-                        </div>
-                    </div>
-                  
-    
-                    <div class="col-md-2 col-sm-2 col-lg-2 pt-3 ">
-                        <button type="button" id="search" class="btn btn-primary btn-block" ng-click="myClick(loaiTin)">Lọc
-                            tin</button>
-                    </div>
-                </div>
-                <div class="row ">
-                    
-                    <div class="col-sm-6" dir-paginate='x in data | filter: search |itemsPerPage:6  as filtered '>
-                        <a href="/DangTin/post/{{x.ID}} " style="text-decoration: none; color: #000;">
-                            <div class="card mb-3" style="max-width: 540px;">
-                                <div class="row no-gutters">
-                                    <div class="col-md-4">
-                                        <img src="/{{x.image}}" height="200px" class="card-img" alt="">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{x.TieuDe}} </h5>
-                                            <p class="card-text font-weight-bold">Giá:{{x.Gia}} </p>
-                                            <p class="card-text">{{x.NoiDung}} </p>
-                                            <p class="card-text">{{x.tenQuan + "-" + x.tenTp  }} </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-    
-                <div class="row">
-                    <dir-pagination-controls [max-size="6" ] [direction-links="true" ] [boundary-links="true" ]>
-                    </dir-pagination-controls>
-                </div>
-                
+            <div ng-view class="ml-sm-auto col-md-10 text-center"  >
+          
             </div>
         </div>
     </div>
-    <script src="/javascripts/sigout.js"></script>
+    <script src="/javascripts/sigout.js" ></script>
     <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script> -->
@@ -158,8 +73,117 @@
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script>
     </script>
-    <script src="/javascripts/searchBar.js"></script>
-    <script type="text/javascript">
+   
+
+<script type="text/javascript">
+   var base_url = location.protocol + '//' + document.domain + ':' + location.port;
+var app = angular.module("myApp", ["ngRoute"])
+
+        .config(function($routeProvider, $locationProvider) {
+            $routeProvider
+                .when('/listpost', {
+                    templateUrl: '/Admin/Home.html',
+                    controller: 'listPost'
+                })
+                .when('/DuyetPost', {
+                    templateUrl: '/Admin/BrowsePost.html',
+                    controller: 'adminPost'
+                })
+                .when('/User', {
+                    templateUrl: '/Admin/User.html',
+                    controller: 'listuser'
+                })
+                .when('/Statisticial', {
+                    templateUrl: '/Admin/Statisticial.html',
+                    controller: 'listuser'
+                })
+                .otherwise({
+                    templateUrl: '/Admin/Home.html',
+                    controller: 'listPost'
+                })
+            $locationProvider.html5Mode(false).hashPrefix('!');
+        })
+        .controller("listPost", function ($scope, $http) {
+            var base_url = location.protocol + '//' + document.domain + ':' + location.port;
+            $http.post(base_url + '/laydulieufull').then((result) => {
+                $scope.data = result.data;
+            })
+            
+            $http.post(base_url + '/admin/Listprovince').then((result) => {
+                $scope.province = result.data;
+
+            })
+            $scope.search = {};
+            $scope.queryBy = '$';
+            $scope.myClick = function (tenTp, loaiTin) {
+                $scope.search = {
+                    tenTp: $('#selectCity').val(),
+                    tenQuan: $("#selectDistric").val(),
+                    tenPhuong: $("#selectWard").val(),
+                    ThongTinMoTa: $("#ThongTinMoTa").val()
+                }
+                $scope.hienthi = false;
+                $scope.showresult = true;
+            }
+
+        })
+        .controller('adminPost', function ($scope, $http) {
+            var base_url = location.protocol + '//' + document.domain + ':' + location.port;
+            $http.post(base_url + '/admin/adminList').then((result) => {
+                $scope.data = result.data;
+
+            })
+           
+            $scope.my = function (id) {
+                $.ajax({
+                    url: base_url + "/admin/PostUp",
+                    method: "PUT",
+                    dataType: 'json',
+                    data: {
+                        ID: id
+                    },
+                    success: function (res) {
+                        if (res && res.statusCode == 200) {
+                            alert('Đăng thành công');
+                                location.reload();
+                        }else{
+                            alert('Some thing false')
+                        }
+                    }
+                })
+               
+            }
+            $scope.delete = function (id) {
+                $.ajax({
+                    url: base_url + "/admin/deletePost",
+                    method: "DELETE",
+                    dataType: 'json',
+                    data: {
+                        ID: id
+                    },
+                    success: function (res) {
+                        if (res && res.statusCode == 200) {
+                            alert("xóa thành công")
+                            location.reload();
+                        }else{
+                            alert('Some thing false');
+                        }
+                    }
+                })
+            }
+
+        })
+        .controller('listuser', function ($scope, $http) {
+            var base_url = location.protocol + '//' + document.domain + ':' + location.port;
+            $http.post(base_url + '/Admin/ListUser').then((result) => {
+                $scope.data = result.data;
+
+            })
+        })
+
+</script>
+
+    <!-- <script type="text/javascript">
       
         var app = angular.module('myApp', ['angularUtils.directives.dirPagination'],);
         app.controller('controller1', function ($scope, $http) {
@@ -194,5 +218,5 @@
                 }
             }
         })
-    </script>
+    </script> -->
 </body>

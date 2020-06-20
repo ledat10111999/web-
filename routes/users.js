@@ -1,4 +1,5 @@
 var express = require('express');
+const { use } = require('./Admin/Post');
 var router = express.Router();
 
 function convert(str) {
@@ -11,8 +12,6 @@ function convert(str) {
 router.get('/users/:id', function (req, res, next) {
   var user = req.session.user;
   if(user){
-
-    
     user.Created_at = convert(user.Created_at);
     res.render('inforUser',{data:{sign:user}});
   }else{

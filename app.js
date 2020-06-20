@@ -22,7 +22,7 @@ var updateInforUser = require('./routes/updateInforUser');
 var adminPost = require('./routes/Admin/Post');
 var admin = require('./routes/Admin/admin');
 var adminUser = require('./routes/Admin/user');
-var adminstatistical = require('./routes/Admin/statistical');
+
 
 
 
@@ -51,6 +51,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/upload',express.static('upload'));
+app.use('/Admin',express.static('Admin'));
 
 app.use('/', indexRouter);
 app.use('/', usersRouter);
@@ -63,7 +64,7 @@ app.use('/',updateInforUser);
 app.use('/',admin);
 app.use('/admin/',adminPost);
 app.use('/admin/',adminUser);
-app.use('/admin/',adminstatistical);
+
 
 
 

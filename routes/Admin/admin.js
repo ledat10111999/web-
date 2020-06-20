@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var value = require('../../Module/Posts')
+var value = require('../../Module/Posts');
+const { async } = require('q');
+
 
 router.post('/laydulieufull',async(req,res,next)=>{
     try{
@@ -20,5 +22,15 @@ router.get('/admin', async function(req,res){
     }
    
 })
+router.post('/admin/Listprovince', async function(req,res){
+    try{
+        var province = await value.takeInforCities();
+        res.json(province);
+    }catch(e){
+        res.send(e.toString());
+    }
+})
+
+
 
 module.exports = router;

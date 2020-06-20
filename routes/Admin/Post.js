@@ -10,6 +10,25 @@ function convert(str) {
       day = ("0" + date.getDate()).slice(-2);
     return [ day,mnth,date.getFullYear()].join("-");
   }
+
+  router.post('/adminList',async (req,res)=> {
+    try{
+        var post= await infor.takeInforPosts();
+        
+        // for(var i = 0; i< post.length; i++){
+        //     post[i].created_at = convert(post[i].created_at);
+        //     post[i].update_at = convert(post[i].update_at);
+        // }
+       post.map((Value)=>{
+           Value.created_at = convert(Value.created_at);
+           Value.update_at = convert(Value.update_at);
+       })
+      res.json(post);
+    }catch(e){
+        res.send(e + '');
+    }
+})
+
 router.get('/post',async function(req,res){
     var admin = req.session.user;
 
