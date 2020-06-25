@@ -51,9 +51,8 @@ router.post('/signup', function (req, res) {
           var addUser = user_md.addUser(iUser); // add user vào databasr
           if (addUser) { // nếu có dữ liệu user được trả về
             addUser.then(function (data) {
-  
-              res.render("signup", { data: { q: "đăng ký thành công" } })
-              //  req.session.user=iUser;
+              req.session.user=iUser;
+              res.redirect('/');
   
             }).catch(function (error) {
               res.render('signup', { data: { error: "Đăng ký không thành công " + error } });

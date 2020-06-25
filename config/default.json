@@ -7,7 +7,7 @@
         "port": 3306
     },
     "salt": 10,
-    "secret_key": "secretky"
+    "secret_key": "secretkey"
     
     
     

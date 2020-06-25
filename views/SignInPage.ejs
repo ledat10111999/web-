@@ -4,9 +4,12 @@
 <head lang="vi">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
-
+    <link rel="stylesheet" href="/stylesheets/loginPage.css">
+  
     <script src="/javascripts/jquery-3.4.1.min.js" ></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
     <title>Đăng Nhập</title>
 </head>
 
@@ -56,41 +59,53 @@
 
                             <!-- Tên đăng nhập -->
                             <div class="form-group">
-                                <label for="username" class="text-info">Tên đăng nhập:</label><br>
-                                <input type="text" name="username" class="form-control">
-                            </div>
-                            <!-- Mật khẩu -->
-                            <div class="form-group">
-                                <label for="password" class="text-info">Mật khẩu:</label><br>
-                                <input type="password" name="password" id="password" class="form-control">
-                            </div>
-                            <!-- Lưu mật khẩu và nút đăng nhập -->
-                            <div class="form-group">
-                                <label for="rememberme" class="text-info"><span>Hiển thị mật khẩu</span> <span><input
-                                            type="checkbox" name="rememberme" id="rememberme"></span></label><br>
-                                <div class="text-center">
-                                    <input type="submit" name="submit" id="submit" class="btn btn-info btn-md"
-                                        value="Đăng nhập">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <span class="fa fa-user"></span>
+                                        </span>                    
+                                    </div>
+                                    <input type="text" class="form-control" name="username" placeholder="Username" required="required">				
                                 </div>
                             </div>
-                            <!-- link đăng ký -->
-                            <div id="register-link" class="text-right">
-                                <a href="signup" class="text-info">Đăng Ký</a>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-lock"></i>
+                                        </span>                    
+                                    </div>
+                                    <input type="password" id="password" class="form-control" name="password" placeholder="Password" required="required">				
+                                </div>
+                            </div>        
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary login-btn btn-block">Đăng nhập</button>
                             </div>
+                            <div class="clearfix">
+                                <label class="float-left form-check-label"><input type="checkbox" id="rememberme">   Hiện mật khẩu</label>
+                                
+                            </div>
+                            <div class="or-seperator"><i>Hoặc</i></div>
+                            <p class="text-center">Đăng nhập với</p>
+                            <div class="text-center social-btn">
+                                <a href="/auth/fb" class="btn btn-secondary"><i class="fa fa-facebook"></i>&nbsp; Facebook</a>
+                             
+                                <a href="#" class="btn btn-danger"><i class="fa fa-google"></i>&nbsp; Google</a>
+                            </div>
+                           
                         </form>
+                        <p class="text-center text-muted small">Chưa có tài khoản? <a href="/signup">Đăng ký</a></p>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>
+
+ 
     <script type="text/javascript" >
     $(document).ready(function(){
         $('#rememberme').change(function(){
-        //    if($('#password').attr('type') == 'text'){
-        //     $('#password').attr('type','password')
-        //    }else{
-        //     $('#password').attr('type','text') 
-        //    }  
         ($('#password').attr('type') == 'text') ? $('#password').attr('type','password'):  $('#password').attr('type','text') 
         })
     })

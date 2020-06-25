@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var value = require('../Module/Posts')
+var value = require('../Module/Posts');
+
 
 /* GET home page. */
 
@@ -14,23 +15,22 @@ router.post('/laydulieu', async function (req, res,next) {
  
 })
 
-router.get('/', function (req, res, next) {
-
+router.get('/' ,function (req, res, next) {
   // general index
+
+  
   var arrcities = [];
   value.takeInforCities2(function (data) {
     for (var i = 0; i < data.length; i++) {
       arrcities.push(data[i]);
     }
   });
-
-
-  var val = req.session.user;
+  req.session.user = req.session.user|| req.user || undefined;
+  var val =req.session.user ;
   if (val) {
     var posts = value.takeInforPosts();
     if (posts) {
       posts.then(function (results) {
-        
         res.render('index', { data: { results: results, sign: val, cities: arrcities } });
       }).then(function (error) {
         console.log(error);

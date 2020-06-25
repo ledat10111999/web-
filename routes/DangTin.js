@@ -57,6 +57,7 @@ router.get('/DangTin', upload.any('upload', 12), function (req, res) {
 router.post('/DangTin', upload.any('upload', 12), async function (req, res) {
 
 
+
     var val = req.session.user;
     if(val){
         var date = new Date();

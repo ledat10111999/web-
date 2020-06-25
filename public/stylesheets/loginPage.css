@@ -1,29 +1,53 @@
-body{
-    margin: 0;
-    padding: 0;
-    background-color: #007bff;
-    height: 100vh;
+.login-form {
+    width: 400px;
+    margin: 30px auto;
 }
-
-#login .container #login-row #login-column #login-box .form{
-    margin-top: 200px;
-    max-width: 600px;
-    padding: 20px;
-    height: fit-content ;
-    border: 1px solid #9c9c9c;
-    border-radius: 10px;
-    background-color: #eaeaea;
+.login-form form {        
+    margin-bottom: 15px;
+    background: #f7f7f7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
 }
-
-#login .container #login-row #login-column #login-box{
-    padding: 20px;
+.login-form h2 {
+    margin: 0 0 15px;
 }
-
-#login .container #login-row #login-column #login-box #register-link{
-    margin-top: -85px;
+.form-control, .login-btn {
+    border-radius: 2px;
 }
-#signupsuccess{
-    color: #2b6830;
-    background-color: #35b86b;
-    border-color: #26b419;
+.input-group-prepend .fa {
+    font-size: 18px;
 }
+.login-btn {
+    font-size: 15px;
+    font-weight: bold;
+  	min-height: 40px;
+}
+.social-btn .btn {
+    border: none;
+    margin: 10px 3px 0;
+    opacity: 1;
+}
+.social-btn .btn:hover {
+    opacity: 0.9;
+}
+.social-btn .btn-secondary, .social-btn .btn-secondary:active {
+    background: #507cc0 !important;
+}
+.social-btn .btn-info, .social-btn .btn-info:active {
+    background: #64ccf1 !important;
+}
+.social-btn .btn-danger, .social-btn .btn-danger:active {
+    background: #df4930 !important;
+}
+.or-seperator {
+    margin-top: 20px;
+    text-align: center;
+    border-top: 1px solid #ccc;
+}
+.or-seperator i {
+    padding: 0 10px;
+    background: #f7f7f7;
+    position: relative;
+    top: -11px;
+    z-index: 1;
+}  

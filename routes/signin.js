@@ -2,9 +2,16 @@ var express = require('express');
 var router = express.Router();
 var user_check = require('../Module/users');
 var hash = require('../hash_pass/hash_pass');
+const passport = require('passport');
+const passportfb = require('passport-facebook').Strategy;
+
 router.get('/signin', function (req, res, next) {
+    
+    
     res.render('SignInPage', { data: {} });
 });
+
+
 router.post('/signin', function (req, res, next) {
     if(!req.session.user){
         var param = req.body;
@@ -38,5 +45,69 @@ router.post('/signin', function (req, res, next) {
     }
    
 })
+function splitString(sliptarr){
+    var Last_name ="";
+    for(let i = 1 ; i<sliptarr.length;i++){
+        if(Last_name.length == 0){
+         Last_name = sliptarr[i]
+        }else{
+         Last_name = Last_name+  ' ' + sliptarr[i];
+        }
+        
+    }
+    return Last_name;
+  }
+  //passport
+  router.get('/auth/fb',passport.authenticate('facebook',{scope:['email']}))
+  router.get('/auth/fb/cb',passport.authenticate('facebook',{
+    failureRedirect:'/',
+    successRedirect:'/',
+  }))
+  passport.use(new  passportfb (
+    {
+        clientID:"275650027183751",
+        clientSecret:"7976d4aff6e90376a62a29d174bb7e67",
+        callbackURL:'http://localhost:3000/auth/fb/cb',
+        profileFields:['email','gender','displayName']
+        
+    },
+   async (accessToken,refreshToken,profile,done)=>{
+      
+        var data = await user_check.checkU(profile._json.email);
+        if(data.length !=0){
+            return done(null,data);
+        }
+        let FullName = profile._json.name.split(" ");
+        let First_name = FullName[0];
+        var Last_name =splitString(FullName);
+        var date = new Date();
+        var iUser = {
+            First_name: First_name,
+            Last_name: Last_name,
+            Email:profile._json.email ,
+            Pass: profile._json.id,
+            SDT:0,
+            QuyenHan: 'user',
+            Update_at: date,
+            Created_at: date,
+            money:100000
+          }
+          user_check.addUser(iUser);
+          
+          return done(null,iUser);   
+    }
+    
+  ))
+  passport.serializeUser((user,done)=>{
+        done(null,user)
+  });
+  passport.deserializeUser( async (user,done)=>{
+    var data = await user_check.checkU(user[0].Email);
+    if(data.length !=0){
+        done(null,data[0]);
+    }
+  });
+
 module.exports = router;
+
 
