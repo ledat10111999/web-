@@ -156,9 +156,18 @@ router.post('/DangTin', upload.any('upload', 12), async function (req, res) {
 router.get('/DangTin/post/:id', async function (req, res) {
     var user = req.session.user;
     var IDpost = req.params.id;
+    var value = await test.takeInforIDPosts(IDpost);
+    if(!req.session.baivietdaxem){
+        req.session.baivietdaxem = [];
+    }
+   if( req.session.baivietdaxem.find(p=>p.ID == IDpost) === undefined){
+    req.session.baivietdaxem.push(value[0]);
+    console.log( req.session.baivietdaxem);
+   }
+  
+    
     if (user ) {
         try {
-            var value = await test.takeInforIDPosts(IDpost);
             for(var i = 0 ; i< value.length; i++){
                 value[i].created_at = convert(value[i].created_at);
                 value[i].update_at = convert(value[i].update_at);
@@ -180,12 +189,7 @@ router.get('/DangTin/post/:id', async function (req, res) {
         }
     } else {
        try{
-        var value = await test.takeInforIDPosts(IDpost);
             if(value.length !=0){
-                // for(var i = 0 ; i< value.length; i++){
-                //     value[i].created_at = convert(value[i].created_at);
-                //     value[i].update_at = convert(value[i].update_at);
-                // }
                 value.map((val)=>{
                     val.created_at = convert(val.created_at);
                     val.update_at = convert(val.update_at);
@@ -247,4 +251,5 @@ router.put('/updatePost', function (req, res) {
         res.json({ err: err })
     }
 })
+
 module.exports = router;

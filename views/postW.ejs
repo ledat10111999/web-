@@ -8,8 +8,11 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
     <link rel="stylesheet" href="/stylesheets/Style.css">
+
     <!-- jquery -->
     <script src="/javascripts/jquery-3.4.1.min.js"></script>
+    <!-- socket.io -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <title>Trang chủ</title>
 </head>
 
@@ -18,25 +21,26 @@
 
     <div class="savePosts" style=" margin-top: 20px; "></div>
     <div class="container">
-        <h3 class="text-center">Bài viết đã lưu</h3>
-        <div class="row justify-content-center">
-            <% if(!data.saved[0]) {%>
-            <h3 class="text-center" style="margin-top: 20px;">Bạn chưa có lưu bài nào</h3>
-            <% } else{ for (let i = 0; i < data.saved.length; i++) {%>
+        <h3 class="text-center">Bài viết đã xem</h3>
+        <div class="row">
+            <% if(!data.results) {%>
+            <h3 class="text-center">Chua có bài nào viết nào</h3>
+            <% } else{ for(var i = 0 ; i< data.results.length; i++){ %>
+
             <div class="col-sm-6">
-                <a href="/DangTin/post/<%=data.saved[i].ID  %>  " style="text-decoration: none; color: #000;">
+                <a href="/DangTin/post/<%=data.results[i].ID  %> " style="text-decoration: none; color: #000;">
                     <div class="card mb-3" style="max-width: 540px;">
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img src="/<%=data.saved[i].image  %> " height="200px" class="card-img" alt="">
+                                <img src="/<%=data.results[i].image %> " height="200px" class="card-img" alt="...">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title"><%=data.saved[i].TieuDe  %> </h5>
-                                    <p class="card-text font-weight-bold">Giá:<%=data.saved[i].Gia  %> </p>
-                                    <p class="card-text"><%=data.saved[i].NoiDung  %> </p>
-                                    <p class="card-text"><%=data.saved[i].tenQuan  %> - <%=data.saved[i].tenTp  %> </p>
-
+                                    <h5 class="card-title"><%=data.results[i].TieuDe  %> </h5>
+                                    <p class="card-text font-weight-bold">Giá:<%=data.results[i].Gia  %> </p>
+                                    <p class="card-text"><%=data.results[i].tenQuan %> - <%=data.results[i].tenTp  %>
+                                    </p>
+                                    <p class="card-text"><%=data.results[i].NoiDung  %> </p>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +48,7 @@
                 </a>
             </div>
 
-            <%}%>    
+            <% } %>
             <% } %>
 
         </div>

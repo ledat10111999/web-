@@ -56,7 +56,7 @@ router.get('/' ,function (req, res, next) {
 
 
 // router đăng xuất
-router.delete('/', function (req, res) {
+router.delete('/logout', function (req, res) {
   req.session.destroy(function (err) {
     if (!err) {
       res.json({ statusCode: 200 })
@@ -126,5 +126,12 @@ router.post('/street', function (req, res) {
     })
   }
 })
-
+// Bai viet da xem 
+router.get('/postW',(req,res)=>{
+  var val =req.session.user ;
+  if(val){
+    res.render('postW',{data:{results :req.session.baivietdaxem,sign: val}})
+  }
+  res.render('postW',{data:{results :req.session.baivietdaxem,}})
+})
 module.exports = router;

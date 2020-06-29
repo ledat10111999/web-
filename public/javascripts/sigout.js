@@ -3,7 +3,7 @@ function signout(){
         $('#signout').click(function(e){
             var base_url = location.protocol + '//' + document.domain + ':' + location.port;
             $.ajax({
-                url:  base_url+ '/',
+                url:  base_url+ '/logout',
                 type : 'DELETE',
                 dataType:"json",
                 success:function(res){

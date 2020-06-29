@@ -4,6 +4,7 @@ var user_check = require('../Module/users');
 var hash = require('../hash_pass/hash_pass');
 const passport = require('passport');
 const passportfb = require('passport-facebook').Strategy;
+const passportgg = require('passport-google-oauth').OAuthStrategy;
 
 router.get('/signin', function (req, res, next) {
     
@@ -98,6 +99,46 @@ function splitString(sliptarr){
     }
     
   ))
+    //Google passport 
+ /* router.get('/auth/gg',passport.authenticate('google',{scope:['email']}))
+  router.get('/auth/gg/cb',passport.authenticate('google',{
+    failureRedirect:'/',
+    successRedirect:'/',
+  }))
+  passport.use(new  passportgg (
+    {
+    consumerKey: GOOGLE_CONSUMER_KEY,
+    consumerSecret: GOOGLE_CONSUMER_SECRET,
+    callbackURL: "http://www.example.com/auth/google/callback"
+        
+    },
+   async (accessToken,refreshToken,profile,done)=>{
+      
+        var data = await user_check.checkU(profile._json.email);
+        if(data.length !=0){
+            return done(null,data);
+        }
+        let FullName = profile._json.name.split(" ");
+        let First_name = FullName[0];
+        var Last_name =splitString(FullName);
+        var date = new Date();
+        var iUser = {
+            First_name: First_name,
+            Last_name: Last_name,
+            Email:profile._json.email ,
+            Pass: profile._json.id,
+            SDT:0,
+            QuyenHan: 'user',
+            Update_at: date,
+            Created_at: date,
+            money:100000
+          }
+          user_check.addUser(iUser);
+          
+          return done(null,iUser);   
+    }
+    
+  ))*/
   passport.serializeUser((user,done)=>{
         done(null,user)
   });
@@ -107,6 +148,8 @@ function splitString(sliptarr){
         done(null,data[0]);
     }
   });
+
+
 
 module.exports = router;
 

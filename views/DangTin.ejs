@@ -62,14 +62,14 @@
                             <div class="col-md-3 pt-3">
                                 <div class="form-group">
                                     <select id="selectDistric" class="form-control w-100" name="selectDis" required>
-                                        <option selected>Quận huyện</option>
+                                        <option value=" " selected>Quận huyện</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-3 pt-3">
                                 <div class="form-group">
                                     <select id="selectWard" name="selectWard" class="form-control w-100" required >
-                                        <option value="PhuongXa" selected>Phường xã</option>
+                                        <option value="" selected>Phường xã</option>
                                         
                                     </select>
                                 </div>
@@ -77,7 +77,7 @@
                             <div class="col-md-3 pt-3">
                                 <div class="form-group">
                                     <select id="selectStreet" class="form-control w-100" name="selectStreet" required>
-                                        <option selected>Đường phố</option>
+                                        <option value=" " selected>Đường phố</option>
                                         
                                     </select>
                                 </div>
@@ -93,7 +93,7 @@
                         <!-- Địa chỉ chính xác -->
                         <label for="excelentAddress" class="font-weight-bold" style="margin-top: 20px;">Địa chỉ chính
                             xác</label><br>
-                        <input type="text" name="excelentAddress" id="excelentAddress" class="form-control" required>
+                        <input type="text" name="excelentAddress" id="excelentAddress" readonly class="form-control" required>
                     </div>
 
                     <!-- Thông tin mô tả -->
@@ -230,6 +230,7 @@
         </div> -->
 
     </section>
+    <% include footer/footer %>
     <!-- Xử lý socket.io -->
     <!-- <script type="text/javascript" src="/javascripts/DangTin.js" ></script> -->
     <script src="/javascripts/searchBar.js"></script>
@@ -237,6 +238,25 @@
     <!-- preview img -->
     <script>
         $(document).ready(function () {
+            $('#selectCity ,#selectDistric, #selectWard, #selectStreet ,#address' ).change(()=>{
+                var province = $('#selectCity').val();
+                var district = ()=>{
+                    return $('#selectDistric').val().trim().length == 0? "": `${$('#selectDistric').val()} - `;
+                };   
+                var ward =()=>{
+                    return $('#selectWard').val().trim().length == 0? "": `${$('#selectWard').val()} - `;
+                }
+               
+                var street = ()=>{
+                  return $('#selectStreet').val().trim().length == 0?"":`${$('#selectStreet').val()} - `;
+                }
+                var numberaddress = ()=>{
+                    return $('#address').val().trim().length == 0? "": `Số ${$('#address').val()} - `;
+                    
+                }
+                $('#excelentAddress').val(numberaddress()   + street()   + ward()   + district() +   province); 
+
+            })
             $('#inputGroupFile').on('change', function () {
                 var files = $(this)[0].files;
                 for (var i = 0; i < files.length; i++) {
