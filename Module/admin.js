@@ -57,7 +57,7 @@ function money(ID){
 
 function takeinforuser(){
     return new Promise((resolve,reject)=>{
-        var query = connection.query("SELECT * FROM users",function(error, results, fields){
+        var query = connection.query("SELECT * FROM users WHERE QuyenHan !='admin' ",function(error, results, fields){
             if(error){
                 return reject(new error(error));
             }
@@ -65,10 +65,40 @@ function takeinforuser(){
         })
     })
 }
+function blockuser(id){
+    if(id){
+        return new Promise((resolve,reject)=>{
+            var query = connection.query("UPDATE users SET block = 1 WHERE ID = ? ",[id],function(error, results, fields){
+                if(error){
+                    return reject(new error(error));
+                }
+                resolve(results);
+            })
+        })
+    }else{
+        return false;
+    }
+}
+function unblockuser(id){
+    if(id){
+        return new Promise((resolve,reject)=>{
+            var query = connection.query("UPDATE users SET block = 0 WHERE ID = ? ",[id],function(error, results, fields){
+                if(error){
+                    return reject(new error(error));
+                }
+                resolve(results);
+            })
+        })
+    }else{
+        return false;
+    }
+}
 module.exports = {
     takeInforPosts:takeInforPosts,
     deletePost:deletePost,
     postUp : postUp,
     money:money,
-    takeinforuser: takeinforuser
+    takeinforuser: takeinforuser,
+    blockuer:blockuser,
+    unblockuser:unblockuser
 }

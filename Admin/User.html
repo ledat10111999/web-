@@ -1,4 +1,17 @@
-﻿<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+﻿<style>
+    .btn-light-custom {
+        color: #212529;
+        background-color: #fff;
+    }
+
+    .btn-outline-light-custom {
+        /* color: #f8f9fa; */
+        background-color: transparent;
+        background-image: none;
+        /* border-color: #f8f9fa; */
+    }
+</style>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
     <h1 class="h2">Welcome, Admin</h1>
 </div>
 <div class="row">
@@ -33,6 +46,7 @@
                 <th scope="col" class="text-center">Ngày tạo</th>
                 <th scope="col" class="text-center">Ngày cập nhật</th>
                 <th scope="col" class="text-center"></th>
+                <th scope="col" class="text-center"></th>
             </tr>
         </thead>
 
@@ -50,6 +64,17 @@
                     <a href="/admin/posted/{{x.ID}}" class="nav-link">
                         <button type="button" id="post" class="btn btn-outline-success btn-block font-weight-bold">Bài viết đã đăng</button>
                     </a>
+                </td>
+                <td>
+                    <div style="margin-left:20px; margin-top: 5px;">
+                        
+                        <button ng-if='x.block ==0 ' ng-click='blockuser(x.ID)'class="btn btn-light-custom  deletepost" 
+                            data-post-id=" " data-toggle="tooltip"
+                            data-placement="bottom" title="Xóa bài đăng" ><i class="fa fa-lock" aria-hidden="true"> Khóa</i></button>
+                            <button ng-if='x.block==1' class="btn btn-light-custom  deletepost" 
+                            data-post-id=" " data-toggle="tooltip"
+                            data-placement="bottom" title="Xóa bài đăng" ng-click='unblockuser(x.ID)'><i class="fa fa-unlock-alt" aria-hidden="true"></i> Mở khóa</i></button>
+                    </div>
                 </td>
             </tr>
 

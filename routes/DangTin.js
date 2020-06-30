@@ -34,6 +34,9 @@ var upload = multer(
 router.get('/DangTin', upload.any('upload', 12), function (req, res) {
     var val = req.session.user;
     if (val) {
+       if(val.block ==1){
+           res.redirect('blockuser')
+       }else{
         var takeInforCT = test.takeInforCities()
         if (takeInforCT) {
             takeInforCT.then(function (results) {
@@ -42,6 +45,9 @@ router.get('/DangTin', upload.any('upload', 12), function (req, res) {
                 res.render("DangTin", { data: { error: "lỗi" + error } });
             })
         }
+       }
+        
+       
     } else {
         res.redirect('/');
     }
@@ -60,6 +66,8 @@ router.post('/DangTin', upload.any('upload', 12), async function (req, res) {
 
     var val = req.session.user;
     if(val){
+        
+        
         var date = new Date();
         var post = req.body;
         var takeInforCT = await test.takeInforCities()
@@ -109,6 +117,8 @@ router.post('/DangTin', upload.any('upload', 12), async function (req, res) {
             res.render("DangTin", { data: { error: "Chọn ảnh",results: takeInforCT, sign: val} });
         }
         var user = req.session.user;
+      
+        
         var valueposts = {
             IDimg: user.ID,
             tenTp: post.mySelect,

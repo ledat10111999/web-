@@ -16,7 +16,8 @@
  
  <script src="/javascripts/dirPagination.js"></script>
  <script src='/javascripts/angularRouter.js'></script>
- 
+ <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+ integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
 
   
@@ -83,6 +84,13 @@
    
 
 <script type="text/javascript">
+//-----------------
+function convert(str) {
+  var date = new Date(str),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+  return [ day,mnth,date.getFullYear()].join("-");
+}
    var base_url = location.protocol + '//' + document.domain + ':' + location.port;
 var app = angular.module("myApp", ["ngRoute","angularUtils.directives.dirPagination"])
 
@@ -113,6 +121,9 @@ var app = angular.module("myApp", ["ngRoute","angularUtils.directives.dirPaginat
         .controller("listPost", function ($scope, $http) {
             var base_url = location.protocol + '//' + document.domain + ':' + location.port;
             $http.post(base_url + '/laydulieufull').then((result) => {
+                result.data.map((value)=>{
+                    value.created_at = convert(value.created_at);
+                })
                 $scope.data = result.data;
             })
             
@@ -131,6 +142,60 @@ var app = angular.module("myApp", ["ngRoute","angularUtils.directives.dirPaginat
                 }
                 $scope.hienthi = false;
                 $scope.showresult = true;
+            }
+            $scope.deletepost = function(id){
+                $.ajax({
+                    url: base_url + "/deletePost",
+                    method: "DELETE",
+                    dataType: 'json',
+                    data: {
+                        ID: id
+                    },
+                    success: function (res) {
+                        if (res && res.statusCode == 200) {
+                            alert('Xóa thành công');
+                                location.reload();
+                        }else{
+                            alert('Some thing false')
+                        }
+                    }
+                })
+            }
+            $scope.hidepost = function(id){
+                $.ajax({
+                    url: base_url + "/updatestatus", //route deletepost
+                    method: "POST",
+                    dataType: 'json',
+                    data: {
+                        ID: id
+                    },
+                    success: function (res) {
+                        if (res && res.statusCode == 200) {
+                            
+                                location.reload();
+                        }else{
+                            alert('Some thing false')
+                        }
+                    }
+                })
+            }
+            $scope.displaypost = function(id){
+                $.ajax({
+                    url: base_url + "/status", //route deletepost
+                    method: "POST",
+                    dataType: 'json',
+                    data: {
+                        ID: id
+                    },
+                    success: function (res) {
+                        if (res && res.statusCode == 200) {
+                            
+                                location.reload();
+                        }else{
+                            alert('Some thing false')
+                        }
+                    }
+                })
             }
 
         })
@@ -182,10 +247,47 @@ var app = angular.module("myApp", ["ngRoute","angularUtils.directives.dirPaginat
         })
         .controller('listuser', function ($scope, $http) {
             var base_url = location.protocol + '//' + document.domain + ':' + location.port;
-            $http.post(base_url + '/Admin/ListUser').then((result) => {
+            $http.post(base_url + '/Admin/ListUser').then((result) => { //route admin/user
                 $scope.data = result.data;
 
             })
+            $scope.blockuser = function(id){
+                $.ajax({
+                    url: base_url + "/admin/blockuser",
+                    method: "PUT",
+                    dataType: 'json',
+                    data: {
+                        ID: id
+                    },
+                    success: function (res) {
+                        if (res && res.statusCode == 200) {
+                            alert("Ẩn thành công")
+                            location.reload();
+                        }else{
+                            alert('Some thing false');
+                        }
+                    }
+                })
+            }
+            $scope.unblockuser = function(id){
+                $.ajax({
+                    url: base_url + "/admin/unblockuser",
+                    method: "PUT",
+                    dataType: 'json',
+                    data: {
+                        ID: id
+                    },
+                    success: function (res) {
+                        if (res && res.statusCode == 200) {
+                            alert("Ẩn thành công")
+                            location.reload();
+                        }else{
+                            alert('Some thing false');
+                        }
+                    }
+                })
+            }
+            
         })
 
 </script>

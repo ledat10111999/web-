@@ -91,7 +91,8 @@ function splitString(sliptarr){
             QuyenHan: 'user',
             Update_at: date,
             Created_at: date,
-            money:100000
+            money:100000,
+            block:0
           }
           user_check.addUser(iUser);
           

@@ -8,6 +8,7 @@
                         <select id="advenceSearch" class="form-control " ng-model="queryBy">
                             <option selected value="$">Tìm kiếm theo</option>
                             <option value="ID">ID</option>
+                            <option value="display">Đã duyệt</option>
                         </select>
                     </div>
                 </div>
@@ -61,7 +62,7 @@
             </button>
         </div>
     </div>
-    <div class="row ">
+    <!-- <div class="row ">
 
         <div class="col-sm-6" dir-paginate='x in data | filter: search |itemsPerPage:6 '>
             <a href="/admin/Post/{{x.ID}} " style="text-decoration: none; color: #000;">
@@ -82,10 +83,64 @@
                 </div>
             </a>
         </div>
+    </div> -->
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col" class="text-center">Mã tin</th>
+                        <th scope="col" class="text-center">Ảnh đại diện</th>
+                        <th scope="col" class="text-center">Tiêu đề</th>
+                        <th scope="col" class="text-center">Giá</th>
+                        <th scope="col" class="text-center">Địa chỉ</th>
+                        <th scope="col" class="text-center">Ngày đăng</th>
+                        <th scope="col" class="text-center">Trạng thái</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                   
+                    <tr dir-paginate='x in data | filter: search |itemsPerPage:6 '>
+                        <th scope="row">#{{x.ID}} </th>
+                        <td><img src="/{{x.image}}" class="rounded " width="100pxs" alt="ảnh đại diện"></td>
+                        <td>
+                            {{x.TieuDe}}
+                            <div style="margin-left:20px; margin-top: 5px;">
+                                
+                                <button ng-click='deletepost(x.ID)' class="btn btn-light-custom font-weight-bold deletepost"
+                                    data-post-id="<%=data.results[i].ID   %> " data-toggle="tooltip"
+                                    data-placement="bottom" title="Xóa bài đăng"><i  class="fa fa-trash"></i>
+                                    Xóa</button>
+                                <a href="/admin/Post/{{x.ID}} "
+                                    class="btn btn-light-custom font-weight-bold"><i class="fa fa-info-circle"
+                                        aria-hidden="true"></i>
+                                    Chi tiết</a>
+                            </div>
+                        </td>
+                        <td>Giá:{{x.Gia}} </td>
+                        <td>{{x.tenQuan}} - {{x.tenTp}}</td>
+                        <td>{{x.created_at}}</td>
+                        <td class="text-center">
+                        
+                            <button ng-if='x.status == 1' ng-click='hidepost(x.ID)' class="btn btn-light-custom font-weight-bold btnstatus" ><i  class="fa fa-eye-slash">
+                                Ẩn</i> </button>
+                           
+                            <button ng-if='x.status== 0'ng-click='displaypost(x.ID)' class="btn btn-light-custom font-weight-bold btnsnewstatus  " ><i
+                                    class="fa fa-eye" data-post-id="<%=data.results[i].ID  %> "> Hiện</i></button>
+                           
+                        </td>
+
+                    </tr>
+                  
+            </table>
+
+
+        </div>
     </div>
-
-
-
 </div>
 <dir-pagination-controls [max-size="6" ] [direction-links="true" ] [boundary-links="true" ]>
 </dir-pagination-controls>

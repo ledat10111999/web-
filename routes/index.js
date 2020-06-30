@@ -146,4 +146,12 @@ router.get('/postW',(req,res)=>{
   }
   res.render('postW',{data:{results :req.session.baivietdaxem,}})
 })
+//block user 
+router.get('/blockuser',(req,res)=>{
+  var val =req.session.user ;
+  if(val){
+    res.render('blockuser',{data:{sign: val}})
+  }
+  res.redirect('/')
+})
 module.exports = router;
