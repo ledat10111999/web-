@@ -12,7 +12,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <!-- AngulatJS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script> -->
+    <script src="/javascripts/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
     <script src="/javascripts/dirPagination.js"></script>
     <!-- search bar -->
@@ -42,13 +43,13 @@
                                 data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false"><%=data.sign.First_name  %> <%=data.sign.Last_name  %> </button>
                             <div class="dropdown-menu">
-                                <a href="/users/<%=data.sign.Email%>" class="dropdown-item">Thông tin tài khoản</a>
+                                <a href="/users/<%=data.sign.Email%>" class="dropdown-item"><i class="fa fa-user-o" aria-hidden="true"> Thông tin tài khoản</i>  </a>
                                 <div class="dropdown-divider"></div>
-                                <a href="/posted/<%=data.sign.ID %> " class="dropdown-item">Bài viết đã đăng</a>
+                                <a href="/posted/<%=data.sign.ID %> " class="dropdown-item"> <i class="fa fa-file-text-o" aria-hidden="true"> Bài viết đã đăng</i></a>
                                 <div class="dropdown-divider"></div>
-                                <a href="/savePosts/<%=data.sign.Email%> " class="dropdown-item">Bài viết đã lưu</a>
+                                <a href="/savePosts/<%=data.sign.Email%> " class="dropdown-item"><i class="fa fa-bookmark-o" aria-hidden="true"> Bài viết đã lưu</i></a>
                                 <div class="dropdown-divider"></div>
-                                <button class="signout dropdown-item" id="signout">Đăng xuất</button>
+                                <button class="signout dropdown-item" id="signout"><i class="fa fa-sign-out" aria-hidden="true"> Đăng xuất</i> </button>
                             </div>
                         </div>
                     </li>

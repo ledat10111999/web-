@@ -200,7 +200,9 @@ function takeInforIDPosts(IDpost) {
 function takeInforIDPostsIDUsers(IDusers) {
     if (IDusers) {
         var defer = q.defer();
-        var query = connection.query("select users.First_name , users.Last_name,posts.ID, posts.tenTp,posts.tenQuan,posts.tenPhuong,posts.tenDuong,posts.soNha,posts.DiaChiChinhXac,posts.ThongTinMoTa,posts.DienTich,posts.TieuDe,posts.NoiDung,posts.DoiTuongChoThue,posts.Gia,posts.IDusers, posts.image,posts.SDT,posts.created_at,posts.update_at from users,posts where users.ID = posts.IDusers AND  users.ID =?", [IDusers], function (error, results, fields) {
+        // var sql = "select users.First_name , users.Last_name,posts.ID, posts.tenTp,posts.tenQuan,posts.tenPhuong,posts.tenDuong,posts.soNha,posts.DiaChiChinhXac,posts.ThongTinMoTa,posts.DienTich,posts.TieuDe,posts.NoiDung,posts.DoiTuongChoThue,posts.Gia,posts.IDusers, posts.image,posts.SDT,posts.created_at,posts.update_at from users,posts where users.ID = posts.IDusers AND  users.ID =?";
+        var sql = 'SELECT * FROM posts where IDusers =?';
+        var query = connection.query(sql, [IDusers], function (error, results, fields) {
             if (error) {
                 defer.reject(error); // nếu cố error trả về error
             } else {

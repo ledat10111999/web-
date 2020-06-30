@@ -11,15 +11,35 @@
 
     <!-- jquery -->
     <script src="/javascripts/jquery-3.4.1.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
     <!-- socket.io -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+
+    <link rel="stylesheet" href="/stylesheets/jquery-confirm.min.css">
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <title>Trang chủ</title>
+    <style>
+        .btn-light-custom {
+            color: #212529;
+            background-color: #fff;
+        }
+
+        .btn-outline-light-custom {
+            /* color: #f8f9fa; */
+            background-color: transparent;
+            background-image: none;
+            /* border-color: #f8f9fa; */
+        }
+    </style>
+
 </head>
 
 <body>
     <%include header/headerPost  %>
 
-    <div class="savePosts" style=" margin-top: 20px; "></div>
+    <!-- <div class="savePosts" style=" margin-top: 20px; "></div>
     <div class="container">
         <h3 class="text-center">Bài viết đã đăng</h3>
         <div class="row">
@@ -52,9 +72,69 @@
             <% } %>
 
         </div>
+    </div> -->
+    <div class="container" style="margin-top: 10px;">
+        <h3 class="text-center">Bài viết đã đăng</h3>
+        <div class="row">
+
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="text-center">Mã tin</th>
+                            <th scope="col" class="text-center">Ảnh đại diện</th>
+                            <th scope="col" class="text-center">Tiêu đề</th>
+                            <th scope="col" class="text-center">Giá</th>
+                            <th scope="col" class="text-center">Ngày đăng</th>
+                            <th scope="col" class="text-center">Ngày cập nhật</th>
+                            <th scope="col" class="text-center">Trạng thái</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <%  for(var i = 0 ; i< data.results.length; i++){ %>
+                        <tr>
+                            <th scope="row">#<%=data.results[i].ID  %> </th>
+                            <td><img src="/<%=data.results[i].image %>" class="rounded " width="100pxs" alt="ảnh đại diện"></td>
+                            <td>
+                                <%=data.results[i].TieuDe  %>
+                                <div style="margin-left:20px; margin-top: 5px;">
+                                    <a href="/updatePost/<%=data.results[0].ID %>"
+                                        class="btn btn-light-custom font-weight-bold"><i class="fa fa-pencil"></i>
+                                        Sửa</a>
+                                    <button class="btn btn-light-custom font-weight-bold deletepost"
+                                        data-post-id="<%=data.results[i].ID   %> " data-toggle="tooltip"
+                                        data-placement="bottom" title="Xóa bài đăng"><i data-post-id="<%=data.results[i].ID   %> " class="fa fa-trash"></i>
+                                        Xóa</button>
+                                    <a href="/DangTin/post/<%=data.results[i].ID  %>"
+                                        class="btn btn-light-custom font-weight-bold"><i class="fa fa-info-circle"
+                                            aria-hidden="true"></i>
+                                        Chi tiết</a>
+                                </div>
+                            </td>
+                            <td><%=data.results[i].Gia  %></td>
+                            <td><%=data.results[i].created_at %></td>
+                            <td><%=data.results[i].update_at  %></td>
+                            <td class="text-center">
+                                <% if(data.results[i].status ==1){ %>
+                                <button class="btn btn-light-custom font-weight-bold btnstatus" data-post-id="<%=data.results[i].ID  %> "><i data-post-id="<%=data.results[i].ID   %> " class="fa fa-eye-slash">
+                                    Ẩn</i> </button>
+                                <% }else{ %>
+                                <button class="btn btn-light-custom font-weight-bold btnsnewstatus  " data-post-id="<%=data.results[i].ID  %> "><i
+                                        class="fa fa-eye" data-post-id="<%=data.results[i].ID  %> "> Hiện</i></button>
+                                <% } %>
+                            </td>
+
+                        </tr>
+                        <% } %>
+                </table>
+
+
+            </div>
+        </div>
     </div>
-    
-    <script src="/javascripts/index.js" type="text/javascript">
+    <% include footer/footer %>
+    <!-- <script src="/javascripts/index.js" type="text/javascript"> -->
 
     </script>
     <!-- signout -->
@@ -68,8 +148,126 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script> -->
-        <script src="/javascripts/popper.min.js"></script>
-        <script src="/javascripts/bootstrap.min.js"></script>
+
+    <script src="/javascripts/popper.min.js"></script>
+    <script src="/javascripts/jquery.confirm.min.js"></script>
+    <script type="text/javascript">
+        function CatchEvent() {
+            function deletepost() {
+                $('.deletepost').click((e) => {
+                    e.preventDefault();
+                    var base_url = location.protocol + '//' + document.domain + ':' + location.port;
+                    var ID = $(e.target).attr('data-post-id');
+                    console.log(ID);
+                    
+                    $.confirm({
+                        title: 'Xác nhận',
+                        content: 'Xóa Bài Viết',
+                        buttons: {
+                            Xóa: function () {
+                                $.ajax({
+                                    url: base_url + "/deletePost",
+                                    method: "DELETE",
+                                    dataType: 'json',
+                                    data: {
+                                        ID: ID
+                                    },
+                                    success: function (res) {
+                                        if (res && res.statusCode == 200) {
+                                            $.alert('Đã xóa bài viết');
+                                            location.reload();
+                                        } else {
+                                            $.alert('Some thing false');
+                                        }
+
+                                    }
+                                })
+
+                            },
+                            Hủy: function () {
+                                return
+                            }
+                        }
+                    });
+                })
+            }
+            function hidepost() {
+                $('.btnstatus').click((e) => {
+                    e.preventDefault();
+                    var IDpost = $(e.target).attr('data-post-id');
+                    var base_url = location.protocol + '//' + document.domain + ':' + location.port;
+                    $.confirm({
+                        title: 'Xác nhận',
+                        content: 'Cập nhật tình trạng thuê',
+                        buttons: {
+                            "Cập nhật": function () {
+                                $.ajax({
+                                    url: base_url + "/updatestatus", //route deletePost
+                                    method: "POST",
+                                    dataType: 'json',
+                                    data: {
+                                        ID: IDpost
+                                    },
+                                    success: function (res) {
+                                        if (res && res.statusCode == 200) {
+
+                                            $.alert('Cập nhật bài viết thành công');
+                                            location.reload();
+                                        }
+
+                                    }
+                                })
+
+                            },
+                            Hủy: function () {
+                                return
+                            }
+                        }
+                    });
+                })
+            }
+            function displayPost(){
+                $('.btnsnewstatus').click((e) => {
+                    e.preventDefault();
+                    var IDpost = $(e.target).attr('data-post-id');       
+                    var base_url = location.protocol + '//' + document.domain + ':' + location.port;
+                    $.confirm({
+                        title: 'Xác nhận',
+                        content: 'Cập nhật tình trạng thuê',
+                        buttons: {
+                            "Cập nhật": function () {
+                                $.ajax({
+                                    url: base_url + "/status", //route deletePost
+                                    method: "POST",
+                                    dataType: 'json',
+                                    data: {
+                                        ID: IDpost
+                                    },
+                                    success: function (res) {
+                                        if (res && res.statusCode == 200) {
+                                            $.alert('Cập nhật bài viết thành công');
+                                            location.reload();
+                                        }
+
+                                    }
+                                })
+
+                            },
+                            Hủy: function () {
+                                return
+                            }
+                        }
+                    });
+                })
+            }
+            deletepost();
+            hidepost();
+            displayPost();
+        }
+        $(document).ready(function () {
+            new CatchEvent();
+        })
+    </script>
 </body>
 
 </html>

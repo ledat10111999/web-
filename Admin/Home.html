@@ -63,7 +63,7 @@
     </div>
     <div class="row ">
 
-        <div class="col-sm-6" ng-repeat='x in data | filter: search   as filtered '>
+        <div class="col-sm-6" dir-paginate='x in data | filter: search |itemsPerPage:6 '>
             <a href="/admin/Post/{{x.ID}} " style="text-decoration: none; color: #000;">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row no-gutters">
@@ -87,4 +87,6 @@
 
 
 </div>
+<dir-pagination-controls [max-size="6" ] [direction-links="true" ] [boundary-links="true" ]>
+</dir-pagination-controls>
 <script src="/javascripts/searchBar.js"></script>

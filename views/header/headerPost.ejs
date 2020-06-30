@@ -1,3 +1,5 @@
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Thanh Nav -->
     <div class="Navigator">
         <nav class="navbar navbar-expend-sm navbar-light bg-light">
@@ -15,13 +17,13 @@
                             <button type="button" class="btn btn-primary dropdown-toggle font-weight-bold mr-2 "
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=data.sign.First_name  %>  <%=data.sign.Last_name  %> </button>
                             <div class="dropdown-menu">
-                                <a href="/users/<%=data.sign.Email%>" class="dropdown-item">Thông tin tài khoản</a>
+                                <a href="/users/<%=data.sign.Email%>" class="dropdown-item"><i class="fa fa-user-o" aria-hidden="true"> Thông tin tài khoản</i> </a>
                                 <div class="dropdown-divider"></div>
-                                <a href="/posted/<%=data.sign.ID %> " class="dropdown-item">Bài viết đã đăng</a>
+                                <a href="/posted/<%=data.sign.ID %> " class="dropdown-item"> <i class="fa fa-file-text-o" aria-hidden="true"> Bài viết đã đăng</i></a>
                                 <div class="dropdown-divider"></div>
-                                <a href="/savePosts/<%=data.sign.Email%> " class="dropdown-item">Bài viết đã lưu</a>
+                                <a href="/savePosts/<%=data.sign.Email%> " class="dropdown-item"><i class="fa fa-bookmark-o" aria-hidden="true"> Bài viết đã lưu</i></a>
                                 <div class="dropdown-divider"></div>
-                            <button class="signout dropdown-item" id="signout">Đăng xuất</button>
+                            <button class="signout dropdown-item" id="signout"><i class="fa fa-sign-out" aria-hidden="true"> Đăng xuất</i> </button>
                             </div>
                         </div>
                     </li>

@@ -2,7 +2,13 @@ var express = require('express');
 var router = express.Router();
 var value = require('../Module/Posts');
 
-
+//-----------------
+function convert(str) {
+  var date = new Date(str),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+  return [ day,mnth,date.getFullYear()].join("-");
+}
 /* GET home page. */
 
 router.post('/laydulieu', async function (req, res,next) {
@@ -71,6 +77,12 @@ router.get('/posted/:ID', function (req, res) {
     var post = value.takeInforIDPostsIDUsers(val.ID);
     if (post) {
       post.then(function (results) {
+        results.map((value)=>{
+          value.created_at = convert(value.created_at);
+          value.update_at = convert(value.update_at);
+          
+          
+        })
         res.render('posted', { data: { sign: val, results: results } });
       }).catch(function (err) {
         res.render('posted', { data: { sign: val, err: err } });

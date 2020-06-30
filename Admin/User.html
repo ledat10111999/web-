@@ -38,7 +38,7 @@
 
         <tbody>
 
-            <tr ng-repeat='x in data | filter: search  |  orderBy: Sort'>
+            <tr dir-paginate='x in data | filter: search |itemsPerPage:10 |orderBy :Sort'>
                 <th scope="col"> {{x.ID}}</th>
                 <td scope="col" class="text-left">{{x.Email}} </td>
                 <td scope="col" class="text-center">{{x.First_name}}</td>
@@ -58,3 +58,5 @@
     </table>
     
 </div>
+<dir-pagination-controls [max-size="10" ] [direction-links="true" ] [boundary-links="true" ]>
+</dir-pagination-controls>
