@@ -124,7 +124,7 @@ var app = angular.module("myApp", ["ngRoute","angularUtils.directives.dirPaginat
                 result.data.map((value)=>{
                     value.created_at = convert(value.created_at);
                 })
-                $scope.data = result.data;
+                $scope.data = result.data.reverse();
             })
             
             $http.post(base_url + '/admin/Listprovince').then((result) => {
@@ -138,7 +138,9 @@ var app = angular.module("myApp", ["ngRoute","angularUtils.directives.dirPaginat
                     tenTp: $('#selectCity').val(),
                     tenQuan: $("#selectDistric").val(),
                     tenPhuong: $("#selectWard").val(),
-                    ThongTinMoTa: $("#ThongTinMoTa").val()
+                    ThongTinMoTa: $("#ThongTinMoTa").val(),
+                    display:$('#display').val()
+                    
                 }
                 $scope.hienthi = false;
                 $scope.showresult = true;
@@ -190,6 +192,24 @@ var app = angular.module("myApp", ["ngRoute","angularUtils.directives.dirPaginat
                     success: function (res) {
                         if (res && res.statusCode == 200) {
                             
+                                location.reload();
+                        }else{
+                            alert('Some thing false')
+                        }
+                    }
+                })
+            }
+            $scope.duyetpost = function(id){
+                $.ajax({
+                    url: base_url + "/admin/PostUp",
+                    method: "PUT",
+                    dataType: 'json',
+                    data: {
+                        ID: id
+                    },
+                    success: function (res) {
+                        if (res && res.statusCode == 200) {
+                            alert('Đăng thành công');
                                 location.reload();
                         }else{
                             alert('Some thing false')

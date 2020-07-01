@@ -53,10 +53,10 @@
                             </div>
                         </div>
                     </li>
-                    <% if (data.sign.QuyenHan == 'admin') { %>
+                    <!-- <% if (data.sign.QuyenHan == 'admin') { %>
                     <li style="margin-right: 10px;" class="nav-item"><a href="/admin "><button
                                 class="btn btn-primary font-weight-bold">Trang quản trị</button> </a></li>
-                    <% } %>
+                    <% } %> -->
                     <li class="nav-item"><a href="DangTin"><button class="btn btn-primary font-weight-bold">Đăng
                                 tin</button> </a></li>
                     <!-- <li class="nav-item"><a href="#" class="nav-link"> Chào mừng <%=data.sign.ho  %>  <%=data.sign.ten  %>  </a></li>
@@ -207,9 +207,7 @@
         var app = angular.module('myApp', ['angularUtils.directives.dirPagination']);
         app.controller('controller1', function ($scope, $http) {
             var base_url = location.protocol + '//' + document.domain + ':' + location.port;
-            $http.post(base_url + '/laydulieu').then((result) => {
-             
-             
+            $http.post(base_url + '/laydulieu').then((result) => { //routes/index
                 $scope.data = result.data.reverse();
             }).catch((err) => {
                 $scope.data = err

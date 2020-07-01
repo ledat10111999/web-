@@ -76,7 +76,7 @@ function splitString(sliptarr){
       
         var data = await user_check.checkU(profile._json.email);
         if(data.length !=0){
-            return done(null,data);
+            return done(null,data[0]);
         }
         let FullName = profile._json.name.split(" ");
         let First_name = FullName[0];
@@ -144,7 +144,9 @@ function splitString(sliptarr){
         done(null,user)
   });
   passport.deserializeUser( async (user,done)=>{
-    var data = await user_check.checkU(user[0].Email);
+      console.log(user);
+      
+    var data = await user_check.checkU(user.Email);
     if(data.length !=0){
         done(null,data[0]);
     }

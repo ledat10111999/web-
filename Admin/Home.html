@@ -21,12 +21,18 @@
         </div>
         <div class="col-md-2 col-sm-2 col-lg-2 pt-3">
             <div class="form-group">
-                <select id="ThongTinMoTa" class="form-control ">
+                <!-- <select id="ThongTinMoTa" class="form-control ">
                     <option selected value="">Loại tin</option>
                     <option value="Phòng trọ">Phòng trọ, nhà trọ</option>
                     <option value="Nhà nguyên căn">Nhà thuê nguyên căn</option>
                     <option value="Tìm người ở ghép">Tìm người ở ghép</option>
                     <option value="Cho thuê căn hộ">Cho thuê căn hộ</option>
+                </select> -->
+                <select id="display" class="form-control ">
+                    <option selected value="">Tình trạng</option>
+                    <option value="1">Đã duyệt</option>
+                    <option value="0">Chưa duyệt</option>
+
                 </select>
             </div>
         </div>
@@ -119,17 +125,20 @@
                                     class="btn btn-light-custom font-weight-bold"><i class="fa fa-info-circle"
                                         aria-hidden="true"></i>
                                     Chi tiết</a>
+                                    <i ng-if='x.display ==0' class="fa fa-times-circle" aria-hidden="true"> Chưa duyệt</i>
+                                    <i ng-if ='x.display == 1'class="fa fa-check-square-o" aria-hidden="true"> Đã duyệt</i>
                             </div>
                         </td>
                         <td>Giá:{{x.Gia}} </td>
                         <td>{{x.tenQuan}} - {{x.tenTp}}</td>
                         <td>{{x.created_at}}</td>
                         <td class="text-center">
-                        
-                            <button ng-if='x.status == 1' ng-click='hidepost(x.ID)' class="btn btn-light-custom font-weight-bold btnstatus" ><i  class="fa fa-eye-slash">
+                            <button ng-if=' x.display ==0' ng-click='duyetpost(x.ID)' class="btn btn-light-custom font-weight-bold btnstatus" ><i  class="fa fa-check-square-o">
+                            Duyệt</i> </button>
+                            <button ng-if='x.status == 1 && x.display ==1' ng-click='hidepost(x.ID)' class="btn btn-light-custom font-weight-bold btnstatus" ><i  class="fa fa-eye-slash">
                                 Ẩn</i> </button>
                            
-                            <button ng-if='x.status== 0'ng-click='displaypost(x.ID)' class="btn btn-light-custom font-weight-bold btnsnewstatus  " ><i
+                            <button ng-if='x.status== 0 && x.display ==1'ng-click='displaypost(x.ID)' class="btn btn-light-custom font-weight-bold btnsnewstatus  " ><i
                                     class="fa fa-eye" data-post-id="<%=data.results[i].ID  %> "> Hiện</i></button>
                            
                         </td>
