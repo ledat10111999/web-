@@ -28,7 +28,7 @@
     "q": "^1.5.1",
     "session": "^0.1.0",
     "sharp": "^0.25.1",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.5.0",
     "trim-request-body": "^1.0.1",
     "uuidv4": "^6.0.6"
   }
